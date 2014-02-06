@@ -50,7 +50,13 @@
     background.anchorPoint = CGPointMake(0, 0);
     [self addChild:background];
     
-    // Add sprints
+    _physics = [CCPhysicsNode node];
+    _physics.gravity = ccp(0,0);
+    _physics.debugDraw = YES;
+    _physics.collisionDelegate = self;
+    [self addChild:_physics];
+    
+    // Add sprites
 
     _hunter = [CCSprite spriteWithImageNamed:@"hunter.png"];
     _hunter.position  = ccp(420,50);
@@ -60,6 +66,7 @@
     _gator.position  = ccp(115,200);
     _gator.physicsBody = [CCPhysicsBody bodyWithRect:(CGRect){CGPointZero, _gator.contentSize} cornerRadius:0];
     _gator.physicsBody.collisionGroup = @"gatorGroup";
+    _gator.physicsBody.collisionType  = @"gatorCollision";
     [_physics addChild:_gator];
     
     _bullet = [CCSprite spriteWithImageNamed:@"bullet.png"];
@@ -67,12 +74,6 @@
     _bullet.physicsBody = [CCPhysicsBody bodyWithRect:(CGRect){CGPointZero, _bullet.contentSize} cornerRadius:0];
     _bullet.physicsBody.collisionGroup = @"bulletGroup";
     [_physics addChild:_bullet];
-    
-    _physics = [CCPhysicsNode node];
-    _physics.gravity = ccp(0,0);
-    _physics.debugDraw = YES;
-    _physics.collisionDelegate = self;
-    [self addChild:_physics];
 
     // done
 	return self;
@@ -126,6 +127,16 @@
     } else if (CGRectContainsPoint(rectGator, touchLoc)) {
         [[OALSimpleAudio sharedInstance] playEffect:@"alligator.wav"];
     }
+}
+
+//  -----------------------------------------------------------------------
+#pragma mark - Collision
+//  -----------------------------------------------------------------------
+
+- (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair gatorCollision:(CCNode *)monster bulletCollision:(CCNode *)projectile {
+    [_gator removeFromParent];
+    [_bullet removeFromParent];
+    return YES;
 }
 
 // -----------------------------------------------------------------------
