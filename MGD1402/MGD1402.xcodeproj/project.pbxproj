@@ -230,6 +230,7 @@
 		30D45DED18A21D3C00E9C589 /* swamp.caf in Resources */ = {isa = PBXBuildFile; fileRef = 30D45DEC18A21D3C00E9C589 /* swamp.caf */; };
 		30D45DEF18A347F800E9C589 /* shotgun.caf in Resources */ = {isa = PBXBuildFile; fileRef = 30D45DEE18A347F800E9C589 /* shotgun.caf */; };
 		30D45DF118A3B67A00E9C589 /* swamp_background_rough_placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 30D45DF018A3B67A00E9C589 /* swamp_background_rough_placeholder.png */; };
+		30D45DF618A3C93900E9C589 /* alligator.wav in Resources */ = {isa = PBXBuildFile; fileRef = 30D45DF518A3C93900E9C589 /* alligator.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -694,6 +695,7 @@
 		30D45DEC18A21D3C00E9C589 /* swamp.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = swamp.caf; sourceTree = "<group>"; };
 		30D45DEE18A347F800E9C589 /* shotgun.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = shotgun.caf; sourceTree = "<group>"; };
 		30D45DF018A3B67A00E9C589 /* swamp_background_rough_placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = swamp_background_rough_placeholder.png; sourceTree = "<group>"; };
+		30D45DF518A3C93900E9C589 /* alligator.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = alligator.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -769,6 +771,7 @@
 				30D45DE418A2094300E9C589 /* bullet.png */,
 				30D45DE518A2094300E9C589 /* gator.png */,
 				30D45DE618A2094300E9C589 /* hunter.png */,
+				30D45DF518A3C93900E9C589 /* alligator.wav */,
 				30D45DEC18A21D3C00E9C589 /* swamp.caf */,
 				30D45DEE18A347F800E9C589 /* shotgun.caf */,
 				30D45B2818A0A71500E9C589 /* Default.png */,
@@ -1688,6 +1691,7 @@
 				30D45DD518A0A71900E9C589 /* newton-ipad.plist in Resources */,
 				30D45DF118A3B67A00E9C589 /* swamp_background_rough_placeholder.png in Resources */,
 				30D45DD118A0A71900E9C589 /* newton-ipadhd.plist in Resources */,
+				30D45DF618A3C93900E9C589 /* alligator.wav in Resources */,
 				30D45B3418A0A71600E9C589 /* Icon@2x.png in Resources */,
 				30D45B4618A0A71600E9C589 /* Icon-Small@2x.png in Resources */,
 				30D45DD918A0A71900E9C589 /* newton.plist in Resources */,

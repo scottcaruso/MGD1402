@@ -42,6 +42,7 @@
     
     // Enable touch handling on scene node
     self.userInteractionEnabled = YES;
+    [[OALSimpleAudio sharedInstance] playBg:@"swamp.caf" loop:YES];
     
     // Create a colored background (Dark Grey)
     CCSprite *background = [CCSprite spriteWithImageNamed:@"swamp_background_rough_placeholder.png"];
@@ -61,10 +62,6 @@
     _bullet = [CCSprite spriteWithImageNamed:@"bullet.png"];
     _bullet.position  = ccp(365,38);
     [self addChild:_bullet];
-    
-    // Animate sprite with action
-    /*CCActionRotateBy* actionSpin = [CCActionRotateBy actionWithDuration:1.5f angle:360];
-    [_hunter runAction:[CCActionRepeatForever actionWithAction:actionSpin]];*/
 
     // done
 	return self;
@@ -104,14 +101,20 @@
 #pragma mark - Touch Handler
 // -----------------------------------------------------------------------
 
--(void) touchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
-    CGPoint touchLoc = [touch locationInNode:self];
+-(void) touchBegan:(UITouch *)touches withEvent:(UIEvent *)event {
+    CGPoint touchLoc = [touches locationInNode:self];
     
     // Log touch location
     CCLOG(@"Move sprite to @ %@",NSStringFromCGPoint(touchLoc));
     
-    
-    
+    //Hunter rect
+    CGRect rectHunt = CGRectMake(_hunter.position.x-(_hunter.contentSize.width/2), _hunter.position.y-(_hunter.contentSize.height/2), _hunter.contentSize.width, _hunter.contentSize.height);
+    CGRect rectGator = CGRectMake(_gator.position.x-(_gator.contentSize.width/2), _gator.position.y-(_gator.contentSize.height/2), _gator.contentSize.width, _gator.contentSize.height);
+    if (CGRectContainsPoint(rectHunt, touchLoc)) {
+        [[OALSimpleAudio sharedInstance] playEffect:@"shotgun.caf"];
+    } else if (CGRectContainsPoint(rectGator, touchLoc)) {
+        [[OALSimpleAudio sharedInstance] playEffect:@"alligator.wav"];
+    }
 }
 
 // -----------------------------------------------------------------------
