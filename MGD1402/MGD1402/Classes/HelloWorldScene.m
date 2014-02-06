@@ -21,6 +21,7 @@
     CCSprite *_gator;
     CCSprite *_bullet;
     CCSprite *bathroom;
+    CCPhysicsNode *_physics;
 }
 
 // -----------------------------------------------------------------------
@@ -57,11 +58,21 @@
     
     _gator = [CCSprite spriteWithImageNamed:@"gator.png"];
     _gator.position  = ccp(115,200);
-    [self addChild:_gator];
+    _gator.physicsBody = [CCPhysicsBody bodyWithRect:(CGRect){CGPointZero, _gator.contentSize} cornerRadius:0];
+    _gator.physicsBody.collisionGroup = @"gatorGroup";
+    [_physics addChild:_gator];
     
     _bullet = [CCSprite spriteWithImageNamed:@"bullet.png"];
     _bullet.position  = ccp(365,38);
-    [self addChild:_bullet];
+    _bullet.physicsBody = [CCPhysicsBody bodyWithRect:(CGRect){CGPointZero, _bullet.contentSize} cornerRadius:0];
+    _bullet.physicsBody.collisionGroup = @"bulletGroup";
+    [_physics addChild:_bullet];
+    
+    _physics = [CCPhysicsNode node];
+    _physics.gravity = ccp(0,0);
+    _physics.debugDraw = YES;
+    _physics.collisionDelegate = self;
+    [self addChild:_physics];
 
     // done
 	return self;
