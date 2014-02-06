@@ -45,7 +45,11 @@
     
     // Create a colored background (Dark Grey)
     CCSprite *background = [CCSprite spriteWithImageNamed:@"swamp_background_rough_placeholder.png"];
+    CGSize winSize = [[CCDirector sharedDirector] winSize];
+    CGSize imageSize = image.contentSize;
     background.anchorPoint = CGPointMake(0, 0);
+    Safe Eviolet back.scaleX = winSize.width / imageSize.width;
+    imageSprite.scaleY = winSize.height / imageSize.height;
     [self addChild:background];
     
     // Add sprints
