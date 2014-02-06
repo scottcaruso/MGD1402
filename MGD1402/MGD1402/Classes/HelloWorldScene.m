@@ -17,7 +17,10 @@
 
 @implementation HelloWorldScene
 {
-    CCSprite *_sprite;
+    CCSprite *_hunter;
+    CCSprite *_gator;
+    CCSprite *_bullet;
+    CCSprite *bathroom;
 }
 
 // -----------------------------------------------------------------------
@@ -41,17 +44,27 @@
     self.userInteractionEnabled = YES;
     
     // Create a colored background (Dark Grey)
-    CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:1.0f]];
+    CCSprite *background = [CCSprite spriteWithImageNamed:@"swamp_background_rough_placeholder.png"];
+    background.anchorPoint = CGPointMake(0, 0);
     [self addChild:background];
     
-    // Add a sprite
-    _sprite = [CCSprite spriteWithImageNamed:@"Icon-72.png"];
-    _sprite.position  = ccp(self.contentSize.width/2,self.contentSize.height/2);
-    [self addChild:_sprite];
+    // Add sprints
+
+    _hunter = [CCSprite spriteWithImageNamed:@"hunter.png"];
+    _hunter.position  = ccp(self.contentSize.width/2,self.contentSize.height/2);
+    [self addChild:_hunter];
+    
+    _gator = [CCSprite spriteWithImageNamed:@"gator.png"];
+    _gator.position  = ccp(self.contentSize.width/3,self.contentSize.height/3);
+    [self addChild:_gator];
+    
+    _bullet = [CCSprite spriteWithImageNamed:@"bullet.png"];
+    _bullet.position  = ccp(self.contentSize.width/4,self.contentSize.height/4);
+    [self addChild:_bullet];
     
     // Animate sprite with action
-    CCActionRotateBy* actionSpin = [CCActionRotateBy actionWithDuration:1.5f angle:360];
-    [_sprite runAction:[CCActionRepeatForever actionWithAction:actionSpin]];
+    /*CCActionRotateBy* actionSpin = [CCActionRotateBy actionWithDuration:1.5f angle:360];
+    [_hunter runAction:[CCActionRepeatForever actionWithAction:actionSpin]];*/
     
     // Create a back button
     CCButton *backButton = [CCButton buttonWithTitle:@"[ Menu ]" fontName:@"Verdana-Bold" fontSize:18.0f];
@@ -106,7 +119,9 @@
     
     // Move our sprite to touch location
     CCActionMoveTo *actionMove = [CCActionMoveTo actionWithDuration:1.0f position:touchLoc];
-    [_sprite runAction:actionMove];
+    [_hunter runAction:actionMove];
+    //[_gator runAction:actionMove];
+    //[_bullet runAction:actionMove];
 }
 
 // -----------------------------------------------------------------------
