@@ -45,37 +45,26 @@
     
     // Create a colored background (Dark Grey)
     CCSprite *background = [CCSprite spriteWithImageNamed:@"swamp_background_rough_placeholder.png"];
-    CGSize winSize = [[CCDirector sharedDirector] winSize];
-    CGSize imageSize = image.contentSize;
     background.anchorPoint = CGPointMake(0, 0);
-    Safe Eviolet back.scaleX = winSize.width / imageSize.width;
-    imageSprite.scaleY = winSize.height / imageSize.height;
     [self addChild:background];
     
     // Add sprints
 
     _hunter = [CCSprite spriteWithImageNamed:@"hunter.png"];
-    _hunter.position  = ccp(self.contentSize.width/2,self.contentSize.height/2);
+    _hunter.position  = ccp(420,50);
     [self addChild:_hunter];
     
     _gator = [CCSprite spriteWithImageNamed:@"gator.png"];
-    _gator.position  = ccp(self.contentSize.width/3,self.contentSize.height/3);
+    _gator.position  = ccp(115,200);
     [self addChild:_gator];
     
     _bullet = [CCSprite spriteWithImageNamed:@"bullet.png"];
-    _bullet.position  = ccp(self.contentSize.width/4,self.contentSize.height/4);
+    _bullet.position  = ccp(365,38);
     [self addChild:_bullet];
     
     // Animate sprite with action
     /*CCActionRotateBy* actionSpin = [CCActionRotateBy actionWithDuration:1.5f angle:360];
     [_hunter runAction:[CCActionRepeatForever actionWithAction:actionSpin]];*/
-    
-    // Create a back button
-    CCButton *backButton = [CCButton buttonWithTitle:@"[ Menu ]" fontName:@"Verdana-Bold" fontSize:18.0f];
-    backButton.positionType = CCPositionTypeNormalized;
-    backButton.position = ccp(0.85f, 0.95f); // Top Right of screen
-    [backButton setTarget:self selector:@selector(onBackClicked:)];
-    [self addChild:backButton];
 
     // done
 	return self;
@@ -121,11 +110,8 @@
     // Log touch location
     CCLOG(@"Move sprite to @ %@",NSStringFromCGPoint(touchLoc));
     
-    // Move our sprite to touch location
-    CCActionMoveTo *actionMove = [CCActionMoveTo actionWithDuration:1.0f position:touchLoc];
-    [_hunter runAction:actionMove];
-    //[_gator runAction:actionMove];
-    //[_bullet runAction:actionMove];
+    
+    
 }
 
 // -----------------------------------------------------------------------
