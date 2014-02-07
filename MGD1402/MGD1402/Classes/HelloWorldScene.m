@@ -50,6 +50,13 @@
     background.anchorPoint = CGPointMake(0, 0);
     [self addChild:background];
     
+    // Reset button
+    CCButton *reset = [CCButton buttonWithTitle:@"Reset" fontName:@"Verdana-Bold" fontSize:18.0f];
+    reset.positionType = CCPositionTypeNormalized;
+    reset.position = ccp(0.75f,0.75f);
+    [reset setTarget:self selector:@selector(onBackClicked:)];
+    [self addChild:reset];
+    
     _physics = [CCPhysicsNode node];
     _physics.gravity = ccp(0,0);
     _physics.debugDraw = YES;
@@ -116,14 +123,19 @@
 -(void) touchBegan:(UITouch *)touches withEvent:(UIEvent *)event {
     CGPoint touchLoc = [touches locationInNode:self];
     
-    // Log touch location
-    CCLOG(@"Move sprite to @ %@",NSStringFromCGPoint(touchLoc));
-    
     //Hunter rect
     CGRect rectHunt = CGRectMake(_hunter.position.x-(_hunter.contentSize.width/2), _hunter.position.y-(_hunter.contentSize.height/2), _hunter.contentSize.width, _hunter.contentSize.height);
     CGRect rectGator = CGRectMake(_gator.position.x-(_gator.contentSize.width/2), _gator.position.y-(_gator.contentSize.height/2), _gator.contentSize.width, _gator.contentSize.height);
+    
+    int     gatorX   = _gator.position.x;
+    int     gatorY   = _gator.position.y;
+    CGPoint targetPosition = ccp(gatorX,gatorY);
+    
     if (CGRectContainsPoint(rectHunt, touchLoc)) {
         [[OALSimpleAudio sharedInstance] playEffect:@"shotgun.caf"];
+        CCActionMoveTo *actionMove   = [CCActionMoveTo actionWithDuration:1.5f position:targetPosition];
+        CCActionRemove *actionRemove = [CCActionRemove action];
+        [_bullet runAction:[CCActionSequence actionWithArray:@[actionMove,actionRemove]]];
     } else if (CGRectContainsPoint(rectGator, touchLoc)) {
         [[OALSimpleAudio sharedInstance] playEffect:@"alligator.wav"];
     }
@@ -145,15 +157,10 @@
 
 - (void)onBackClicked:(id)sender
 {
-    // back to intro scene with transition
-    [[CCDirector sharedDirector] replaceScene:[IntroScene scene]
+    [[CCDirector sharedDirector] replaceScene:[HelloWorldScene scene]
                                withTransition:[CCTransition transitionPushWithDirection:CCTransitionDirectionRight duration:1.0f]];
 }
 
-- (void)onNewtonClicked:(id)sender
-{
-    [[CCDirector sharedDirector] pushScene:[NewtonScene scene] withTransition:[CCTransition transitionPushWithDirection:CCTransitionDirectionLeft duration:1.0f]];
-}
 
 // -----------------------------------------------------------------------
 @end
