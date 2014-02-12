@@ -73,6 +73,7 @@
     _bullet.position  = ccp(365,38);
     _bullet.physicsBody = [CCPhysicsBody bodyWithRect:(CGRect){CGPointZero, _bullet.contentSize} cornerRadius:0];
     _bullet.physicsBody.collisionGroup = @"bulletGroup";
+    _bullet.physicsBody.collisionType = @"bulletCollision";
     [_physics addChild:_bullet];
 
     // done
@@ -103,7 +104,7 @@
 
 -(void)moveGator:(CCSprite*)gator yLoc:(int)yLocation
 {
-    int minDuration = 2.0;
+    int minDuration = 2.5;
     int maxDuration = 4.0;
     int rangeDuration = maxDuration - minDuration;
     int actualDuration = (arc4random() % rangeDuration) + minDuration;
@@ -165,15 +166,15 @@
     CGRect rectHunt = CGRectMake(_hunter.position.x-(_hunter.contentSize.width/2), _hunter.position.y-(_hunter.contentSize.height/2), _hunter.contentSize.width, _hunter.contentSize.height);
     CGRect rectGator = CGRectMake(_gator.position.x-(_gator.contentSize.width/2), _gator.position.y-(_gator.contentSize.height/2), _gator.contentSize.width, _gator.contentSize.height);
     
-    int     gatorX   = _gator.position.x;
-    int     gatorY   = _gator.position.y;
-    CGPoint targetPosition = ccp(gatorX,gatorY);
+    int     bulletX   =  -100;
+    int     bulletY   = _hunter.position.y;
+    CGPoint targetPosition = ccp(bulletX,bulletY);
     
     if (CGRectContainsPoint(rectHunt, touchLoc)) {
         [[OALSimpleAudio sharedInstance] playEffect:@"shotgun.caf"];
         CCActionMoveTo *actionMove   = [CCActionMoveTo actionWithDuration:1.5f position:targetPosition];
-        CCActionRemove *actionRemove = [CCActionRemove action];
-        [_bullet runAction:[CCActionSequence actionWithArray:@[actionMove,actionRemove]]];
+        //CCActionRemove *actionRemove = [CCActionRemove action];
+        [_bullet runAction:[CCActionSequence actionWithArray:@[actionMove]]];
     } else if (CGRectContainsPoint(rectGator, touchLoc)) {
         [[OALSimpleAudio sharedInstance] playEffect:@"alligator.wav"];
     }
@@ -183,9 +184,9 @@
 #pragma mark - Collision
 //  -----------------------------------------------------------------------
 
-- (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair gatorCollision:(CCNode *)monster bulletCollision:(CCNode *)projectile {
-    [_gator removeFromParent];
-    [_bullet removeFromParent];
+- (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair gatorCollision:(CCNode *)gator bulletCollision:(CCNode *)projectile {
+    [gator removeFromParent];
+    [projectile removeFromParent];
     return YES;
 }
 
