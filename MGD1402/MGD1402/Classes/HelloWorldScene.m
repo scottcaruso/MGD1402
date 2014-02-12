@@ -68,14 +68,6 @@
     _hunter.position  = ccp(420,50);
     [self addChild:_hunter];
 
-    
-    _bullet = [CCSprite spriteWithImageNamed:@"bullet.png"];
-    _bullet.position  = ccp(365,38);
-    _bullet.physicsBody = [CCPhysicsBody bodyWithRect:(CGRect){CGPointZero, _bullet.contentSize} cornerRadius:0];
-    _bullet.physicsBody.collisionGroup = @"bulletGroup";
-    _bullet.physicsBody.collisionType = @"bulletCollision";
-    [_physics addChild:_bullet];
-
     // done
 	return self;
 }
@@ -171,6 +163,12 @@
     CGPoint targetPosition = ccp(bulletX,bulletY);
     
     if (CGRectContainsPoint(rectHunt, touchLoc)) {
+        _bullet = [CCSprite spriteWithImageNamed:@"bullet.png"];
+        _bullet.position  = ccp(365,38);
+        _bullet.physicsBody = [CCPhysicsBody bodyWithRect:(CGRect){CGPointZero, _bullet.contentSize} cornerRadius:0];
+        _bullet.physicsBody.collisionGroup = @"bulletGroup";
+        _bullet.physicsBody.collisionType = @"bulletCollision";
+        [_physics addChild:_bullet];
         [[OALSimpleAudio sharedInstance] playEffect:@"shotgun.caf"];
         CCActionMoveTo *actionMove   = [CCActionMoveTo actionWithDuration:1.5f position:targetPosition];
         //CCActionRemove *actionRemove = [CCActionRemove action];
