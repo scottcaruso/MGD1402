@@ -20,7 +20,6 @@
     CCSprite *_hunter;
     CCSprite *_gator;
     CCSprite *_bullet;
-    CCSprite *bathroom;
     CCPhysicsNode *_physics;
 }
 
@@ -33,8 +32,6 @@
     return [[self alloc] init];
 }
 
-// -----------------------------------------------------------------------
-
 - (id)init
 {
     // Apple recommend assigning self with supers return value
@@ -44,6 +41,8 @@
     // Enable touch handling on scene node
     self.userInteractionEnabled = YES;
     [[OALSimpleAudio sharedInstance] playBg:@"swamp.caf" loop:YES];
+    
+    [self schedule:@selector(tick:) interval:1.0];
     
     // Create a colored background (Dark Grey)
     CCSprite *background = [CCSprite spriteWithImageNamed:@"swamp_background_rough_placeholder.png"];
@@ -68,13 +67,7 @@
     _hunter = [CCSprite spriteWithImageNamed:@"hunter.png"];
     _hunter.position  = ccp(420,50);
     [self addChild:_hunter];
-    
-    _gator = [CCSprite spriteWithImageNamed:@"gator.png"];
-    _gator.position  = ccp(115,200);
-    _gator.physicsBody = [CCPhysicsBody bodyWithRect:(CGRect){CGPointZero, _gator.contentSize} cornerRadius:0];
-    _gator.physicsBody.collisionGroup = @"gatorGroup";
-    _gator.physicsBody.collisionType  = @"gatorCollision";
-    [_physics addChild:_gator];
+
     
     _bullet = [CCSprite spriteWithImageNamed:@"bullet.png"];
     _bullet.position  = ccp(365,38);
@@ -85,6 +78,51 @@
     // done
 	return self;
 }
+
+// -----------------------------------------------------------------------
+#pragma mark - Function of creating and "animating" the gators
+// -----------------------------------------------------------------------
+
+-(void)goGators
+{
+    _gator = [CCSprite spriteWithImageNamed:@"gator.png"];
+    // Determine where to spawn the monster along the Y axis
+    int minY = _gator.contentSize.height / 2;
+    CGSize winSize = [[CCDirector sharedDirector] viewSizeInPixels];
+    int maxY = winSize.height - _gator.contentSize.height;
+    int rangeY = maxY - minY;
+    int actualY = (arc4random() % rangeY);
+    _gator.position  = ccp(-50,actualY);
+    _gator.physicsBody = [CCPhysicsBody bodyWithRect:(CGRect){CGPointZero, _gator.contentSize} cornerRadius:0];
+    _gator.physicsBody.collisionGroup = @"gatorGroup";
+    _gator.physicsBody.collisionType  = @"gatorCollision";
+    [_physics addChild:_gator];
+    [self moveGator:_gator yLoc:actualY];
+    
+}
+
+-(void)moveGator:(CCSprite*)gator yLoc:(int)yLocation
+{
+    int minDuration = 2.0;
+    int maxDuration = 4.0;
+    int rangeDuration = maxDuration - minDuration;
+    int actualDuration = (arc4random() % rangeDuration) + minDuration;
+    CCActionMoveTo *actionMove = [CCActionMoveTo actionWithDuration:actualDuration position:ccp(600, yLocation)];
+    //CCActionCallBlock * actionMoveDone = [CCActionCallBlock actionWithBlock:^(CCNode *node) {
+        //[node removeFromParent];
+    //}];
+    [gator runAction:[CCActionSequence actions:actionMove, nil, nil]];
+}
+
+// -----------------------------------------------------------------------
+#pragma mark - Timer
+// ----------------------------------------------------------------------
+
+-(void)tick:(CCTime)dt
+{
+    [self goGators];
+}
+
 
 // -----------------------------------------------------------------------
 
