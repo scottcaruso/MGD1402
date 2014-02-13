@@ -46,12 +46,18 @@
     label.position = ccp(0.5f, 0.5f); // Middle of screen
     [self addChild:label];
     
-    // Spinning scene button
+    // Play game button
     CCButton *playGame = [CCButton buttonWithTitle:@"[ Play Game ]" fontName:@"Verdana-Bold" fontSize:18.0f];
     playGame.positionType = CCPositionTypeNormalized;
     playGame.position = ccp(0.5f, 0.35f);
     [playGame setTarget:self selector:@selector(onPlayClicked:)];
     [self addChild:playGame];
+    
+    //Instructions
+    CCLabelTTF *instructions = [CCLabelTTF labelWithString:@"To Play: Drag hunter up and down shoreline to move. Tap anywhere else on screen to shoot." fontName:@"Verdana-Bold" fontSize:8.0f];
+    instructions.positionType = CCPositionTypeNormalized;
+    instructions.position = ccp(0.5f,0.25f);
+    [self addChild:instructions];
 	
     // done
 	return self;
