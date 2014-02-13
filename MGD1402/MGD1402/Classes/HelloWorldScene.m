@@ -21,7 +21,12 @@
     CCSprite *_gator;
     CCSprite *_bullet;
     CCSprite *background;
+    CCSprite *physicsWallForShore;
     CCPhysicsNode *_physics;
+    NSMutableArray *arrayOfGatorSprites;
+    int scoreInt;
+    bool gameOver;
+    CCLabelTTF *score;
     CGSize winSize;
 }
 
@@ -40,23 +45,24 @@
     self = [super init];
     if (!self) return(nil);
     
+    scoreInt = 0;
+    arrayOfGatorSprites = [[NSMutableArray alloc] init];
+    gameOver = false;
+    
     // Enable touch handling on scene node
     self.userInteractionEnabled = YES;
     [[OALSimpleAudio sharedInstance] playBg:@"swamp.caf" loop:YES];
     
     [self schedule:@selector(tick:) interval:1.0];
+    [self schedule:@selector(checkForEnd:) interval:0.1];
     
-    // Create a colored background (Dark Grey)
+    // Create a background
     background = [CCSprite spriteWithImageNamed:@"swamp_background_rough_placeholder.png"];
     background.anchorPoint = CGPointMake(0, 0);
     [self addChild:background];
     
-    // Reset button
-    CCButton *reset = [CCButton buttonWithTitle:@"Reset" fontName:@"Verdana-Bold" fontSize:18.0f];
-    reset.positionType = CCPositionTypeNormalized;
-    reset.position = ccp(0.75f,0.75f);
-    [reset setTarget:self selector:@selector(onBackClicked:)];
-    [self addChild:reset];
+    //Score display
+    [self updateScore];
     
     _physics = [CCPhysicsNode node];
     _physics.gravity = ccp(0,0);
@@ -64,8 +70,6 @@
     _physics.collisionDelegate = self;
     [self addChild:_physics];
     
-    // Add sprites
-
     _hunter = [CCSprite spriteWithImageNamed:@"hunter.png"];
     _hunter.position  = ccp(420,50);
     [self addChild:_hunter];
@@ -82,15 +86,16 @@
 {
     _gator = [CCSprite spriteWithImageNamed:@"gator.png"];
     // Determine where to spawn the monster along the Y axis
-    int minY = _gator.contentSize.height / 2;
     winSize = [[CCDirector sharedDirector] viewSizeInPixels];
-    int maxY = winSize.height - _gator.contentSize.height;
+    int minY = _gator.contentSize.height + 175;
+    int maxY = winSize.height - 100;
     int rangeY = maxY - minY;
     int actualY = (arc4random() % rangeY);
     _gator.position  = ccp(-50,actualY);
     _gator.physicsBody = [CCPhysicsBody bodyWithRect:(CGRect){CGPointZero, _gator.contentSize} cornerRadius:0];
     _gator.physicsBody.collisionGroup = @"gatorGroup";
     _gator.physicsBody.collisionType  = @"gatorCollision";
+    [arrayOfGatorSprites addObject:_gator];
     [_physics addChild:_gator];
     [self moveGator:_gator yLoc:actualY];
     
@@ -115,9 +120,38 @@
 
 -(void)tick:(CCTime)dt
 {
-    [self goGators];
+    if (gameOver == false)
+    {
+        [self goGators];
+    } else {
+        // Reset button
+        CCButton *reset = [CCButton buttonWithTitle:@"Reset" fontName:@"Verdana-Bold" fontSize:18.0f];
+        reset.positionType = CCPositionTypeNormalized;
+        reset.position = ccp(0.75f,0.75f);
+        [reset setTarget:self selector:@selector(onBackClicked:)];
+        [self addChild:reset];
+    }
 }
 
+-(void)checkForEnd:(CCTime)dt
+{
+    if (arrayOfGatorSprites.count > 0)
+    {
+        for (CCSprite *thisGator in arrayOfGatorSprites)
+        {
+            if(thisGator.position.x > 380) {
+                gameOver = true;
+                for (CCSprite *thisGator in arrayOfGatorSprites)
+                {
+                    if(thisGator.position.x > 0)
+                    {
+                        [thisGator removeFromParent];
+                    }
+                }
+            }
+        }
+    }
+}
 
 // -----------------------------------------------------------------------
 
@@ -187,6 +221,10 @@
     [[OALSimpleAudio sharedInstance] playEffect:@"alligator.wav"];
     [gator removeFromParent];
     [projectile removeFromParent];
+    scoreInt++;
+    [score removeFromParent];
+    [self updateScore];
+    [arrayOfGatorSprites removeObject:gator];
     return YES;
 }
 
@@ -224,6 +262,15 @@
     } else {
         //Do nothing
     }
+}
+
+-(void)updateScore
+{
+    NSString *scoreString = [[NSString alloc] initWithFormat:@"Score: %i",scoreInt];
+    score = [CCLabelTTF labelWithString:scoreString fontName:@"Verdana-Bold" fontSize:14.0f];
+    score.positionType = CCPositionTypeNormalized;
+    score.position = ccp(0.1f,0.95f);
+    [self addChild:score];
 }
 
 // -----------------------------------------------------------------------
