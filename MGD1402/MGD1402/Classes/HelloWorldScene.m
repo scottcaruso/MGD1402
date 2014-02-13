@@ -20,7 +20,9 @@
     CCSprite *_hunter;
     CCSprite *_gator;
     CCSprite *_bullet;
+    CCSprite *background;
     CCPhysicsNode *_physics;
+    CGSize winSize;
 }
 
 // -----------------------------------------------------------------------
@@ -45,7 +47,7 @@
     [self schedule:@selector(tick:) interval:1.0];
     
     // Create a colored background (Dark Grey)
-    CCSprite *background = [CCSprite spriteWithImageNamed:@"swamp_background_rough_placeholder.png"];
+    background = [CCSprite spriteWithImageNamed:@"swamp_background_rough_placeholder.png"];
     background.anchorPoint = CGPointMake(0, 0);
     [self addChild:background];
     
@@ -81,7 +83,7 @@
     _gator = [CCSprite spriteWithImageNamed:@"gator.png"];
     // Determine where to spawn the monster along the Y axis
     int minY = _gator.contentSize.height / 2;
-    CGSize winSize = [[CCDirector sharedDirector] viewSizeInPixels];
+    winSize = [[CCDirector sharedDirector] viewSizeInPixels];
     int maxY = winSize.height - _gator.contentSize.height;
     int rangeY = maxY - minY;
     int actualY = (arc4random() % rangeY);
@@ -163,8 +165,10 @@
     CGPoint targetPosition = ccp(bulletX,bulletY);
     
     if (CGRectContainsPoint(rectHunt, touchLoc)) {
+        
+    } else if (CGRectContainsPoint(rectGator, touchLoc)) {
         _bullet = [CCSprite spriteWithImageNamed:@"bullet.png"];
-        _bullet.position  = ccp(365,38);
+        _bullet.position  = ccp(365,bulletY);
         _bullet.physicsBody = [CCPhysicsBody bodyWithRect:(CGRect){CGPointZero, _bullet.contentSize} cornerRadius:0];
         _bullet.physicsBody.collisionGroup = @"bulletGroup";
         _bullet.physicsBody.collisionType = @"bulletCollision";
@@ -173,8 +177,6 @@
         CCActionMoveTo *actionMove   = [CCActionMoveTo actionWithDuration:1.5f position:targetPosition];
         //CCActionRemove *actionRemove = [CCActionRemove action];
         [_bullet runAction:[CCActionSequence actionWithArray:@[actionMove]]];
-    } else if (CGRectContainsPoint(rectGator, touchLoc)) {
-        [[OALSimpleAudio sharedInstance] playEffect:@"alligator.wav"];
     }
 }
 
@@ -183,9 +185,39 @@
 //  -----------------------------------------------------------------------
 
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair gatorCollision:(CCNode *)gator bulletCollision:(CCNode *)projectile {
+    [[OALSimpleAudio sharedInstance] playEffect:@"alligator.wav"];
     [gator removeFromParent];
     [projectile removeFromParent];
     return YES;
+}
+
+- (CGPoint)boundLayerPos:(CGPoint)newPos {
+    CGPoint retval = newPos;
+    retval.x = MIN(retval.x, 0);
+    retval.x = MAX(retval.x, -background.contentSize.width+winSize.width);
+    retval.y = self.position.y;
+    return retval;
+}
+
+- (void)panForTranslation:(CGPoint)translation {
+    if (_hunter) {
+        CGPoint newPos = ccpAdd(_hunter.position, translation);
+        _hunter.position = newPos;
+    } else {
+        CGPoint newPos = ccpAdd(self.position, translation);
+        self.position = [self boundLayerPos:newPos];
+    }
+}
+
+- (void)ccTouchMoved:(UITouch *)touch withEvent:(UIEvent *)event {
+    CGPoint touchLocation = [self convertToNodeSpace:touch.locationInWorld];
+    
+    CGPoint oldTouchLocation = [touch previousLocationInView:touch.view];
+    oldTouchLocation = [[CCDirector sharedDirector] convertToGL:oldTouchLocation];
+    oldTouchLocation = [self convertToNodeSpace:oldTouchLocation];
+    
+    CGPoint translation = ccpSub(touchLocation, oldTouchLocation);
+    [self panForTranslation:translation];
 }
 
 // -----------------------------------------------------------------------
