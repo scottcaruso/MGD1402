@@ -158,14 +158,13 @@
     
     //Hunter rect
     CGRect rectHunt = CGRectMake(_hunter.position.x-(_hunter.contentSize.width/2), _hunter.position.y-(_hunter.contentSize.height/2), _hunter.contentSize.width, _hunter.contentSize.height);
-    CGRect rectGator = CGRectMake(_gator.position.x-(_gator.contentSize.width/2), _gator.position.y-(_gator.contentSize.height/2), _gator.contentSize.width, _gator.contentSize.height);
     
     int     bulletX   =  -100;
     int     bulletY   = _hunter.position.y;
     CGPoint targetPosition = ccp(bulletX,bulletY);
     
     if (CGRectContainsPoint(rectHunt, touchLoc)) {
-        [self touchMoved:touches withEvent:event];
+        //Do nothing
     } else {
         _bullet = [CCSprite spriteWithImageNamed:@"bullet.png"];
         _bullet.position  = ccp(365,bulletY);
@@ -202,20 +201,29 @@
         CGPoint newPos = ccpAdd(_hunter.position, translation);
         _hunter.position = [self boundLayerPos:newPos];
     } else {
-        CGPoint newPos = ccpAdd(self.position, translation);
-        self.position = [self boundLayerPos:newPos];
+       //Do nothing
     }
 }
 
 - (void)touchMoved:(UITouch *)touch withEvent:(UIEvent *)event {
-    CGPoint touchLocation = [self convertToNodeSpace:touch.locationInWorld];
+    CGPoint touchLoc = [touch locationInNode:self];
     
-    CGPoint oldTouchLocation = [touch previousLocationInView:touch.view];
-    oldTouchLocation = [[CCDirector sharedDirector] convertToGL:oldTouchLocation];
-    oldTouchLocation = [self convertToNodeSpace:oldTouchLocation];
+    //Hunter rect
+    CGRect rectHunt = CGRectMake(_hunter.position.x-(_hunter.contentSize.width/2), _hunter.position.y-(_hunter.contentSize.height/2), _hunter.contentSize.width, _hunter.contentSize.height);
     
-    CGPoint translation = ccpSub(touchLocation, oldTouchLocation);
-    [self panForTranslation:translation];
+    if (CGRectContainsPoint(rectHunt, touchLoc)) {
+        
+        CGPoint touchLocation = [self convertToNodeSpace:touch.locationInWorld];
+        
+        CGPoint oldTouchLocation = [touch previousLocationInView:touch.view];
+        oldTouchLocation = [[CCDirector sharedDirector] convertToGL:oldTouchLocation];
+        oldTouchLocation = [self convertToNodeSpace:oldTouchLocation];
+        
+        CGPoint translation = ccpSub(touchLocation, oldTouchLocation);
+        [self panForTranslation:translation];
+    } else {
+        //Do nothing
+    }
 }
 
 // -----------------------------------------------------------------------
