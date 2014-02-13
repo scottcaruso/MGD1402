@@ -159,7 +159,7 @@
     //Hunter rect
     CGRect rectHunt = CGRectMake(_hunter.position.x-(_hunter.contentSize.width/2), _hunter.position.y-(_hunter.contentSize.height/2), _hunter.contentSize.width, _hunter.contentSize.height);
     
-    int     bulletX   =  -100;
+    int     bulletX   =  0;
     int     bulletY   = _hunter.position.y;
     CGPoint targetPosition = ccp(bulletX,bulletY);
     
@@ -174,8 +174,8 @@
         [_physics addChild:_bullet];
         [[OALSimpleAudio sharedInstance] playEffect:@"shotgun.caf"];
         CCActionMoveTo *actionMove   = [CCActionMoveTo actionWithDuration:1.5f position:targetPosition];
-        //CCActionRemove *actionRemove = [CCActionRemove action];
-        [_bullet runAction:[CCActionSequence actionWithArray:@[actionMove]]];
+        CCActionRemove *actionRemove = [CCActionRemove action];
+        [_bullet runAction:[CCActionSequence actionWithArray:@[actionMove,actionRemove]]];
     }
 }
 
