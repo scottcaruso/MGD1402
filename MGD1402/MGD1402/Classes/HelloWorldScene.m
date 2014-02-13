@@ -165,8 +165,8 @@
     CGPoint targetPosition = ccp(bulletX,bulletY);
     
     if (CGRectContainsPoint(rectHunt, touchLoc)) {
-        
-    } else if (CGRectContainsPoint(rectGator, touchLoc)) {
+        [self touchMoved:touches withEvent:event];
+    } else {
         _bullet = [CCSprite spriteWithImageNamed:@"bullet.png"];
         _bullet.position  = ccp(365,bulletY);
         _bullet.physicsBody = [CCPhysicsBody bodyWithRect:(CGRect){CGPointZero, _bullet.contentSize} cornerRadius:0];
@@ -193,23 +193,21 @@
 
 - (CGPoint)boundLayerPos:(CGPoint)newPos {
     CGPoint retval = newPos;
-    retval.x = MIN(retval.x, 0);
-    retval.x = MAX(retval.x, -background.contentSize.width+winSize.width);
-    retval.y = self.position.y;
+    retval.x = 420;
     return retval;
 }
 
 - (void)panForTranslation:(CGPoint)translation {
     if (_hunter) {
         CGPoint newPos = ccpAdd(_hunter.position, translation);
-        _hunter.position = newPos;
+        _hunter.position = [self boundLayerPos:newPos];
     } else {
         CGPoint newPos = ccpAdd(self.position, translation);
         self.position = [self boundLayerPos:newPos];
     }
 }
 
-- (void)ccTouchMoved:(UITouch *)touch withEvent:(UIEvent *)event {
+- (void)touchMoved:(UITouch *)touch withEvent:(UIEvent *)event {
     CGPoint touchLocation = [self convertToNodeSpace:touch.locationInWorld];
     
     CGPoint oldTouchLocation = [touch previousLocationInView:touch.view];
