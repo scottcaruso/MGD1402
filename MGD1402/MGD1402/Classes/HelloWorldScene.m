@@ -28,6 +28,7 @@
     bool gameOver;
     CCLabelTTF *score;
     CGSize winSize;
+    CGSize winSizeInPoints;
 }
 
 // -----------------------------------------------------------------------
@@ -46,6 +47,7 @@
     if (!self) return(nil);
     
     winSize = [[CCDirector sharedDirector] viewSizeInPixels];
+    winSizeInPoints = [[CCDirector sharedDirector] viewSize];
     
     scoreInt = 0;
     arrayOfGatorSprites = [[NSMutableArray alloc] init];
@@ -62,6 +64,8 @@
     if (winSize.height == 1536)
     {
         background = [CCSprite spriteWithImageNamed:@"swamp_background_rough_placeholder_large.png"];
+        [background setScaleX:0.45f];
+        [background setScaleY:0.5f];
     } else
     {
         background = [CCSprite spriteWithImageNamed:@"swamp_background_rough_placeholder_large.png"];
@@ -81,7 +85,7 @@
     [self addChild:_physics];
     
     _hunter = [CCSprite spriteWithImageNamed:@"hunter.png"];
-    _hunter.position  = ccp(420,50);
+    _hunter.position  = ccp(winSizeInPoints.width*.88,50);
     [self addChild:_hunter];
 
     // done
@@ -239,7 +243,7 @@
 
 - (CGPoint)boundLayerPos:(CGPoint)newPos {
     CGPoint retval = newPos;
-    retval.x = 420;
+    retval.x = winSizeInPoints.width*.88;
     return retval;
 }
 
