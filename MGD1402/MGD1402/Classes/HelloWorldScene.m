@@ -45,6 +45,8 @@
     self = [super init];
     if (!self) return(nil);
     
+    winSize = [[CCDirector sharedDirector] viewSizeInPixels];
+    
     scoreInt = 0;
     arrayOfGatorSprites = [[NSMutableArray alloc] init];
     gameOver = false;
@@ -57,7 +59,15 @@
     [self schedule:@selector(checkForEnd:) interval:0.1];
     
     // Create a background
-    background = [CCSprite spriteWithImageNamed:@"swamp_background_rough_placeholder.png"];
+    if (winSize.height == 1536)
+    {
+        background = [CCSprite spriteWithImageNamed:@"swamp_background_rough_placeholder_large.png"];
+    } else
+    {
+        background = [CCSprite spriteWithImageNamed:@"swamp_background_rough_placeholder_large.png"];
+        [background setScale:0.21f];
+    }
+
     background.anchorPoint = CGPointMake(0, 0);
     [self addChild:background];
     
@@ -86,7 +96,6 @@
 {
     _gator = [CCSprite spriteWithImageNamed:@"gator.png"];
     // Determine where to spawn the monster along the Y axis
-    winSize = [[CCDirector sharedDirector] viewSizeInPixels];
     int minY = _gator.contentSize.height + 175;
     int maxY = winSize.height - 100;
     int rangeY = maxY - minY;
