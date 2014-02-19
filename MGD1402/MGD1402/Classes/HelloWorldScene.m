@@ -85,6 +85,10 @@
     [self addChild:_physics];
     
     _hunter = [CCSprite spriteWithImageNamed:@"hunter.png"];
+    if (winSize.height == 1536)
+    {
+        [_hunter setScale:2.5f];
+    }
     _hunter.position  = ccp(winSizeInPoints.width*.88,50);
     [self addChild:_hunter];
 
@@ -99,6 +103,10 @@
 -(void)goGators
 {
     _gator = [CCSprite spriteWithImageNamed:@"gator.png"];
+    if (winSize.height == 1536)
+    {
+        [_gator setScale:2.5f];
+    }
     // Determine where to spawn the monster along the Y axis
     int minY = _gator.contentSize.height + 175;
     int maxY = winSize.height - 100;
