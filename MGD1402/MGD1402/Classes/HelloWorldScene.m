@@ -128,7 +128,7 @@
     int maxDuration = 4.0;
     int rangeDuration = maxDuration - minDuration;
     int actualDuration = (arc4random() % rangeDuration) + minDuration;
-    CCActionMoveTo *actionMove = [CCActionMoveTo actionWithDuration:actualDuration position:ccp(600, yLocation)];
+    CCActionMoveTo *actionMove = [CCActionMoveTo actionWithDuration:actualDuration position:ccp(winSizeInPoints.width*1.1, yLocation)];
     //CCActionCallBlock * actionMoveDone = [CCActionCallBlock actionWithBlock:^(CCNode *node) {
         //[node removeFromParent];
     //}];
@@ -160,7 +160,7 @@
     {
         for (CCSprite *thisGator in arrayOfGatorSprites)
         {
-            if(thisGator.position.x > 380) {
+            if(thisGator.position.x > winSizeInPoints.width*.8f) {
                 gameOver = true;
                 for (CCSprite *thisGator in arrayOfGatorSprites)
                 {
