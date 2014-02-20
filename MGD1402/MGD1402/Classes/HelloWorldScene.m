@@ -21,6 +21,7 @@
     CCSprite *_bullet;
     CCSprite *background;
     CCSprite *physicsWallForShore;
+    CCSprite *pauseButton;
     CCPhysicsNode *_physics;
     CCAnimation *hitAnimation;
     NSMutableArray *arrayOfGatorSprites;
@@ -63,7 +64,8 @@
     
 
     background = [CCSprite spriteWithImageNamed:@"swamp_background_rough_placeholder.png"];
-    background.anchorPoint = CGPointMake(0, 0);
+    background.positionType = CCPositionTypeNormalized;
+    background.position = ccp(0.5f,0.5f);
     [self addChild:background];
     
     //Score display
@@ -75,6 +77,12 @@
     _physics.collisionDelegate = self;
     [self addChild:_physics];
     
+    pauseButton = [CCSprite spriteWithImageNamed:@"pause.png"];
+    pauseButton.positionType = CCPositionTypeNormalized;
+    pauseButton.position = ccp(0.9f,0.9f);
+    [self addChild:pauseButton];
+    
+    //THIS IS A HACK - FOR FINAL, USE A REAL, PROPERLY-SCALED HUNTER IMAGE
     _hunter = [CCSprite spriteWithImageNamed:@"hunter.png"];
     if (winSize.height == 1536)
     {
