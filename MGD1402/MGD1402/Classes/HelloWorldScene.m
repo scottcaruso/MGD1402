@@ -64,9 +64,9 @@
     [self schedule:@selector(tick:) interval:1.0];
     [self schedule:@selector(checkForEnd:) interval:0.1];
     
-
-    background = [CCSprite spriteWithImageNamed:@"swamp_background_rough_placeholder.png"];
-    background.scale = 0.55f;
+    //This is a mess right now. For some reason, the app isn't recongizing the image sizes in iPhone mode. I have no idea why. I've had to programatically scale it for now. I've tried dozens of different images and scalings. I will investigate more for final.
+    background = [CCSprite spriteWithImageNamed:@"swamp_background.png"];
+    background.scale = 0.28f;
     background.positionType = CCPositionTypeNormalized;
     background.position = ccp(0.5f,0.5f);
     [self addChild:background];
@@ -84,7 +84,8 @@
     _hunter = [CCSprite spriteWithImageNamed:@"hunter.png"];
     if (winSize.height == 1536)
     {
-        [_hunter setScale:2.5f];
+        [background setScale:0.52f];
+        [_hunter setScale:2.25f];
     }
     _hunter.position  = ccp(winSizeInPoints.width*.88,50);
     [self addChild:_hunter];
@@ -127,7 +128,7 @@
     _gator = [CCSprite spriteWithImageNamed:@"gator.png"];
     if (winSize.height == 1536)
     {
-        [_gator setScale:2.5f];
+        [_gator setScale:2.25f];
     }
     // Determine where to spawn the monster along the Y axis
     int minY = _gator.contentSize.height + 175;
@@ -170,7 +171,7 @@
         // Reset button
         CCButton *reset = [CCButton buttonWithTitle:@"Reset" fontName:@"Verdana-Bold" fontSize:18.0f];
         reset.positionType = CCPositionTypeNormalized;
-        reset.position = ccp(0.75f,0.75f);
+        reset.position = ccp(0.85f,0.95f);
         [reset setTarget:self selector:@selector(onBackClicked:)];
         [self addChild:reset];
     }
@@ -266,7 +267,7 @@
         if (pauseState == false)
         {
             _bullet = [CCSprite spriteWithImageNamed:@"bullet.png"];
-            _bullet.position  = ccp(365,bulletY);
+            _bullet.position  = ccp(winSizeInPoints.width*.78,bulletY);
             _bullet.physicsBody = [CCPhysicsBody bodyWithRect:(CGRect){CGPointZero, _bullet.contentSize} cornerRadius:0];
             _bullet.physicsBody.collisionGroup = @"bulletGroup";
             _bullet.physicsBody.collisionType = @"bulletCollision";

@@ -11,7 +11,7 @@
 		3002F62318B64E9D00395453 /* hit_text_sheet_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 3002F62118B64E9C00395453 /* hit_text_sheet_default.png */; };
 		309E71EB18B67D5B0098C20F /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 309E71E918B67D5B0098C20F /* pause.png */; };
 		309E71F018B67F740098C20F /* pause@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 309E71EF18B67F740098C20F /* pause@2x.png */; };
-		309E71F218B685060098C20F /* swamp_background_rough_placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 309E71F118B685060098C20F /* swamp_background_rough_placeholder.png */; };
+		309E71F518B690C70098C20F /* swamp_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 309E71F318B690C70098C20F /* swamp_background.png */; };
 		30D45B0F18A0A71500E9C589 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30D45B0E18A0A71500E9C589 /* QuartzCore.framework */; };
 		30D45B1118A0A71500E9C589 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30D45B1018A0A71500E9C589 /* OpenGLES.framework */; };
 		30D45B1318A0A71500E9C589 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30D45B1218A0A71500E9C589 /* OpenAL.framework */; };
@@ -240,7 +240,7 @@
 		3002F62118B64E9C00395453 /* hit_text_sheet_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hit_text_sheet_default.png; sourceTree = "<group>"; };
 		309E71E918B67D5B0098C20F /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause.png; sourceTree = "<group>"; };
 		309E71EF18B67F740098C20F /* pause@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pause@2x.png"; sourceTree = "<group>"; };
-		309E71F118B685060098C20F /* swamp_background_rough_placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = swamp_background_rough_placeholder.png; sourceTree = "<group>"; };
+		309E71F318B690C70098C20F /* swamp_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = swamp_background.png; sourceTree = "<group>"; };
 		30D45B0B18A0A71500E9C589 /* MGD1402.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MGD1402.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		30D45B0E18A0A71500E9C589 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		30D45B1018A0A71500E9C589 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -748,9 +748,9 @@
 			children = (
 				309E71E918B67D5B0098C20F /* pause.png */,
 				309E71EF18B67F740098C20F /* pause@2x.png */,
+				309E71F318B690C70098C20F /* swamp_background.png */,
 				3002F62018B64E9C00395453 /* hit_text_sheet_default.plist */,
 				3002F62118B64E9C00395453 /* hit_text_sheet_default.png */,
-				309E71F118B685060098C20F /* swamp_background_rough_placeholder.png */,
 				30D45DE418A2094300E9C589 /* bullet.png */,
 				30D45DE518A2094300E9C589 /* gator.png */,
 				30D45DE618A2094300E9C589 /* hunter.png */,
@@ -1662,7 +1662,6 @@
 				30D45B2918A0A71500E9C589 /* Default.png in Resources */,
 				30D45B3218A0A71600E9C589 /* Icon.png in Resources */,
 				30D45B4018A0A71600E9C589 /* Icon-iPad-Spotlight-iOS7@2x.png in Resources */,
-				309E71F218B685060098C20F /* swamp_background_rough_placeholder.png in Resources */,
 				30D45DEF18A347F800E9C589 /* shotgun.caf in Resources */,
 				30D45B2F18A0A71500E9C589 /* Default-Landscape~ipad.png in Resources */,
 				30D45B4418A0A71600E9C589 /* Icon-Small.png in Resources */,
@@ -1676,6 +1675,7 @@
 				30D45B2D18A0A71500E9C589 /* Default-568h@2x.png in Resources */,
 				30D45B4D18A0A71600E9C589 /* iTunesArtwork in Resources */,
 				30D45DE718A2094300E9C589 /* bullet.png in Resources */,
+				309E71F518B690C70098C20F /* swamp_background.png in Resources */,
 				30D45B4818A0A71600E9C589 /* Icon-Spotlight-iOS7.png in Resources */,
 				3002F62318B64E9D00395453 /* hit_text_sheet_default.png in Resources */,
 				30D45B3C18A0A71600E9C589 /* Icon-76@2x.png in Resources */,
