@@ -28,6 +28,7 @@
     NSMutableArray *arrayOfHitFrames;
     int scoreInt;
     bool gameOver;
+    bool pauseState;
     CCLabelTTF *score;
     CGSize winSize;
     CGSize winSizeInPoints;
@@ -54,6 +55,7 @@
     scoreInt = 0;
     arrayOfGatorSprites = [[NSMutableArray alloc] init];
     gameOver = false;
+    pauseState = false;
     
     // Enable touch handling on scene node
     self.userInteractionEnabled = YES;
@@ -64,6 +66,7 @@
     
 
     background = [CCSprite spriteWithImageNamed:@"swamp_background_rough_placeholder.png"];
+    background.scale = 0.55f;
     background.positionType = CCPositionTypeNormalized;
     background.position = ccp(0.5f,0.5f);
     [self addChild:background];
@@ -77,11 +80,6 @@
     _physics.collisionDelegate = self;
     [self addChild:_physics];
     
-    pauseButton = [CCSprite spriteWithImageNamed:@"pause.png"];
-    pauseButton.positionType = CCPositionTypeNormalized;
-    pauseButton.position = ccp(0.9f,0.9f);
-    [self addChild:pauseButton];
-    
     //THIS IS A HACK - FOR FINAL, USE A REAL, PROPERLY-SCALED HUNTER IMAGE
     _hunter = [CCSprite spriteWithImageNamed:@"hunter.png"];
     if (winSize.height == 1536)
@@ -90,6 +88,10 @@
     }
     _hunter.position  = ccp(winSizeInPoints.width*.88,50);
     [self addChild:_hunter];
+    
+    pauseButton = [CCSprite spriteWithImageNamed:@"pause.png"];
+    pauseButton.position = ccp(winSizeInPoints.width*.27,winSizeInPoints.height*.92);
+    [self addChild:pauseButton];
     
     // Create batch node for text animation
     CCSpriteBatchNode *batchNode = [CCSpriteBatchNode batchNodeWithFile:@"hit_text_sheet_default.png"];
@@ -234,23 +236,46 @@
     //Hunter rect
     CGRect rectHunt = CGRectMake(_hunter.position.x-(_hunter.contentSize.width/2), _hunter.position.y-(_hunter.contentSize.height/2), _hunter.contentSize.width, _hunter.contentSize.height);
     
+    //Pause rect
+    CGRect rectPause = CGRectMake(pauseButton.position.x-(pauseButton.contentSize.width/2), pauseButton.position.y-(pauseButton.contentSize.height/2), pauseButton.contentSize.width, pauseButton.contentSize.height);
+    
     int     bulletX   =  0;
     int     bulletY   = _hunter.position.y;
     CGPoint targetPosition = ccp(bulletX,bulletY);
     
     if (CGRectContainsPoint(rectHunt, touchLoc)) {
         //Do nothing
+    } else if (CGRectContainsPoint(rectPause, touchLoc))
+    {
+        if (pauseState == false)
+        {
+            for(CCSprite *sprite in [self children])
+            {
+                [[CCDirector sharedDirector] pause];
+            }
+            pauseState = true;
+        } else
+        {
+            for(CCSprite *sprite in [self children])
+            {
+                [[CCDirector sharedDirector] resume];
+            }
+            pauseState = false;
+        }
     } else {
-        _bullet = [CCSprite spriteWithImageNamed:@"bullet.png"];
-        _bullet.position  = ccp(365,bulletY);
-        _bullet.physicsBody = [CCPhysicsBody bodyWithRect:(CGRect){CGPointZero, _bullet.contentSize} cornerRadius:0];
-        _bullet.physicsBody.collisionGroup = @"bulletGroup";
-        _bullet.physicsBody.collisionType = @"bulletCollision";
-        [_physics addChild:_bullet];
-        [[OALSimpleAudio sharedInstance] playEffect:@"shotgun.caf"];
-        CCActionMoveTo *actionMove   = [CCActionMoveTo actionWithDuration:1.5f position:targetPosition];
-        CCActionRemove *actionRemove = [CCActionRemove action];
-        [_bullet runAction:[CCActionSequence actionWithArray:@[actionMove,actionRemove]]];
+        if (pauseState == false)
+        {
+            _bullet = [CCSprite spriteWithImageNamed:@"bullet.png"];
+            _bullet.position  = ccp(365,bulletY);
+            _bullet.physicsBody = [CCPhysicsBody bodyWithRect:(CGRect){CGPointZero, _bullet.contentSize} cornerRadius:0];
+            _bullet.physicsBody.collisionGroup = @"bulletGroup";
+            _bullet.physicsBody.collisionType = @"bulletCollision";
+            [_physics addChild:_bullet];
+            [[OALSimpleAudio sharedInstance] playEffect:@"shotgun.caf"];
+            CCActionMoveTo *actionMove   = [CCActionMoveTo actionWithDuration:1.5f position:targetPosition];
+            CCActionRemove *actionRemove = [CCActionRemove action];
+            [_bullet runAction:[CCActionSequence actionWithArray:@[actionMove,actionRemove]]];
+        }
     }
 }
 
@@ -289,21 +314,24 @@
 - (void)touchMoved:(UITouch *)touch withEvent:(UIEvent *)event {
     CGPoint touchLoc = [touch locationInNode:self];
     
-    //Hunter rect
-    CGRect rectHunt = CGRectMake(_hunter.position.x-(_hunter.contentSize.width/2), _hunter.position.y-(_hunter.contentSize.height/2), _hunter.contentSize.width, _hunter.contentSize.height);
-    
-    if (CGRectContainsPoint(rectHunt, touchLoc)) {
+    if (pauseState == false)
+        {
+        //Hunter rect
+        CGRect rectHunt = CGRectMake(_hunter.position.x-(_hunter.contentSize.width/2), _hunter.position.y-(_hunter.contentSize.height/2), _hunter.contentSize.width, _hunter.contentSize.height);
         
-        CGPoint touchLocation = [self convertToNodeSpace:touch.locationInWorld];
-        
-        CGPoint oldTouchLocation = [touch previousLocationInView:touch.view];
-        oldTouchLocation = [[CCDirector sharedDirector] convertToGL:oldTouchLocation];
-        oldTouchLocation = [self convertToNodeSpace:oldTouchLocation];
-        
-        CGPoint translation = ccpSub(touchLocation, oldTouchLocation);
-        [self panForTranslation:translation];
-    } else {
-        //Do nothing
+        if (CGRectContainsPoint(rectHunt, touchLoc)) {
+            
+            CGPoint touchLocation = [self convertToNodeSpace:touch.locationInWorld];
+            
+            CGPoint oldTouchLocation = [touch previousLocationInView:touch.view];
+            oldTouchLocation = [[CCDirector sharedDirector] convertToGL:oldTouchLocation];
+            oldTouchLocation = [self convertToNodeSpace:oldTouchLocation];
+            
+            CGPoint translation = ccpSub(touchLocation, oldTouchLocation);
+            [self panForTranslation:translation];
+        } else {
+            //Do nothing
+        }
     }
 }
 
