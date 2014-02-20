@@ -61,7 +61,7 @@
     [self schedule:@selector(checkForEnd:) interval:0.1];
     
     // Create a background
-    if (winSize.height == 1536)
+    /*if (winSize.height == 1536)
     {
         background = [CCSprite spriteWithImageNamed:@"swamp_background_rough_placeholder_large.png"];
         [background setScaleX:0.45f];
@@ -70,8 +70,9 @@
     {
         background = [CCSprite spriteWithImageNamed:@"swamp_background_rough_placeholder_large.png"];
         [background setScale:0.21f];
-    }
+    }*/
 
+    background = [CCSprite spriteWithImageNamed:@"swamp_background_rough_placeholder.png"];
     background.anchorPoint = CGPointMake(0, 0);
     [self addChild:background];
     

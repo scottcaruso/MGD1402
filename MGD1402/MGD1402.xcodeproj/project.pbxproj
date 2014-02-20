@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3002F61B18B523D900395453 /* swamp_background_rough_placeholder_large.png in Resources */ = {isa = PBXBuildFile; fileRef = 3002F61A18B523D900395453 /* swamp_background_rough_placeholder_large.png */; };
+		3002F61F18B5FE9000395453 /* swamp_background_rough_placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3002F61E18B5FE9000395453 /* swamp_background_rough_placeholder@2x.png */; };
 		30D45B0F18A0A71500E9C589 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30D45B0E18A0A71500E9C589 /* QuartzCore.framework */; };
 		30D45B1118A0A71500E9C589 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30D45B1018A0A71500E9C589 /* OpenGLES.framework */; };
 		30D45B1318A0A71500E9C589 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30D45B1218A0A71500E9C589 /* OpenAL.framework */; };
@@ -233,7 +233,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3002F61A18B523D900395453 /* swamp_background_rough_placeholder_large.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = swamp_background_rough_placeholder_large.png; sourceTree = "<group>"; };
+		3002F61E18B5FE9000395453 /* swamp_background_rough_placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "swamp_background_rough_placeholder@2x.png"; sourceTree = "<group>"; };
 		30D45B0B18A0A71500E9C589 /* MGD1402.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MGD1402.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		30D45B0E18A0A71500E9C589 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		30D45B1018A0A71500E9C589 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -741,7 +741,7 @@
 			isa = PBXGroup;
 			children = (
 				30D45DF018A3B67A00E9C589 /* swamp_background_rough_placeholder.png */,
-				3002F61A18B523D900395453 /* swamp_background_rough_placeholder_large.png */,
+				3002F61E18B5FE9000395453 /* swamp_background_rough_placeholder@2x.png */,
 				30D45DE418A2094300E9C589 /* bullet.png */,
 				30D45DE518A2094300E9C589 /* gator.png */,
 				30D45DE618A2094300E9C589 /* hunter.png */,
@@ -1661,10 +1661,10 @@
 				30D45DE918A2094300E9C589 /* hunter.png in Resources */,
 				30D45D2B18A0A71800E9C589 /* LICENSE_Kazmath.txt in Resources */,
 				30D45B3618A0A71600E9C589 /* Icon-72.png in Resources */,
+				3002F61F18B5FE9000395453 /* swamp_background_rough_placeholder@2x.png in Resources */,
 				30D45C8418A0A71700E9C589 /* LICENSE_cocos2d.txt in Resources */,
 				30D45B2D18A0A71500E9C589 /* Default-568h@2x.png in Resources */,
 				30D45B4D18A0A71600E9C589 /* iTunesArtwork in Resources */,
-				3002F61B18B523D900395453 /* swamp_background_rough_placeholder_large.png in Resources */,
 				30D45DE718A2094300E9C589 /* bullet.png in Resources */,
 				30D45B4818A0A71600E9C589 /* Icon-Spotlight-iOS7.png in Resources */,
 				30D45B3C18A0A71600E9C589 /* Icon-76@2x.png in Resources */,
