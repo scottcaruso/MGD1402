@@ -9,7 +9,6 @@
 
 #import "HelloWorldScene.h"
 #import "IntroScene.h"
-#import "NewtonScene.h"
 
 // -----------------------------------------------------------------------
 #pragma mark - HelloWorldScene
@@ -23,7 +22,9 @@
     CCSprite *background;
     CCSprite *physicsWallForShore;
     CCPhysicsNode *_physics;
+    CCAnimation *hitAnimation;
     NSMutableArray *arrayOfGatorSprites;
+    NSMutableArray *arrayOfHitFrames;
     int scoreInt;
     bool gameOver;
     CCLabelTTF *score;
@@ -60,17 +61,6 @@
     [self schedule:@selector(tick:) interval:1.0];
     [self schedule:@selector(checkForEnd:) interval:0.1];
     
-    // Create a background
-    /*if (winSize.height == 1536)
-    {
-        background = [CCSprite spriteWithImageNamed:@"swamp_background_rough_placeholder_large.png"];
-        [background setScaleX:0.45f];
-        [background setScaleY:0.5f];
-    } else
-    {
-        background = [CCSprite spriteWithImageNamed:@"swamp_background_rough_placeholder_large.png"];
-        [background setScale:0.21f];
-    }*/
 
     background = [CCSprite spriteWithImageNamed:@"swamp_background_rough_placeholder.png"];
     background.anchorPoint = CGPointMake(0, 0);
@@ -92,7 +82,28 @@
     }
     _hunter.position  = ccp(winSizeInPoints.width*.88,50);
     [self addChild:_hunter];
-
+    
+    // Create batch node for text animation
+    CCSpriteBatchNode *batchNode = [CCSpriteBatchNode batchNodeWithFile:@"hit_text_sheet_default.png"];
+    
+    // Add the batch node to parent
+    [self addChild:batchNode];
+    
+    // Load sprite frames, which are just a bunch of named rectangle
+    // definitions that go along with the image in a sprite sheet
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"hit_text_sheet_default.plist"];
+    
+    //Gather the list of frames for the hit animation
+    
+    arrayOfHitFrames = [[NSMutableArray alloc] init];
+    for (int x=0; x<=5; x++) {
+        [arrayOfHitFrames addObject:
+         [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:
+          [NSString stringWithFormat:@"hit%d.png",x]]];
+    }
+    
+    hitAnimation = [CCAnimation animationWithSpriteFrames:arrayOfHitFrames delay:0.1f];
+    
     // done
 	return self;
 }
@@ -240,6 +251,8 @@
 //  -----------------------------------------------------------------------
 
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair gatorCollision:(CCNode *)gator bulletCollision:(CCNode *)projectile {
+    CGPoint collisionPoint = projectile.positionInPoints;
+    [self onHitAnimation:collisionPoint];
     [[OALSimpleAudio sharedInstance] playEffect:@"alligator.wav"];
     [gator removeFromParent];
     [projectile removeFromParent];
@@ -294,6 +307,19 @@
     score.position = ccp(0.1f,0.95f);
     [self addChild:score];
 }
+
+//I couldn't for the life of me figure out how to do animations in V3 of Cocos. CCAnimation appears to no longer be supported - or at least is coming up as unrecognized when I try to use it. This is the best I could come up with.
+-(void)onHitAnimation:(CGPoint)location
+{
+    CCSprite *hit = [CCSprite spriteWithImageNamed:@"hit0.png"];
+    hit.position = ccp(location.x,location.y);
+    CCActionAnimate *animationAction = [CCActionAnimate actionWithAnimation:hitAnimation];
+    CCActionRemove *remove = [CCActionRemove action];
+    CCActionSequence *sequence = [CCActionSequence actionWithArray:@[animationAction,remove]];
+    [hit runAction:sequence];
+    [self addChild:hit];
+}
+
 
 // -----------------------------------------------------------------------
 #pragma mark - Button Callbacks
