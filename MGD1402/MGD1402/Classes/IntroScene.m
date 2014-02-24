@@ -43,21 +43,36 @@
     CCLabelTTF *label = [CCLabelTTF labelWithString:@"Gator Gallery" fontName:@"Chalkduster" fontSize:36.0f];
     label.positionType = CCPositionTypeNormalized;
     label.color = [CCColor redColor];
-    label.position = ccp(0.5f, 0.5f); // Middle of screen
+    label.position = ccp(0.5f, 0.65f); // Middle of screen
     [self addChild:label];
     
     // Play game button
     CCButton *playGame = [CCButton buttonWithTitle:@"[ Play Game ]" fontName:@"Verdana-Bold" fontSize:18.0f];
     playGame.positionType = CCPositionTypeNormalized;
-    playGame.position = ccp(0.5f, 0.35f);
+    playGame.position = ccp(0.5f, 0.45f);
     [playGame setTarget:self selector:@selector(onPlayClicked:)];
     [self addChild:playGame];
     
-    //Instructions
-    CCLabelTTF *instructions = [CCLabelTTF labelWithString:@"To Play: Drag hunter up and down shoreline to move. Tap anywhere else on screen to shoot." fontName:@"Verdana-Bold" fontSize:8.0f];
-    instructions.positionType = CCPositionTypeNormalized;
-    instructions.position = ccp(0.5f,0.25f);
-    [self addChild:instructions];
+    // High scores button
+    CCButton *highScores = [CCButton buttonWithTitle:@"[ High Scores ]" fontName:@"Verdana-Bold" fontSize:18.0f];
+    highScores.positionType = CCPositionTypeNormalized;
+    highScores.position = ccp(0.5f, 0.35f);
+    [highScores setTarget:self selector:@selector(onPlayClicked:)];
+    [self addChild:highScores];
+    
+    // Instructions button
+    CCButton *howToPlay = [CCButton buttonWithTitle:@"[ Instructions ]" fontName:@"Verdana-Bold" fontSize:18.0f];
+    howToPlay.positionType = CCPositionTypeNormalized;
+    howToPlay.position = ccp(0.5f, 0.25f);
+    [howToPlay setTarget:self selector:@selector(onPlayClicked:)];
+    [self addChild:howToPlay];
+    
+    // Credits button
+    CCButton *credits = [CCButton buttonWithTitle:@"[ Credits ]" fontName:@"Verdana-Bold" fontSize:18.0f];
+    credits.positionType = CCPositionTypeNormalized;
+    credits.position = ccp(0.5f, 0.15f);
+    [credits setTarget:self selector:@selector(onPlayClicked:)];
+    [self addChild:credits];
 	
     // done
 	return self;
