@@ -1,5 +1,5 @@
 //
-//  HelloWorldScene.h
+//  MainGameScen.h
 //  MGD1402
 //
 //  Created by Scott Caruso on 2/3/14.
@@ -17,11 +17,11 @@
 /**
  *  The main scene
  */
-@interface HelloWorldScene : CCScene <CCPhysicsCollisionDelegate>
+@interface MainGameScene : CCScene <CCPhysicsCollisionDelegate>
 
 // -----------------------------------------------------------------------
 
-+ (HelloWorldScene *)scene;
++ (MainGameScene *)scene;
 - (id)init;
 
 // -----------------------------------------------------------------------

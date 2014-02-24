@@ -1,5 +1,5 @@
 //
-//  HelloWorldScene.m
+//  MainGameScene.m
 //  MGD1402
 //
 //  Created by Scott Caruso on 2/3/14.
@@ -7,14 +7,14 @@
 //
 // -----------------------------------------------------------------------
 
-#import "HelloWorldScene.h"
+#import "MainGameScene.h"
 #import "IntroScene.h"
 
 // -----------------------------------------------------------------------
-#pragma mark - HelloWorldScene
+#pragma mark - MainGameScene
 // -----------------------------------------------------------------------
 
-@implementation HelloWorldScene
+@implementation MainGameScene
 {
     CCSprite *_hunter;
     CCSprite *_gator;
@@ -38,7 +38,7 @@
 #pragma mark - Create & Destroy
 // -----------------------------------------------------------------------
 
-+ (HelloWorldScene *)scene
++ (MainGameScene *)scene
 {
     return [[self alloc] init];
 }
@@ -364,7 +364,7 @@
 
 - (void)onBackClicked:(id)sender
 {
-    [[CCDirector sharedDirector] replaceScene:[HelloWorldScene scene]
+    [[CCDirector sharedDirector] replaceScene:[MainGameScene scene]
                                withTransition:[CCTransition transitionPushWithDirection:CCTransitionDirectionRight duration:1.0f]];
 }
 
