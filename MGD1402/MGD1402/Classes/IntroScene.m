@@ -57,7 +57,7 @@
     CCButton *highScores = [CCButton buttonWithTitle:@"[ High Scores ]" fontName:@"Verdana-Bold" fontSize:18.0f];
     highScores.positionType = CCPositionTypeNormalized;
     highScores.position = ccp(0.5f, 0.35f);
-    [highScores setTarget:self selector:@selector(onPlayClicked:)];
+    [highScores setTarget:self selector:@selector(onHighScoresClicked:)];
     [self addChild:highScores];
     
     // Instructions button
@@ -97,6 +97,12 @@
 - (void)onCreditsClicked:(id)sender
 {
     [[CCDirector sharedDirector] replaceScene:[CreditsScene scene]
+                               withTransition:[CCTransition transitionPushWithDirection:CCTransitionDirectionLeft duration:1.0f]];
+}
+
+- (void)onHighScoresClicked:(id)sender
+{
+    [[CCDirector sharedDirector] replaceScene:[HighScoresScene scene]
                                withTransition:[CCTransition transitionPushWithDirection:CCTransitionDirectionLeft duration:1.0f]];
 }
 

@@ -12,6 +12,7 @@
 #import "cocos2d-ui.h"
 #import "InstructionsScene.h"
 #import "CreditsScene.h"
+#import "HighScoresScene.h"
 
 // -----------------------------------------------------------------------
 
