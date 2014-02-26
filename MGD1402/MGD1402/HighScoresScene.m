@@ -17,6 +17,9 @@
 {
     NSString *placeholderName;
     NSString *placeholderScore;
+    
+    NSMutableArray *arrayOfHighScoreNames;
+    NSMutableArray *arrayOfHighScoreScores;
 }
 
 // -----------------------------------------------------------------------
@@ -33,6 +36,8 @@
     // Apple recommend assigning self with supers return value
     self = [super init];
     if (!self) return(nil);
+    
+    [self getHighScores];
 
     // Label - Title
     CCLabelTTF *label = [CCLabelTTF labelWithString:@"High Scores" fontName:@"Monaco" fontSize:25.0f];
@@ -42,7 +47,7 @@
     [self addChild:label];
     
     // Label - Line One
-    NSString *scoreStringOne = [[NSString alloc] initWithFormat:@"1. %@ -- %@",placeholderName,placeholderScore];
+    NSString *scoreStringOne = [[NSString alloc] initWithFormat:@"1. %@ -- %@",[arrayOfHighScoreNames objectAtIndex:0],[arrayOfHighScoreScores objectAtIndex:0]];
     CCLabelTTF *lineOne = [CCLabelTTF labelWithString:scoreStringOne fontName:@"Monaco" fontSize:10.0f];
     lineOne.positionType = CCPositionTypeNormalized;
     lineOne.color = [CCColor whiteColor];
@@ -50,7 +55,7 @@
     [self addChild:lineOne];
     
     // Label - Line Two
-    NSString *scoreStringTwo = [[NSString alloc] initWithFormat:@"2. %@ -- %@",placeholderName,placeholderScore];
+    NSString *scoreStringTwo = [[NSString alloc] initWithFormat:@"2. %@ -- %@",[arrayOfHighScoreNames objectAtIndex:1],[arrayOfHighScoreScores objectAtIndex:1]];
     CCLabelTTF *lineTwo = [CCLabelTTF labelWithString:scoreStringTwo fontName:@"Monaco" fontSize:10.0f];
     lineTwo.positionType = CCPositionTypeNormalized;
     lineTwo.color = [CCColor whiteColor];
@@ -58,7 +63,7 @@
     [self addChild:lineTwo];
     
     // Label - Line Three
-    NSString *scoreStringThree = [[NSString alloc] initWithFormat:@"3. %@ -- %@",placeholderName,placeholderScore];
+    NSString *scoreStringThree = [[NSString alloc] initWithFormat:@"3. %@ -- %@",[arrayOfHighScoreNames objectAtIndex:2],[arrayOfHighScoreScores objectAtIndex:2]];
     CCLabelTTF *lineThree = [CCLabelTTF labelWithString:scoreStringThree fontName:@"Monaco" fontSize:10.0f];
     lineThree.positionType = CCPositionTypeNormalized;
     lineThree.color = [CCColor whiteColor];
@@ -66,7 +71,7 @@
     [self addChild:lineThree];
     
     // Label - Line Four
-    NSString *scoreStringFour = [[NSString alloc] initWithFormat:@"4. %@ -- %@",placeholderName,placeholderScore];
+    NSString *scoreStringFour = [[NSString alloc] initWithFormat:@"4. %@ -- %@",[arrayOfHighScoreNames objectAtIndex:3],[arrayOfHighScoreScores objectAtIndex:3]];
     CCLabelTTF *lineFour = [CCLabelTTF labelWithString:scoreStringFour fontName:@"Monaco" fontSize:10.0f];
     lineFour.positionType = CCPositionTypeNormalized;
     lineFour.color = [CCColor whiteColor];
@@ -74,7 +79,7 @@
     [self addChild:lineFour];
     
     // Label - Line Five
-    NSString *scoreStringFive = [[NSString alloc] initWithFormat:@"5. %@ -- %@",placeholderName,placeholderScore];
+    NSString *scoreStringFive = [[NSString alloc] initWithFormat:@"5. %@ -- %@",[arrayOfHighScoreNames objectAtIndex:4],[arrayOfHighScoreScores objectAtIndex:4]];
     CCLabelTTF *lineFive = [CCLabelTTF labelWithString:scoreStringFive fontName:@"Monaco" fontSize:10.0f];
     lineFive.positionType = CCPositionTypeNormalized;
     lineFive.color = [CCColor whiteColor];
@@ -89,6 +94,31 @@
     [self addChild:mainMenu];
     
     return self;
+}
+
+-(void)getHighScores
+{
+    arrayOfHighScoreNames = [[NSMutableArray alloc] init];
+    arrayOfHighScoreScores = [[NSMutableArray alloc] init];
+    NSUserDefaults *highScores = [NSUserDefaults standardUserDefaults];
+    if ([highScores objectForKey:@"Name"] == nil)
+    {
+        [arrayOfHighScoreNames addObject:@"Scott"];
+        [arrayOfHighScoreNames addObject:@"Doge"];
+        [arrayOfHighScoreNames addObject:@"Kelly"];
+        [arrayOfHighScoreNames addObject:@"Ben"];
+        [arrayOfHighScoreNames addObject:@"Jess"];
+        
+        [arrayOfHighScoreScores addObject:@"50"];
+        [arrayOfHighScoreScores addObject:@"40"];
+        [arrayOfHighScoreScores addObject:@"30"];
+        [arrayOfHighScoreScores addObject:@"20"];
+        [arrayOfHighScoreScores addObject:@"10"];
+    } else
+    {
+        arrayOfHighScoreNames = [highScores objectForKey:@"Names"];
+        arrayOfHighScoreScores = [highScores objectForKey:@"Scores"];
+    }
 }
 
 - (void)onReturnClicked:(id)sender

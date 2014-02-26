@@ -15,5 +15,6 @@
 
 + (HighScoresScene *)scene;
 - (id)init;
+-(void)getHighScores;
 
 @end

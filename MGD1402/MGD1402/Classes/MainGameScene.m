@@ -32,6 +32,9 @@
     CCLabelTTF *score;
     CGSize winSize;
     CGSize winSizeInPoints;
+    
+    NSMutableArray *arrayOfHighScoreNames;
+    NSMutableArray *arrayOfHighScoreScores;
 }
 
 // -----------------------------------------------------------------------
@@ -344,7 +347,6 @@
     [self addChild:score];
 }
 
-//I couldn't for the life of me figure out how to do animations in V3 of Cocos. CCAnimation appears to no longer be supported - or at least is coming up as unrecognized when I try to use it. This is the best I could come up with.
 -(void)onHitAnimation:(CGPoint)location
 {
     CCSprite *hit = [CCSprite spriteWithImageNamed:@"hit0.png"];
@@ -354,6 +356,32 @@
     CCActionSequence *sequence = [CCActionSequence actionWithArray:@[animationAction,remove]];
     [hit runAction:sequence];
     [self addChild:hit];
+}
+
+//Retrieve list of High Scores
+-(void)getHighScores
+{
+    arrayOfHighScoreNames = [[NSMutableArray alloc] init];
+    arrayOfHighScoreScores = [[NSMutableArray alloc] init];
+    NSUserDefaults *highScores = [NSUserDefaults standardUserDefaults];
+    if (highScores == nil)
+    {
+        [arrayOfHighScoreNames addObject:@"Scott"];
+        [arrayOfHighScoreNames addObject:@"Doge"];
+        [arrayOfHighScoreNames addObject:@"Kelly"];
+        [arrayOfHighScoreNames addObject:@"Ben"];
+        [arrayOfHighScoreNames addObject:@"Jess"];
+        
+        [arrayOfHighScoreScores addObject:@"50"];
+        [arrayOfHighScoreScores addObject:@"40"];
+        [arrayOfHighScoreScores addObject:@"30"];
+        [arrayOfHighScoreScores addObject:@"20"];
+        [arrayOfHighScoreScores addObject:@"10"];
+    } else
+    {
+        arrayOfHighScoreNames = [highScores objectForKey:@"Names"];
+        arrayOfHighScoreScores = [highScores objectForKey:@"Scores"];
+    }
 }
 
 
