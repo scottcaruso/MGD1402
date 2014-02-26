@@ -219,7 +219,6 @@
 		30D45DE918A2094300E9C589 /* hunter.png in Resources */ = {isa = PBXBuildFile; fileRef = 30D45DE618A2094300E9C589 /* hunter.png */; };
 		30D45DED18A21D3C00E9C589 /* swamp.caf in Resources */ = {isa = PBXBuildFile; fileRef = 30D45DEC18A21D3C00E9C589 /* swamp.caf */; };
 		30D45DEF18A347F800E9C589 /* shotgun.caf in Resources */ = {isa = PBXBuildFile; fileRef = 30D45DEE18A347F800E9C589 /* shotgun.caf */; };
-		30D45DF618A3C93900E9C589 /* alligator.wav in Resources */ = {isa = PBXBuildFile; fileRef = 30D45DF518A3C93900E9C589 /* alligator.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -671,7 +670,6 @@
 		30D45DE618A2094300E9C589 /* hunter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hunter.png; sourceTree = "<group>"; };
 		30D45DEC18A21D3C00E9C589 /* swamp.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = swamp.caf; sourceTree = "<group>"; };
 		30D45DEE18A347F800E9C589 /* shotgun.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = shotgun.caf; sourceTree = "<group>"; };
-		30D45DF518A3C93900E9C589 /* alligator.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = alligator.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -755,7 +753,6 @@
 				30D45DE418A2094300E9C589 /* bullet.png */,
 				30D45DE518A2094300E9C589 /* gator.png */,
 				30D45DE618A2094300E9C589 /* hunter.png */,
-				30D45DF518A3C93900E9C589 /* alligator.wav */,
 				30D45DEC18A21D3C00E9C589 /* swamp.caf */,
 				30D45DEE18A347F800E9C589 /* shotgun.caf */,
 				30D45B4B18A0A71600E9C589 /* Info.plist */,
@@ -1649,7 +1646,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				30D45D4218A0A71800E9C589 /* LICENSE_CCBReader.txt in Resources */,
-				30D45DF618A3C93900E9C589 /* alligator.wav in Resources */,
 				30D45DED18A21D3C00E9C589 /* swamp.caf in Resources */,
 				30A33FDF18BD8DCE008C7177 /* Icon-120.png in Resources */,
 				30D45DEF18A347F800E9C589 /* shotgun.caf in Resources */,

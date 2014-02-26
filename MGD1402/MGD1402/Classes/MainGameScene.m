@@ -76,7 +76,7 @@
     
     _physics = [CCPhysicsNode node];
     _physics.gravity = ccp(0,0);
-    _physics.debugDraw = YES;
+    _physics.debugDraw = NO; //Set to yes to see bounding boxes on objects
     _physics.collisionDelegate = self;
     [self addChild:_physics];
     
@@ -287,7 +287,6 @@
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair gatorCollision:(CCNode *)gator bulletCollision:(CCNode *)projectile {
     CGPoint collisionPoint = projectile.positionInPoints;
     [self onHitAnimation:collisionPoint];
-    [[OALSimpleAudio sharedInstance] playEffect:@"alligator.wav"];
     [gator removeFromParent];
     [projectile removeFromParent];
     scoreInt++;
