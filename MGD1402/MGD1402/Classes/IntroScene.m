@@ -43,7 +43,7 @@
     CCLabelTTF *label = [CCLabelTTF labelWithString:@"Gator Gallery" fontName:@"Chalkduster" fontSize:36.0f];
     label.positionType = CCPositionTypeNormalized;
     label.color = [CCColor redColor];
-    label.position = ccp(0.5f, 0.65f); // Middle of screen
+    label.position = ccp(0.5f, 0.85f); // Middle of screen
     [self addChild:label];
     
     // Play game button
@@ -64,7 +64,7 @@
     CCButton *howToPlay = [CCButton buttonWithTitle:@"[ Instructions ]" fontName:@"Verdana-Bold" fontSize:18.0f];
     howToPlay.positionType = CCPositionTypeNormalized;
     howToPlay.position = ccp(0.5f, 0.25f);
-    [howToPlay setTarget:self selector:@selector(onPlayClicked:)];
+    [howToPlay setTarget:self selector:@selector(onInstructionsClicked:)];
     [self addChild:howToPlay];
     
     // Credits button
@@ -84,8 +84,13 @@
 
 - (void)onPlayClicked:(id)sender
 {
-    // start spinning scene with transition
     [[CCDirector sharedDirector] replaceScene:[MainGameScene scene]
+                               withTransition:[CCTransition transitionPushWithDirection:CCTransitionDirectionLeft duration:1.0f]];
+}
+
+- (void)onInstructionsClicked:(id)sender
+{
+    [[CCDirector sharedDirector] replaceScene:[InstructionsScene scene]
                                withTransition:[CCTransition transitionPushWithDirection:CCTransitionDirectionLeft duration:1.0f]];
 }
 

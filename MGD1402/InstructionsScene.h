@@ -8,9 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
+#import "cocos2d-ui.h"
+#import "IntroScene.h"
 
-@interface InstructionsScene : CCScene {
-    
-}
+@interface InstructionsScene : CCScene
+
++ (InstructionsScene *)scene;
+- (id)init;
 
 @end
