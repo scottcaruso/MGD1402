@@ -8,9 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
+#import "IntroScene.h"
 
-@interface CreditsScene : CCScene {
+@interface CreditsScene : CCScene
     
-}
++ (CreditsScene *)scene;
+- (id)init;
 
 @end

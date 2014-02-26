@@ -71,7 +71,7 @@
     CCButton *credits = [CCButton buttonWithTitle:@"[ Credits ]" fontName:@"Verdana-Bold" fontSize:18.0f];
     credits.positionType = CCPositionTypeNormalized;
     credits.position = ccp(0.5f, 0.15f);
-    [credits setTarget:self selector:@selector(onPlayClicked:)];
+    [credits setTarget:self selector:@selector(onCreditsClicked:)];
     [self addChild:credits];
 	
     // done
@@ -91,6 +91,12 @@
 - (void)onInstructionsClicked:(id)sender
 {
     [[CCDirector sharedDirector] replaceScene:[InstructionsScene scene]
+                               withTransition:[CCTransition transitionPushWithDirection:CCTransitionDirectionLeft duration:1.0f]];
+}
+
+- (void)onCreditsClicked:(id)sender
+{
+    [[CCDirector sharedDirector] replaceScene:[CreditsScene scene]
                                withTransition:[CCTransition transitionPushWithDirection:CCTransitionDirectionLeft duration:1.0f]];
 }
 
