@@ -138,8 +138,8 @@
         [_gator setScale:2.25f];
     }
     // Determine where to spawn the monster along the Y axis
-    int minY = _gator.contentSize.height + 205;
-    int maxY = winSize.height - 150;
+    int minY = _gator.contentSize.height + 250;
+    int maxY = winSize.height;
     int rangeY = maxY - minY;
     int actualY = (arc4random() % rangeY);
     _gator.position  = ccp(-50,actualY);
