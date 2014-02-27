@@ -17,12 +17,14 @@
 /**
  *  The main scene
  */
-@interface MainGameScene : CCScene <CCPhysicsCollisionDelegate>
+@interface MainGameScene : CCScene <CCPhysicsCollisionDelegate,UIAlertViewDelegate>
 
 // -----------------------------------------------------------------------
 
 + (MainGameScene *)scene;
 - (id)init;
+- (void)getHighScores;
+- (void)updateHighScores:(int)newScore;
 
 // -----------------------------------------------------------------------
 @end

@@ -59,6 +59,7 @@
     arrayOfGatorSprites = [[NSMutableArray alloc] init];
     gameOver = false;
     pauseState = false;
+    [self getHighScores];
     
     // Enable touch handling on scene node
     self.userInteractionEnabled = YES;
@@ -172,6 +173,7 @@
         [self goGators];
     } else {
         // Reset button
+        [self unschedule:@selector(tick:)];
         CCButton *reset = [CCButton buttonWithTitle:@"Reset" fontName:@"Verdana-Bold" fontSize:18.0f];
         reset.positionType = CCPositionTypeNormalized;
         reset.position = ccp(0.85f,0.95f);
@@ -187,7 +189,9 @@
         for (CCSprite *thisGator in arrayOfGatorSprites)
         {
             if(thisGator.position.x > winSizeInPoints.width*.8f) {
+                [self unschedule:@selector(checkForEnd:)];
                 gameOver = true;
+                [self updateHighScores:scoreInt];
                 for (CCSprite *thisGator in arrayOfGatorSprites)
                 {
                     if(thisGator.position.x > 0)
@@ -201,11 +205,6 @@
 }
 
 // -----------------------------------------------------------------------
-
-- (void)dealloc
-{
-    // clean up code goes here
-}
 
 // -----------------------------------------------------------------------
 #pragma mark - Enter & Exit
@@ -364,7 +363,7 @@
     arrayOfHighScoreNames = [[NSMutableArray alloc] init];
     arrayOfHighScoreScores = [[NSMutableArray alloc] init];
     NSUserDefaults *highScores = [NSUserDefaults standardUserDefaults];
-    if (highScores == nil)
+    if ([highScores objectForKey:@"Names"] == nil)
     {
         [arrayOfHighScoreNames addObject:@"Scott"];
         [arrayOfHighScoreNames addObject:@"Doge"];
@@ -381,6 +380,54 @@
     {
         arrayOfHighScoreNames = [highScores objectForKey:@"Names"];
         arrayOfHighScoreScores = [highScores objectForKey:@"Scores"];
+    }
+}
+
+//Check if the new score is a high score, then update accordingly.
+-(void)updateHighScores:(int)newScore
+{
+    for (int x = [arrayOfHighScoreNames count]; x >= 1; x--)
+    {
+        NSString *thisScoreValue = [arrayOfHighScoreScores objectAtIndex:x-1];
+        int thisScore = [thisScoreValue intValue];
+        if (newScore > thisScore)
+        {
+            //Check again
+        } else
+        {
+            if (x == [arrayOfHighScoreNames count])
+            {
+                break;
+            } else
+            {
+                UIAlertView *newHighScore = [[UIAlertView alloc] initWithTitle:@"High Score!" message:nil delegate:self cancelButtonTitle:@"Done" otherButtonTitles:nil];
+                newHighScore.alertViewStyle = UIAlertViewStylePlainTextInput;
+                [[newHighScore textFieldAtIndex:0] setPlaceholder:@"Enter a name!"];
+                newHighScore.tag = x;
+                [newHighScore show];
+                break;
+            }
+        }
+    }
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0)
+    {
+        NSString *userName = [[alertView textFieldAtIndex:0] text];
+        NSString *newScore = [[NSString alloc] initWithFormat:@"%d",scoreInt];
+        int whereToInsert = alertView.tag;
+        [arrayOfHighScoreNames insertObject:userName atIndex:whereToInsert];
+        [arrayOfHighScoreScores insertObject:newScore atIndex:whereToInsert];
+        [arrayOfHighScoreNames removeLastObject];
+        [arrayOfHighScoreScores removeLastObject];
+        NSUserDefaults *highScores = [NSUserDefaults standardUserDefaults];
+        [highScores setObject:arrayOfHighScoreNames forKey:@"Names"];
+        [highScores setObject:arrayOfHighScoreScores forKey:@"Scores"];
+        [highScores synchronize];
+        [[CCDirector sharedDirector] replaceScene:[IntroScene scene]
+                                   withTransition:[CCTransition transitionPushWithDirection:CCTransitionDirectionRight duration:1.0f]];
     }
 }
 

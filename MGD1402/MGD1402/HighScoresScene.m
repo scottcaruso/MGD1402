@@ -101,7 +101,7 @@
     arrayOfHighScoreNames = [[NSMutableArray alloc] init];
     arrayOfHighScoreScores = [[NSMutableArray alloc] init];
     NSUserDefaults *highScores = [NSUserDefaults standardUserDefaults];
-    if ([highScores objectForKey:@"Name"] == nil)
+    if ([highScores objectForKey:@"Names"] == nil)
     {
         [arrayOfHighScoreNames addObject:@"Scott"];
         [arrayOfHighScoreNames addObject:@"Doge"];
