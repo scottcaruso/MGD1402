@@ -29,46 +29,52 @@
     // Apple recommend assigning self with supers return value
     self = [super init];
     if (!self) return(nil);
+    
+    //Background
+    CCSprite *background = [CCSprite spriteWithImageNamed:@"menu_background-568h@2x.png"];
+    background.positionType = CCPositionTypeNormalized;
+    background.position = ccp(0.5f,0.5f);
+    [self addChild:background];
  
     // Label - Title
     CCLabelTTF *label = [CCLabelTTF labelWithString:@"Instructions" fontName:@"Monaco" fontSize:25.0f];
     label.positionType = CCPositionTypeNormalized;
-    label.color = [CCColor whiteColor];
+    label.color = [CCColor blackColor];
     label.position = ccp(0.5f, 0.95f);
     [self addChild:label];
     
     // Label - Instructions line one
     CCLabelTTF *lineOne = [CCLabelTTF labelWithString:@"Gators will come from the left side of the screen at varying speeds and in varying positions." fontName:@"Monaco" fontSize:10.0f];
     lineOne.positionType = CCPositionTypeNormalized;
-    lineOne.color = [CCColor whiteColor];
+    lineOne.color = [CCColor blackColor];
     lineOne.position = ccp(0.5f, 0.7f);
     [self addChild:lineOne];
     
     // Label - Instructions line two
     CCLabelTTF *lineTwo = [CCLabelTTF labelWithString:@"Drag the hunter up and down the shoreline to position him for a shot." fontName:@"Monaco" fontSize:10.0f];
     lineTwo.positionType = CCPositionTypeNormalized;
-    lineTwo.color = [CCColor whiteColor];
+    lineTwo.color = [CCColor blackColor];
     lineTwo.position = ccp(0.5f, 0.6f);
     [self addChild:lineTwo];
     
     // Label - Instructions line three
     CCLabelTTF *lineThree = [CCLabelTTF labelWithString:@"Tap anywhere else on the screen to fire a bullet." fontName:@"Monaco" fontSize:10.0f];
     lineThree.positionType = CCPositionTypeNormalized;
-    lineThree.color = [CCColor whiteColor];
+    lineThree.color = [CCColor blackColor];
     lineThree.position = ccp(0.5f, 0.5f);
     [self addChild:lineThree];
     
     // Label - Instructions line four
     CCLabelTTF *lineFour = [CCLabelTTF labelWithString:@"Tap the pause button to pause the game. Tap it again to unpause." fontName:@"Monaco" fontSize:10.0f];
     lineFour.positionType = CCPositionTypeNormalized;
-    lineFour.color = [CCColor whiteColor];
+    lineFour.color = [CCColor blackColor];
     lineFour.position = ccp(0.5f, 0.4f);
     [self addChild:lineFour];
     
     // Label - Instructions line five
     CCLabelTTF *lineFive = [CCLabelTTF labelWithString:@"Try to get on the high scores list!" fontName:@"Monaco" fontSize:10.0f];
     lineFive.positionType = CCPositionTypeNormalized;
-    lineFive.color = [CCColor whiteColor];
+    lineFive.color = [CCColor blackColor];
     lineFive.position = ccp(0.5f, 0.3f);
     [self addChild:lineFive];
     

@@ -35,8 +35,10 @@
     self = [super init];
     if (!self) return(nil);
     
-    // Create a colored background (Dark Grey)
-    CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:1.0f]];
+    //Background
+    CCSprite *background = [CCSprite spriteWithImageNamed:@"menu_background-568h@2x.png"];
+    background.positionType = CCPositionTypeNormalized;
+    background.position = ccp(0.5f,0.5f);
     [self addChild:background];
     
     // Label
@@ -48,6 +50,7 @@
     
     // Play game button
     CCButton *playGame = [CCButton buttonWithTitle:@"[ Play Game ]" fontName:@"Verdana-Bold" fontSize:18.0f];
+    playGame.color = [CCColor blackColor];
     playGame.positionType = CCPositionTypeNormalized;
     playGame.position = ccp(0.5f, 0.45f);
     [playGame setTarget:self selector:@selector(onPlayClicked:)];
@@ -55,6 +58,7 @@
     
     // High scores button
     CCButton *highScores = [CCButton buttonWithTitle:@"[ High Scores ]" fontName:@"Verdana-Bold" fontSize:18.0f];
+    highScores.color = [CCColor blackColor];
     highScores.positionType = CCPositionTypeNormalized;
     highScores.position = ccp(0.5f, 0.35f);
     [highScores setTarget:self selector:@selector(onHighScoresClicked:)];
@@ -62,6 +66,7 @@
     
     // Instructions button
     CCButton *howToPlay = [CCButton buttonWithTitle:@"[ Instructions ]" fontName:@"Verdana-Bold" fontSize:18.0f];
+    howToPlay.color = [CCColor blackColor];
     howToPlay.positionType = CCPositionTypeNormalized;
     howToPlay.position = ccp(0.5f, 0.25f);
     [howToPlay setTarget:self selector:@selector(onInstructionsClicked:)];
@@ -69,6 +74,7 @@
     
     // Credits button
     CCButton *credits = [CCButton buttonWithTitle:@"[ Credits ]" fontName:@"Verdana-Bold" fontSize:18.0f];
+    credits.color = [CCColor blackColor];
     credits.positionType = CCPositionTypeNormalized;
     credits.position = ccp(0.5f, 0.15f);
     [credits setTarget:self selector:@selector(onCreditsClicked:)];
