@@ -69,8 +69,13 @@
     [self schedule:@selector(checkForEnd:) interval:0.1];
     
     //This is a mess right now. For some reason, the app isn't recongizing the image sizes in iPhone mode. I have no idea why. I've had to programatically scale it for now. I've tried dozens of different images and scalings. I will investigate more for final.
-    background = [CCSprite spriteWithImageNamed:@"swamp_background.png"];
-    background.scale = 0.28f;
+    if (winSize.height == 1536)
+    {
+        background = [CCSprite spriteWithImageNamed:@"swamp_background@2x~iPad.png"];
+    } else
+    {
+        background = [CCSprite spriteWithImageNamed:@"swamp_background-568h@2x.png"];
+    }
     background.positionType = CCPositionTypeNormalized;
     background.position = ccp(0.5f,0.5f);
     [self addChild:background];
@@ -84,11 +89,9 @@
     _physics.collisionDelegate = self;
     [self addChild:_physics];
     
-    //THIS IS A HACK - FOR FINAL, USE A REAL, PROPERLY-SCALED HUNTER IMAGE
     _hunter = [CCSprite spriteWithImageNamed:@"hunter.png"];
     if (winSize.height == 1536)
     {
-        [background setScale:0.52f];
         [_hunter setScale:2.25f];
     }
     _hunter.position  = ccp(winSizeInPoints.width*.88,50);
@@ -135,8 +138,8 @@
         [_gator setScale:2.25f];
     }
     // Determine where to spawn the monster along the Y axis
-    int minY = _gator.contentSize.height + 175;
-    int maxY = winSize.height - 100;
+    int minY = _gator.contentSize.height + 205;
+    int maxY = winSize.height - 150;
     int rangeY = maxY - minY;
     int actualY = (arc4random() % rangeY);
     _gator.position  = ccp(-50,actualY);
