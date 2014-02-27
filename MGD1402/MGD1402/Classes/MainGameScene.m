@@ -33,6 +33,7 @@
     CGSize winSize;
     CGSize winSizeInPoints;
     
+    //These arrays hold the saved high score data.
     NSMutableArray *arrayOfHighScoreNames;
     NSMutableArray *arrayOfHighScoreScores;
 }
@@ -48,27 +49,32 @@
 
 - (id)init
 {
-    // Apple recommend assigning self with supers return value
     self = [super init];
     if (!self) return(nil);
     
+    //Initialize some screen-wide variables.
     winSize = [[CCDirector sharedDirector] viewSizeInPixels];
     winSizeInPoints = [[CCDirector sharedDirector] viewSize];
-    
-    scoreInt = 0;
     arrayOfGatorSprites = [[NSMutableArray alloc] init];
+    
+    scoreInt = 0; //Set default score
     gameOver = false;
     pauseState = false;
+    
+    //Fetch the highscores for post-match.
     [self getHighScores];
     
     // Enable touch handling on scene node
     self.userInteractionEnabled = YES;
+    
+    //Enable background sound effect
     [[OALSimpleAudio sharedInstance] playBg:@"swamp.caf" loop:YES];
     
+    //Schedule timer checks.
     [self schedule:@selector(tick:) interval:1.0];
     [self schedule:@selector(checkForEnd:) interval:0.1];
     
-    //This is a mess right now. For some reason, the app isn't recongizing the image sizes in iPhone mode. I have no idea why. I've had to programatically scale it for now. I've tried dozens of different images and scalings. I will investigate more for final.
+    //Select the correct background image
     if (winSize.height == 1536)
     {
         background = [CCSprite spriteWithImageNamed:@"swamp_background@2x~iPad.png"];
@@ -101,25 +107,18 @@
     pauseButton.position = ccp(winSizeInPoints.width*.27,winSizeInPoints.height*.92);
     [self addChild:pauseButton];
     
-    // Create batch node for text animation
+    //Load the spritesheet for the hit animation.
     CCSpriteBatchNode *batchNode = [CCSpriteBatchNode batchNodeWithFile:@"hit_text_sheet_default.png"];
-    
-    // Add the batch node to parent
     [self addChild:batchNode];
-    
-    // Load sprite frames, which are just a bunch of named rectangle
-    // definitions that go along with the image in a sprite sheet
     [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"hit_text_sheet_default.plist"];
     
     //Gather the list of frames for the hit animation
-    
     arrayOfHitFrames = [[NSMutableArray alloc] init];
     for (int x=0; x<=5; x++) {
         [arrayOfHitFrames addObject:
          [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:
           [NSString stringWithFormat:@"hit%d.png",x]]];
     }
-    
     hitAnimation = [CCAnimation animationWithSpriteFrames:arrayOfHitFrames delay:0.1f];
     
     // done
@@ -180,6 +179,7 @@
     }
 }
 
+//Check if the game ending conditions have been met.
 -(void)checkForEnd:(CCTime)dt
 {
     if (arrayOfGatorSprites.count > 0)
@@ -187,9 +187,12 @@
         for (CCSprite *thisGator in arrayOfGatorSprites)
         {
             if(thisGator.position.x > winSizeInPoints.width*.8f) {
+                //Stop the timers
                 [self unschedule:@selector(checkForEnd:)];
                 [self unschedule:@selector(tick:)];
+                //Set the game over variable
                 gameOver = true;
+                //Check to see if the score is a high score
                 [self updateHighScores:scoreInt];
                 for (CCSprite *thisGator in arrayOfGatorSprites)
                 {
@@ -203,7 +206,6 @@
     }
 }
 
-// -----------------------------------------------------------------------
 
 // -----------------------------------------------------------------------
 #pragma mark - Enter & Exit
@@ -211,20 +213,13 @@
 
 - (void)onEnter
 {
-    // always call super onEnter first
     [super onEnter];
-    
-    // In pre-v3, touch enable and scheduleUpdate was called here
-    // In v3, touch is enabled by setting userInterActionEnabled for the individual nodes
-    // Pr frame update is automatically enabled, if update is overridden
-    
 }
 
 // -----------------------------------------------------------------------
 
 - (void)onExit
 {
-    // always call super onExit last
     [super onExit];
 }
 
@@ -362,6 +357,7 @@
     arrayOfHighScoreNames = [[NSMutableArray alloc] init];
     arrayOfHighScoreScores = [[NSMutableArray alloc] init];
     NSUserDefaults *highScores = [NSUserDefaults standardUserDefaults];
+    //If no high scores exist, populate with dummy data, otherwise, retrieve them.
     if ([highScores objectForKey:@"Names"] == nil)
     {
         [arrayOfHighScoreNames addObject:@"Scott"];
@@ -387,6 +383,7 @@
 {
     for (int x = [arrayOfHighScoreNames count]; x >= 1; x--)
     {
+        //Compare the current score to each high score in the list.
         NSString *thisScoreValue = [arrayOfHighScoreScores objectAtIndex:x-1];
         int thisScore = [thisScoreValue intValue];
         if (newScore > thisScore)
@@ -394,6 +391,7 @@
             //Check again
         } else
         {
+            //If wee're on the first check, no high score was reached. Therefore, we kill it.
             if (x == [arrayOfHighScoreNames count])
             {
                 UIAlertView *noHighScore = [[UIAlertView alloc] initWithTitle:@"Too Bad!" message:@"You did not make the high score list. Better luck next time!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -404,7 +402,7 @@
                 UIAlertView *newHighScore = [[UIAlertView alloc] initWithTitle:@"High Score!" message:nil delegate:self cancelButtonTitle:@"Done" otherButtonTitles:nil];
                 newHighScore.alertViewStyle = UIAlertViewStylePlainTextInput;
                 [[newHighScore textFieldAtIndex:0] setPlaceholder:@"Enter a name!"];
-                newHighScore.tag = x;
+                newHighScore.tag = x; //This tag tells the alertView function where to insert the new high score.
                 [newHighScore show];
                 break;
             }
@@ -428,6 +426,7 @@
         [highScores setObject:arrayOfHighScoreScores forKey:@"Scores"];
         [highScores synchronize];
     }
+    //Return to main menu, regardless of which pop-up you get.
         [[CCDirector sharedDirector] replaceScene:[IntroScene scene]
                                    withTransition:[CCTransition transitionPushWithDirection:CCTransitionDirectionRight duration:1.0f]];
 }
