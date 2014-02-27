@@ -40,7 +40,7 @@
     [self addChild:background];
     
     // Label
-    CCLabelTTF *label = [CCLabelTTF labelWithString:@"Gator Gallery" fontName:@"Chalkduster" fontSize:36.0f];
+    CCLabelTTF *label = [CCLabelTTF labelWithString:@"Gator Gallery" fontName:@"Optima" fontSize:36.0f];
     label.positionType = CCPositionTypeNormalized;
     label.color = [CCColor redColor];
     label.position = ccp(0.5f, 0.85f); // Middle of screen
