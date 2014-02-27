@@ -37,8 +37,17 @@
     self = [super init];
     if (!self) return(nil);
     
+    CGSize winSize = [[CCDirector sharedDirector] viewSizeInPixels];
+    
     //Background
-    CCSprite *background = [CCSprite spriteWithImageNamed:@"menu_background-568h@2x.png"];
+    CCSprite *background;
+    if (winSize.height == 1536)
+    {
+        background = [CCSprite spriteWithImageNamed:@"menu_background@2x~iPad.png"];
+    } else
+    {
+        background = [CCSprite spriteWithImageNamed:@"menu_background-568h@2x.png"];
+    }
     background.positionType = CCPositionTypeNormalized;
     background.position = ccp(0.5f,0.5f);
     [self addChild:background];

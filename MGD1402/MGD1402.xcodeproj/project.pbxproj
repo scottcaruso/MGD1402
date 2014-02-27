@@ -26,8 +26,8 @@
 		30A33FE518BD8E53008C7177 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30A33FE218BD8E53008C7177 /* Icon-Small@2x.png */; };
 		30A33FE618BD8E53008C7177 /* Icon-Spotlight-iOS7.png in Resources */ = {isa = PBXBuildFile; fileRef = 30A33FE318BD8E53008C7177 /* Icon-Spotlight-iOS7.png */; };
 		30A33FEC18BD8F7C008C7177 /* LaunchDefault@2x~iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 30A33FEB18BD8F7C008C7177 /* LaunchDefault@2x~iPad.png */; };
-		30A33FEF18BF4B21008C7177 /* menu_background-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30A33FED18BF4B21008C7177 /* menu_background-568h@2x.png */; };
 		30A33FF018BF4B21008C7177 /* menu_background@2x~iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 30A33FEE18BF4B21008C7177 /* menu_background@2x~iPad.png */; };
+		30A33FF218BF4FCE008C7177 /* menu_background-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30A33FF118BF4FCE008C7177 /* menu_background-568h@2x.png */; };
 		30D45B0F18A0A71500E9C589 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30D45B0E18A0A71500E9C589 /* QuartzCore.framework */; };
 		30D45B1118A0A71500E9C589 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30D45B1018A0A71500E9C589 /* OpenGLES.framework */; };
 		30D45B1318A0A71500E9C589 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30D45B1218A0A71500E9C589 /* OpenAL.framework */; };
@@ -256,8 +256,8 @@
 		30A33FE218BD8E53008C7177 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
 		30A33FE318BD8E53008C7177 /* Icon-Spotlight-iOS7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Spotlight-iOS7.png"; sourceTree = "<group>"; };
 		30A33FEB18BD8F7C008C7177 /* LaunchDefault@2x~iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LaunchDefault@2x~iPad.png"; sourceTree = "<group>"; };
-		30A33FED18BF4B21008C7177 /* menu_background-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu_background-568h@2x.png"; sourceTree = "<group>"; };
 		30A33FEE18BF4B21008C7177 /* menu_background@2x~iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu_background@2x~iPad.png"; sourceTree = "<group>"; };
+		30A33FF118BF4FCE008C7177 /* menu_background-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu_background-568h@2x.png"; sourceTree = "<group>"; };
 		30D45B0B18A0A71500E9C589 /* MGD1402.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MGD1402.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		30D45B0E18A0A71500E9C589 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		30D45B1018A0A71500E9C589 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -745,7 +745,7 @@
 		30D45B2718A0A71500E9C589 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				30A33FED18BF4B21008C7177 /* menu_background-568h@2x.png */,
+				30A33FF118BF4FCE008C7177 /* menu_background-568h@2x.png */,
 				30A33FEE18BF4B21008C7177 /* menu_background@2x~iPad.png */,
 				30A33FD718BD8DB3008C7177 /* Default@2x.png */,
 				30A33FD518BD8DA8008C7177 /* Default-568h@2x.png */,
@@ -1655,7 +1655,6 @@
 				30D45DED18A21D3C00E9C589 /* swamp.caf in Resources */,
 				30A33FDF18BD8DCE008C7177 /* Icon-120.png in Resources */,
 				30D45DEF18A347F800E9C589 /* shotgun.caf in Resources */,
-				30A33FEF18BF4B21008C7177 /* menu_background-568h@2x.png in Resources */,
 				30A33FEC18BD8F7C008C7177 /* LaunchDefault@2x~iPad.png in Resources */,
 				30A33FDD18BD8DCE008C7177 /* Icon-76.png in Resources */,
 				30D45DE918A2094300E9C589 /* hunter.png in Resources */,
@@ -1680,6 +1679,7 @@
 				30A33FD318BD8D9D008C7177 /* LaunchDefault~iPad.png in Resources */,
 				30D45B4F18A0A71600E9C589 /* iTunesArtwork@2x in Resources */,
 				30D45DE818A2094300E9C589 /* gator.png in Resources */,
+				30A33FF218BF4FCE008C7177 /* menu_background-568h@2x.png in Resources */,
 				30A33FDE18BD8DCE008C7177 /* Icon-76@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
