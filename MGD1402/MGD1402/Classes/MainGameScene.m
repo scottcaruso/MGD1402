@@ -27,9 +27,11 @@
     NSMutableArray *arrayOfGatorSprites;
     NSMutableArray *arrayOfHitFrames;
     int scoreInt;
+    int bulletsFired;
     bool gameOver;
     bool pauseState;
     CCLabelTTF *score;
+    CCLabelTTF *bullets;
     CGSize winSize;
     CGSize winSizeInPoints;
     
@@ -58,6 +60,7 @@
     arrayOfGatorSprites = [[NSMutableArray alloc] init];
     
     scoreInt = 0; //Set default score
+    bulletsFired = 0; //Set bullets fired
     gameOver = false;
     pauseState = false;
     
@@ -88,6 +91,7 @@
     
     //Score display
     [self updateScore];
+    [self updateBullets];
     
     _physics = [CCPhysicsNode node];
     _physics.gravity = ccp(0,0);
@@ -269,6 +273,8 @@
             _bullet.physicsBody.collisionType = @"bulletCollision";
             [_physics addChild:_bullet];
             [[OALSimpleAudio sharedInstance] playEffect:@"shotgun.caf"];
+            bulletsFired++;
+            [self updateBullets];
             CCActionMoveTo *actionMove   = [CCActionMoveTo actionWithDuration:1.5f position:targetPosition];
             CCActionRemove *actionRemove = [CCActionRemove action];
             [_bullet runAction:[CCActionSequence actionWithArray:@[actionMove,actionRemove]]];
@@ -338,6 +344,15 @@
     score.positionType = CCPositionTypeNormalized;
     score.position = ccp(0.1f,0.95f);
     [self addChild:score];
+}
+
+-(void)updateBullets
+{
+    NSString *bulletString = [[NSString alloc] initWithFormat:@"Bullets: %i",bulletsFired];
+    bullets = [CCLabelTTF labelWithString:bulletString fontName:@"Verdana-Bold" fontSize:14.0f];
+    score.positionType = CCPositionTypeNormalized;
+    score.position = ccp(0.1f,0.92f);
+    [self addChild:bullets];
 }
 
 -(void)onHitAnimation:(CGPoint)location
