@@ -38,6 +38,8 @@
     //These arrays hold the saved high score data.
     NSMutableArray *arrayOfHighScoreNames;
     NSMutableArray *arrayOfHighScoreScores;
+    NSMutableArray *arrayOfBulletNames;
+    NSMutableArray *arrayOfBulletScores;
 }
 
 // -----------------------------------------------------------------------
@@ -372,6 +374,8 @@
 {
     arrayOfHighScoreNames = [[NSMutableArray alloc] init];
     arrayOfHighScoreScores = [[NSMutableArray alloc] init];
+    arrayOfBulletNames = [[NSMutableArray alloc] init];
+    arrayOfBulletScores = [[NSMutableArray alloc] init];
     NSUserDefaults *highScores = [NSUserDefaults standardUserDefaults];
     //If no high scores exist, populate with dummy data, otherwise, retrieve them.
     if ([highScores objectForKey:@"Names"] == nil)
@@ -387,10 +391,24 @@
         [arrayOfHighScoreScores addObject:@"30"];
         [arrayOfHighScoreScores addObject:@"20"];
         [arrayOfHighScoreScores addObject:@"10"];
+        
+        [arrayOfBulletNames addObject:@"Scott"];
+        [arrayOfBulletNames addObject:@"Doge"];
+        [arrayOfBulletNames addObject:@"Kelly"];
+        [arrayOfBulletNames addObject:@"Ben"];
+        [arrayOfBulletNames addObject:@"Jess"];
+        
+        [arrayOfBulletScores addObject:@"90%"];
+        [arrayOfBulletScores addObject:@"80%"];
+        [arrayOfBulletScores addObject:@"70%"];
+        [arrayOfBulletScores addObject:@"60%"];
+        [arrayOfBulletScores addObject:@"50%"];
     } else
     {
         arrayOfHighScoreNames = [highScores objectForKey:@"Names"];
         arrayOfHighScoreScores = [highScores objectForKey:@"Scores"];
+        arrayOfBulletNames = [highScores objectForKey:@"Bullet_Names"];
+        arrayOfBulletScores = [highScores objectForKey:@"Bullet_Scores"];
     }
 }
 
