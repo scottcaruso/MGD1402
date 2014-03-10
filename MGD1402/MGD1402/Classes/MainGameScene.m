@@ -274,6 +274,7 @@
             [_physics addChild:_bullet];
             [[OALSimpleAudio sharedInstance] playEffect:@"shotgun.caf"];
             bulletsFired++;
+            [bullets removeFromParent];
             [self updateBullets];
             CCActionMoveTo *actionMove   = [CCActionMoveTo actionWithDuration:1.5f position:targetPosition];
             CCActionRemove *actionRemove = [CCActionRemove action];
@@ -350,8 +351,8 @@
 {
     NSString *bulletString = [[NSString alloc] initWithFormat:@"Bullets: %i",bulletsFired];
     bullets = [CCLabelTTF labelWithString:bulletString fontName:@"Verdana-Bold" fontSize:14.0f];
-    score.positionType = CCPositionTypeNormalized;
-    score.position = ccp(0.1f,0.92f);
+    bullets.positionType = CCPositionTypeNormalized;
+    bullets.position = ccp(0.1f,0.90f);
     [self addChild:bullets];
 }
 
