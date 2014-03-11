@@ -23,7 +23,7 @@
 + (MainGameScene *)scene;
 - (id)init;
 - (void)getHighScores;
-- (void)updateHighScores:(int)newScore;
+- (void)updateHighScores:(float)newScore;
 
 // -----------------------------------------------------------------------
 @end

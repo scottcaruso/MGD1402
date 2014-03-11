@@ -199,7 +199,8 @@
                 //Set the game over variable
                 gameOver = true;
                 //Check to see if the score is a high score
-                [self updateHighScores:scoreInt];
+                float adjustedScore = (float)scoreInt * ((float)scoreInt/(float)bulletsFired);
+                [self updateHighScores:adjustedScore];
                 for (CCSprite *thisGator in arrayOfGatorSprites)
                 {
                     if(thisGator.position.x > 0)
@@ -413,13 +414,19 @@
 }
 
 //Check if the new score is a high score, then update accordingly.
--(void)updateHighScores:(int)newScore
+-(void)updateHighScores:(float)newScore
 {
     for (int x = [arrayOfHighScoreNames count]; x >= 1; x--)
     {
+        float adjustedRatio = ((float)scoreInt/(float)bulletsFired)*(float)100;
+        NSNumberFormatter *formatter =  [[NSNumberFormatter alloc] init];
+        [formatter setNumberStyle:kCFNumberFormatterDecimalStyle];
+        [formatter setMaximumFractionDigits:1];
+        NSString *ratioString = [formatter stringFromNumber:[NSNumber numberWithFloat:adjustedRatio]];
         //Compare the current score to each high score in the list.
         NSString *thisScoreValue = [arrayOfHighScoreScores objectAtIndex:x-1];
-        int thisScore = [thisScoreValue intValue];
+        float thisScore = [thisScoreValue floatValue];
+        NSString *scoreString = [formatter stringFromNumber:[NSNumber numberWithFloat:newScore]];
         if (newScore > thisScore)
         {
             //Check again
@@ -428,7 +435,8 @@
             //If wee're on the first check, no high score was reached. Therefore, we kill it.
             if (x == [arrayOfHighScoreNames count])
             {
-                UIAlertView *noHighScore = [[UIAlertView alloc] initWithTitle:@"Too Bad!" message:@"You did not make the high score list. Better luck next time!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                NSString *alertString = [[NSString alloc] initWithFormat:@"Your score of %@ due to an efficiency of %@%% did not register a high score.",scoreString,ratioString];
+                UIAlertView *noHighScore = [[UIAlertView alloc] initWithTitle:@"Too Bad!" message:alertString delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 [noHighScore show];
                 break;
             } else
