@@ -34,11 +34,11 @@
     CCLabelTTF *bullets;
     CGSize winSize;
     CGSize winSizeInPoints;
+    NSString *ratioString;
     
     //These arrays hold the saved high score data.
     NSMutableArray *arrayOfHighScoreNames;
     NSMutableArray *arrayOfHighScoreScores;
-    NSMutableArray *arrayOfBulletNames;
     NSMutableArray *arrayOfBulletScores;
 }
 
@@ -375,7 +375,6 @@
 {
     arrayOfHighScoreNames = [[NSMutableArray alloc] init];
     arrayOfHighScoreScores = [[NSMutableArray alloc] init];
-    arrayOfBulletNames = [[NSMutableArray alloc] init];
     arrayOfBulletScores = [[NSMutableArray alloc] init];
     NSUserDefaults *highScores = [NSUserDefaults standardUserDefaults];
     //If no high scores exist, populate with dummy data, otherwise, retrieve them.
@@ -393,12 +392,6 @@
         [arrayOfHighScoreScores addObject:@"20"];
         [arrayOfHighScoreScores addObject:@"10"];
         
-        [arrayOfBulletNames addObject:@"Scott"];
-        [arrayOfBulletNames addObject:@"Doge"];
-        [arrayOfBulletNames addObject:@"Kelly"];
-        [arrayOfBulletNames addObject:@"Ben"];
-        [arrayOfBulletNames addObject:@"Jess"];
-        
         [arrayOfBulletScores addObject:@"90%"];
         [arrayOfBulletScores addObject:@"80%"];
         [arrayOfBulletScores addObject:@"70%"];
@@ -408,7 +401,6 @@
     {
         arrayOfHighScoreNames = [highScores objectForKey:@"Names"];
         arrayOfHighScoreScores = [highScores objectForKey:@"Scores"];
-        arrayOfBulletNames = [highScores objectForKey:@"Bullet_Names"];
         arrayOfBulletScores = [highScores objectForKey:@"Bullet_Scores"];
     }
 }
@@ -422,7 +414,7 @@
         NSNumberFormatter *formatter =  [[NSNumberFormatter alloc] init];
         [formatter setNumberStyle:kCFNumberFormatterDecimalStyle];
         [formatter setMaximumFractionDigits:1];
-        NSString *ratioString = [formatter stringFromNumber:[NSNumber numberWithFloat:adjustedRatio]];
+        ratioString = [formatter stringFromNumber:[NSNumber numberWithFloat:adjustedRatio]];
         //Compare the current score to each high score in the list.
         NSString *thisScoreValue = [arrayOfHighScoreScores objectAtIndex:x-1];
         float thisScore = [thisScoreValue floatValue];
@@ -435,7 +427,7 @@
             //If wee're on the first check, no high score was reached. Therefore, we kill it.
             if (x == [arrayOfHighScoreNames count])
             {
-                NSString *alertString = [[NSString alloc] initWithFormat:@"Your score of %@ due to an efficiency of %@%% did not register a high score.",scoreString,ratioString];
+                NSString *alertString = [[NSString alloc] initWithFormat:@"Your score of %@ and an efficiency of %@%% did not register a high score.",scoreString,ratioString];
                 UIAlertView *noHighScore = [[UIAlertView alloc] initWithTitle:@"Too Bad!" message:alertString delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 [noHighScore show];
                 break;
@@ -458,9 +450,11 @@
     {
         NSString *userName = [[alertView textFieldAtIndex:0] text];
         NSString *newScore = [[NSString alloc] initWithFormat:@"%d",scoreInt];
+        NSString *ratioStringWithPercent = [[NSString alloc] initWithFormat:@"%@%%",ratioString];
         int whereToInsert = alertView.tag;
         [arrayOfHighScoreNames insertObject:userName atIndex:whereToInsert];
         [arrayOfHighScoreScores insertObject:newScore atIndex:whereToInsert];
+        [arrayOfBulletScores insertObject:ratioStringWithPercent atIndex:whereToInsert];
         [arrayOfHighScoreNames removeLastObject];
         [arrayOfHighScoreScores removeLastObject];
         NSUserDefaults *highScores = [NSUserDefaults standardUserDefaults];
