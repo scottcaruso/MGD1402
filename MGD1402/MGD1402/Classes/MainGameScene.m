@@ -42,6 +42,7 @@
     NSMutableArray *arrayOfBulletScores;
     
     int currentRound;
+    int gatorsFired;
 }
 
 // -----------------------------------------------------------------------
@@ -68,6 +69,7 @@
     gameOver = false;
     pauseState = false;
     currentRound = 1;
+    gatorsFired = 0;
     
     //Fetch the highscores for post-match.
     [self getHighScores];
@@ -187,7 +189,18 @@
 {
     if (gameOver == false)
     {
-        [self goGators];
+        if (gatorsFired >= 10)
+        {
+            [self doRoundEnd];
+        }
+        if (gatorsFired > 0 && gatorsFired < 10)
+        {
+            [self goGators];
+        }
+        if (gatorsFired < 10)
+        {
+            gatorsFired++;
+        }
     } else {
         // Reset button
         [self unschedule:@selector(tick:)];
@@ -377,6 +390,12 @@
     CCActionSequence *sequence = [CCActionSequence actionWithArray:@[animationAction,remove]];
     [hit runAction:sequence];
     [self addChild:hit];
+}
+
+//Perform end-of-round activities
+-(void)doRoundEnd
+{
+    
 }
 
 //Retrieve list of High Scores
