@@ -40,6 +40,8 @@
     NSMutableArray *arrayOfHighScoreNames;
     NSMutableArray *arrayOfHighScoreScores;
     NSMutableArray *arrayOfBulletScores;
+    
+    int currentRound;
 }
 
 // -----------------------------------------------------------------------
@@ -65,6 +67,7 @@
     bulletsFired = 0; //Set bullets fired
     gameOver = false;
     pauseState = false;
+    currentRound = 1;
     
     //Fetch the highscores for post-match.
     [self getHighScores];
@@ -153,20 +156,26 @@
     _gator.physicsBody.collisionType  = @"gatorCollision";
     [arrayOfGatorSprites addObject:_gator];
     [_physics addChild:_gator];
-    [self moveGator:_gator yLoc:actualY];
+    [self moveGator:_gator yLoc:actualY roundNumber:currentRound];
     
 }
 
--(void)moveGator:(CCSprite*)gator yLoc:(int)yLocation
+-(void)moveGator:(CCSprite*)gator yLoc:(int)yLocation roundNumber:(int)round
 {
-    int minDuration = 2.5;
-    int maxDuration = 4.0;
+    int minDuration = 6;
+    int maxDuration = 7;
+    if (round <= 5)
+    {
+        minDuration = minDuration - (round-1);
+        maxDuration = maxDuration - (round-1);
+    } else
+    {
+        minDuration = 1;
+        maxDuration = 2;
+    }
     int rangeDuration = maxDuration - minDuration;
     int actualDuration = (arc4random() % rangeDuration) + minDuration;
     CCActionMoveTo *actionMove = [CCActionMoveTo actionWithDuration:actualDuration position:ccp(winSizeInPoints.width*1.1, yLocation)];
-    //CCActionCallBlock * actionMoveDone = [CCActionCallBlock actionWithBlock:^(CCNode *node) {
-        //[node removeFromParent];
-    //}];
     [gator runAction:[CCActionSequence actions:actionMove, nil, nil]];
 }
 
