@@ -433,7 +433,8 @@
                 break;
             } else
             {
-                UIAlertView *newHighScore = [[UIAlertView alloc] initWithTitle:@"High Score!" message:nil delegate:self cancelButtonTitle:@"Done" otherButtonTitles:nil];
+                NSString *titleString = [[NSString alloc] initWithFormat:@"High Score - %@ points",scoreString];
+                UIAlertView *newHighScore = [[UIAlertView alloc] initWithTitle:titleString message:nil delegate:self cancelButtonTitle:@"Done" otherButtonTitles:nil];
                 newHighScore.alertViewStyle = UIAlertViewStylePlainTextInput;
                 [[newHighScore textFieldAtIndex:0] setPlaceholder:@"Enter a name!"];
                 newHighScore.tag = x; //This tag tells the alertView function where to insert the new high score.
