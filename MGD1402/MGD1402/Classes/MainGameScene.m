@@ -458,9 +458,11 @@
         [arrayOfBulletScores insertObject:ratioStringWithPercent atIndex:whereToInsert];
         [arrayOfHighScoreNames removeLastObject];
         [arrayOfHighScoreScores removeLastObject];
+        [arrayOfBulletScores removeLastObject];
         NSUserDefaults *highScores = [NSUserDefaults standardUserDefaults];
         [highScores setObject:arrayOfHighScoreNames forKey:@"Names"];
         [highScores setObject:arrayOfHighScoreScores forKey:@"Scores"];
+        [highScores setObject:arrayOfBulletScores forKey:@"Bullet_Scores"];
         [highScores synchronize];
     }
     //Return to main menu, regardless of which pop-up you get.

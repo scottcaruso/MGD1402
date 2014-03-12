@@ -20,6 +20,7 @@
     
     NSMutableArray *arrayOfHighScoreNames;
     NSMutableArray *arrayOfHighScoreScores;
+    NSMutableArray *arrayOfBulletScores;
 }
 
 // -----------------------------------------------------------------------
@@ -62,7 +63,7 @@
     [self addChild:label];
     
     // Label - Line One
-    NSString *scoreStringOne = [[NSString alloc] initWithFormat:@"1. %@ -- %@",[arrayOfHighScoreNames objectAtIndex:0],[arrayOfHighScoreScores objectAtIndex:0]];
+    NSString *scoreStringOne = [[NSString alloc] initWithFormat:@"1. %@ -- %@ -- %@",[arrayOfHighScoreNames objectAtIndex:0],[arrayOfHighScoreScores objectAtIndex:0],[arrayOfBulletScores objectAtIndex:0]];
     CCLabelTTF *lineOne = [CCLabelTTF labelWithString:scoreStringOne fontName:@"Monaco" fontSize:10.0f];
     lineOne.positionType = CCPositionTypeNormalized;
     lineOne.color = [CCColor blackColor];
@@ -70,7 +71,7 @@
     [self addChild:lineOne];
     
     // Label - Line Two
-    NSString *scoreStringTwo = [[NSString alloc] initWithFormat:@"2. %@ -- %@",[arrayOfHighScoreNames objectAtIndex:1],[arrayOfHighScoreScores objectAtIndex:1]];
+    NSString *scoreStringTwo = [[NSString alloc] initWithFormat:@"2. %@ -- %@ -- %@",[arrayOfHighScoreNames objectAtIndex:1],[arrayOfHighScoreScores objectAtIndex:1],[arrayOfBulletScores objectAtIndex:1]];
     CCLabelTTF *lineTwo = [CCLabelTTF labelWithString:scoreStringTwo fontName:@"Monaco" fontSize:10.0f];
     lineTwo.positionType = CCPositionTypeNormalized;
     lineTwo.color = [CCColor blackColor];
@@ -78,7 +79,7 @@
     [self addChild:lineTwo];
     
     // Label - Line Three
-    NSString *scoreStringThree = [[NSString alloc] initWithFormat:@"3. %@ -- %@",[arrayOfHighScoreNames objectAtIndex:2],[arrayOfHighScoreScores objectAtIndex:2]];
+    NSString *scoreStringThree = [[NSString alloc] initWithFormat:@"3. %@ -- %@ -- %@",[arrayOfHighScoreNames objectAtIndex:2],[arrayOfHighScoreScores objectAtIndex:2],[arrayOfBulletScores objectAtIndex:2]];
     CCLabelTTF *lineThree = [CCLabelTTF labelWithString:scoreStringThree fontName:@"Monaco" fontSize:10.0f];
     lineThree.positionType = CCPositionTypeNormalized;
     lineThree.color = [CCColor blackColor];
@@ -86,7 +87,7 @@
     [self addChild:lineThree];
     
     // Label - Line Four
-    NSString *scoreStringFour = [[NSString alloc] initWithFormat:@"4. %@ -- %@",[arrayOfHighScoreNames objectAtIndex:3],[arrayOfHighScoreScores objectAtIndex:3]];
+    NSString *scoreStringFour = [[NSString alloc] initWithFormat:@"4. %@ -- %@ -- %@",[arrayOfHighScoreNames objectAtIndex:3],[arrayOfHighScoreScores objectAtIndex:3],[arrayOfBulletScores objectAtIndex:3]];
     CCLabelTTF *lineFour = [CCLabelTTF labelWithString:scoreStringFour fontName:@"Monaco" fontSize:10.0f];
     lineFour.positionType = CCPositionTypeNormalized;
     lineFour.color = [CCColor blackColor];
@@ -94,7 +95,7 @@
     [self addChild:lineFour];
     
     // Label - Line Five
-    NSString *scoreStringFive = [[NSString alloc] initWithFormat:@"5. %@ -- %@",[arrayOfHighScoreNames objectAtIndex:4],[arrayOfHighScoreScores objectAtIndex:4]];
+    NSString *scoreStringFive = [[NSString alloc] initWithFormat:@"5. %@ -- %@ -- %@",[arrayOfHighScoreNames objectAtIndex:4],[arrayOfHighScoreScores objectAtIndex:4],[arrayOfBulletScores objectAtIndex:4]];
     CCLabelTTF *lineFive = [CCLabelTTF labelWithString:scoreStringFive fontName:@"Monaco" fontSize:10.0f];
     lineFive.positionType = CCPositionTypeNormalized;
     lineFive.color = [CCColor blackColor];
@@ -115,6 +116,7 @@
 {
     arrayOfHighScoreNames = [[NSMutableArray alloc] init];
     arrayOfHighScoreScores = [[NSMutableArray alloc] init];
+    arrayOfBulletScores = [[NSMutableArray alloc] init];
     NSUserDefaults *highScores = [NSUserDefaults standardUserDefaults];
     if ([highScores objectForKey:@"Names"] == nil)
     {
@@ -129,10 +131,17 @@
         [arrayOfHighScoreScores addObject:@"30"];
         [arrayOfHighScoreScores addObject:@"20"];
         [arrayOfHighScoreScores addObject:@"10"];
+        
+        [arrayOfBulletScores addObject:@"90%"];
+        [arrayOfBulletScores addObject:@"80%"];
+        [arrayOfBulletScores addObject:@"70%"];
+        [arrayOfBulletScores addObject:@"60%"];
+        [arrayOfBulletScores addObject:@"50%"];
     } else
     {
         arrayOfHighScoreNames = [highScores objectForKey:@"Names"];
         arrayOfHighScoreScores = [highScores objectForKey:@"Scores"];
+        arrayOfBulletScores = [highScores objectForKey:@"Bullet_Scores"];
     }
 }
 
