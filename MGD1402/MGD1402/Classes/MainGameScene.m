@@ -32,6 +32,8 @@
     bool pauseState;
     CCLabelTTF *score;
     CCLabelTTF *bullets;
+    CCLabelTTF *roundEnd;
+    CCLabelTTF *nextRound;
     CGSize winSize;
     CGSize winSizeInPoints;
     NSString *ratioString;
@@ -189,9 +191,10 @@
 {
     if (gameOver == false)
     {
-        if (gatorsFired >= 10)
+        if (gatorsFired == 1)
         {
-            [self doRoundEnd];
+            [self removeChild:roundEnd];
+            [self removeChild:nextRound];
         }
         if (gatorsFired > 0 && gatorsFired < 10)
         {
@@ -200,6 +203,10 @@
         if (gatorsFired < 10)
         {
             gatorsFired++;
+        }
+        if (gatorsFired >= 10 && arrayOfGatorSprites.count == 0)
+        {
+            [self doRoundEnd];
         }
     } else {
         // Reset button
@@ -395,7 +402,18 @@
 //Perform end-of-round activities
 -(void)doRoundEnd
 {
-    
+    currentRound++;
+    NSString *roundEndString = [[NSString alloc] initWithFormat:@"Round Over!"];
+    NSString *nextRoundString = [[NSString alloc] initWithFormat:@"Prepare for Round %d",currentRound];
+    roundEnd = [CCLabelTTF labelWithString:roundEndString fontName:@"Verdana-Bold" fontSize:14.0f];
+    nextRound = [CCLabelTTF labelWithString:nextRoundString fontName:@"Verdana-Bold" fontSize:14.0f];
+    roundEnd.positionType = CCPositionTypeNormalized;
+    roundEnd.position = ccp(0.5f,0.55f);
+    nextRound.positionType = CCPositionTypeNormalized;
+    nextRound.position = ccp(0.5f,0.45f);
+    [self addChild:roundEnd];
+    [self addChild:nextRound];
+    gatorsFired = 0;
 }
 
 //Retrieve list of High Scores
