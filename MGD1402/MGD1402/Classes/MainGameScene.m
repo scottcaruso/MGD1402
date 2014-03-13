@@ -37,6 +37,7 @@
     CGSize winSize;
     CGSize winSizeInPoints;
     NSString *ratioString;
+    NSString *scoreString;
     
     //These arrays hold the saved high score data.
     NSMutableArray *arrayOfHighScoreNames;
@@ -447,7 +448,7 @@
     {
         arrayOfHighScoreNames = [highScores objectForKey:@"Names"];
         arrayOfHighScoreScores = [highScores objectForKey:@"Scores"];
-        arrayOfBulletScores = [highScores objectForKey:@"Bullet_Scores"];
+        arrayOfBulletScores = [highScores objectForKey:@"BulletScores"];
     }
 }
 
@@ -464,7 +465,7 @@
         //Compare the current score to each high score in the list.
         NSString *thisScoreValue = [arrayOfHighScoreScores objectAtIndex:x-1];
         float thisScore = [thisScoreValue floatValue];
-        NSString *scoreString = [formatter stringFromNumber:[NSNumber numberWithFloat:newScore]];
+        scoreString = [formatter stringFromNumber:[NSNumber numberWithFloat:newScore]];
         if (newScore > thisScore)
         {
             //Check again
@@ -479,8 +480,7 @@
                 break;
             } else
             {
-                NSString *titleString = [[NSString alloc] initWithFormat:@"High Score - %@ points",scoreString];
-                UIAlertView *newHighScore = [[UIAlertView alloc] initWithTitle:titleString message:nil delegate:self cancelButtonTitle:@"Done" otherButtonTitles:nil];
+                UIAlertView *newHighScore = [[UIAlertView alloc] initWithTitle:@"High Score!" message:nil delegate:self cancelButtonTitle:@"Done" otherButtonTitles:nil];
                 newHighScore.alertViewStyle = UIAlertViewStylePlainTextInput;
                 [[newHighScore textFieldAtIndex:0] setPlaceholder:@"Enter a name!"];
                 newHighScore.tag = x; //This tag tells the alertView function where to insert the new high score.
@@ -496,7 +496,7 @@
     if ([alertView.title isEqualToString:@"High Score!"])
     {
         NSString *userName = [[alertView textFieldAtIndex:0] text];
-        NSString *newScore = [[NSString alloc] initWithFormat:@"%d",scoreInt];
+        NSString *newScore = scoreString;
         NSString *ratioStringWithPercent = [[NSString alloc] initWithFormat:@"%@%%",ratioString];
         int whereToInsert = alertView.tag;
         [arrayOfHighScoreNames insertObject:userName atIndex:whereToInsert];
@@ -508,7 +508,7 @@
         NSUserDefaults *highScores = [NSUserDefaults standardUserDefaults];
         [highScores setObject:arrayOfHighScoreNames forKey:@"Names"];
         [highScores setObject:arrayOfHighScoreScores forKey:@"Scores"];
-        [highScores setObject:arrayOfBulletScores forKey:@"Bullet_Scores"];
+        [highScores setObject:arrayOfBulletScores forKey:@"BulletScores"];
         [highScores synchronize];
     }
     //Return to main menu, regardless of which pop-up you get.

@@ -106,6 +106,7 @@
     CCButton *mainMenu = [CCButton buttonWithTitle:@"Return To Main" fontName:@"Verdana-Bold" fontSize:10.0f];
     mainMenu.positionType = CCPositionTypeNormalized;
     mainMenu.position = ccp(0.5f, 0.05f);
+    mainMenu.color = [CCColor blackColor];
     [mainMenu setTarget:self selector:@selector(onReturnClicked:)];
     [self addChild:mainMenu];
     
@@ -141,7 +142,7 @@
     {
         arrayOfHighScoreNames = [highScores objectForKey:@"Names"];
         arrayOfHighScoreScores = [highScores objectForKey:@"Scores"];
-        arrayOfBulletScores = [highScores objectForKey:@"Bullet_Scores"];
+        arrayOfBulletScores = [highScores objectForKey:@"BulletScores"];
     }
 }
 
