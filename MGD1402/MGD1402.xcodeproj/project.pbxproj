@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3002F62218B64E9D00395453 /* hit_text_sheet_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3002F62018B64E9C00395453 /* hit_text_sheet_default.plist */; };
 		3002F62318B64E9D00395453 /* hit_text_sheet_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 3002F62118B64E9C00395453 /* hit_text_sheet_default.png */; };
+		308A4E3718D6BE9200CAF402 /* LeaderboardsAndSignIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A4E3618D6BE9200CAF402 /* LeaderboardsAndSignIn.m */; };
 		309E71EB18B67D5B0098C20F /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 309E71E918B67D5B0098C20F /* pause.png */; };
 		309E71F018B67F740098C20F /* pause@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 309E71EF18B67F740098C20F /* pause@2x.png */; };
 		30A33FCA18BBE0A7008C7177 /* InstructionsScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 30A33FC918BBE0A7008C7177 /* InstructionsScene.m */; };
@@ -237,6 +238,8 @@
 /* Begin PBXFileReference section */
 		3002F62018B64E9C00395453 /* hit_text_sheet_default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = hit_text_sheet_default.plist; sourceTree = "<group>"; };
 		3002F62118B64E9C00395453 /* hit_text_sheet_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hit_text_sheet_default.png; sourceTree = "<group>"; };
+		308A4E3518D6BE9200CAF402 /* LeaderboardsAndSignIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaderboardsAndSignIn.h; sourceTree = "<group>"; };
+		308A4E3618D6BE9200CAF402 /* LeaderboardsAndSignIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaderboardsAndSignIn.m; sourceTree = "<group>"; };
 		309E71E918B67D5B0098C20F /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause.png; sourceTree = "<group>"; };
 		309E71EF18B67F740098C20F /* pause@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pause@2x.png"; sourceTree = "<group>"; };
 		30A33FC818BBE0A7008C7177 /* InstructionsScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InstructionsScene.h; path = ../InstructionsScene.h; sourceTree = "<group>"; };
@@ -1582,6 +1585,8 @@
 				30A33FCC18BBE0EE008C7177 /* HighScoresScene.m */,
 				30A33FCE18BBE108008C7177 /* CreditsScene.h */,
 				30A33FCF18BBE108008C7177 /* CreditsScene.m */,
+				308A4E3518D6BE9200CAF402 /* LeaderboardsAndSignIn.h */,
+				308A4E3618D6BE9200CAF402 /* LeaderboardsAndSignIn.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1782,6 +1787,7 @@
 				30D45CD118A0A71800E9C589 /* mach_timing.c in Sources */,
 				30D45CB518A0A71800E9C589 /* ALListener.m in Sources */,
 				30D45B8E18A0A71600E9C589 /* ccFPSImages.m in Sources */,
+				308A4E3718D6BE9200CAF402 /* LeaderboardsAndSignIn.m in Sources */,
 				30D45C6518A0A71700E9C589 /* ccUtils.c in Sources */,
 				30D45BD618A0A71700E9C589 /* CCPhysicsShape.m in Sources */,
 				30D45BDE18A0A71700E9C589 /* CCRenderTexture.m in Sources */,
