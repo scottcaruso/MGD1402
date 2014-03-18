@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import "IntroScene.h"
 #import "MainGameScene.h"
+#import <Parse/Parse.h>
 
 @implementation AppDelegate
 
@@ -42,6 +43,11 @@
 		// Make iPad's act like they run at a 2x content scale. (iPad retina 4x)
 //		CCSetupTabletScale2X: @(YES),
 	}];
+    
+    [Parse setApplicationId:@"QvCWqHqE7CFu4FAq3IUyRhlzGfPU8J1Ma32alo0q"
+                  clientKey:@"3OOy7CjKPk2NnwOPYkI389QB7EAHU8Mjy4gCrh9A"];
+    
+    //[PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
 	
 	return YES;
 }
