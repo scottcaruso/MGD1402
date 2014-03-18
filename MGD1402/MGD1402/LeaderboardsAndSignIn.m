@@ -10,11 +10,14 @@
 
 @implementation LeaderboardsAndSignIn
 {
-    
+
 }
 
 -(id)init
 {
+    arrayOfHighScoreNames = [[NSMutableArray alloc] init];
+    arrayOfHighScoreScores = [[NSMutableArray alloc] init];
+    arrayOfBulletScores = [[NSMutableArray alloc] init];
     return self;
 }
 
@@ -43,7 +46,7 @@
 }
 
 //This will take the new high score, the user's efficiency rating for that high score, and the ParseID and push the new score to the cloud.
--(void)pushNewScoreToLeaderboard:(NSString*)highScore userID:(NSString*)parseID efficiency:(NSString*)efficiency
+-(void)pushNewScoreToLeaderboard:(NSNumber*)highScore userID:(NSString*)parseID efficiency:(NSNumber*)efficiency
 {
     PFQuery *query = [PFQuery queryWithClassName:@"Leaderboards"];
     
@@ -71,6 +74,29 @@
     }];
 }
 
+-(void)retrieveHighScores
+{
+    NSMutableArray *arrayOfData = [[NSMutableArray alloc] init];
+    PFQuery *query = [PFQuery queryWithClassName:@"GameScore"];
+    [query addDescendingOrder:@"score"];
+    query.limit = 5;
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            // Grab the user name, score, efficiency
+            for (PFObject *object in objects) {
+                NSString *thisName = [object objectForKey:@"user_name"];
+                NSNumber *thisScore = [object objectForKey:@"high_score"];
+                NSNumber *thisEfficiency = [object objectForKey:@"efficiency"];
+                [arrayOfHighScoreNames addObject:thisName];
+                [arrayOfHighScoreScores addObject:thisScore];
+                [arrayOfBulletScores addObject:thisEfficiency];
+            }
+        } else {
+            // Log details of the failure
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
+}
 
 
 @end

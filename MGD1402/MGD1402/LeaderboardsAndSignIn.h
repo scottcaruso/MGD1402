@@ -10,5 +10,10 @@
 #import <Parse/Parse.h>
 
 @interface LeaderboardsAndSignIn : NSObject
+{
+    NSMutableArray *arrayOfHighScoreNames;
+    NSMutableArray *arrayOfHighScoreScores;
+    NSMutableArray *arrayOfBulletScores;
+}
 
 @end
