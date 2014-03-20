@@ -34,15 +34,26 @@
                 if ([thisPassword isEqualToString:enteredPassword])
                 {
                     //Success!
+                    NSUserDefaults *highScores = [NSUserDefaults standardUserDefaults];
+                    [highScores setBool:FALSE forKey:@"IsGuestUser"];
+                    [highScores setValue:enteredName forKey:@"CurrentUser"];
+                    [highScores synchronize];
+                    UIAlertView *successfulLogin = [[UIAlertView alloc] initWithTitle:@"Success" message:@"Login successful!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                    successfulLogin.alertViewStyle = UIAlertViewStyleDefault;
+                    successfulLogin.tag = 7;
+                    [successfulLogin show];
                 } else
                 {
-                    //Failure!
+                    UIAlertView *incorrectEntry = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Your username or password is incorrect. Please try again." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                    incorrectEntry.alertViewStyle = UIAlertViewStyleDefault;
+                    incorrectEntry.tag = 5;
+                    [incorrectEntry show];
                 }
             }
         } else {
             UIAlertView *incorrectEntry = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Your username or password is incorrect. Please try again." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             incorrectEntry.alertViewStyle = UIAlertViewStyleDefault;
-            incorrectEntry.tag = 5; //This tag tells the alertView function where to insert the new high score.
+            incorrectEntry.tag = 5;
             [incorrectEntry show];
         }
     }];
@@ -69,10 +80,27 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error)
         {
+            if (objects.count == 0)
+            {
+                // Create the user account with the specified credentials.
+                UIAlertView *successfullyCreated = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Username successfully created! Please log in." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                successfullyCreated.alertViewStyle = UIAlertViewStyleDefault;
+                successfullyCreated.tag = 8;
+                [successfullyCreated show];
+            } else
+            {
+                UIAlertView *usernameExists = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Selected username already exists. Please try again." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                usernameExists.alertViewStyle = UIAlertViewStyleDefault;
+                usernameExists.tag = 6;
+                [usernameExists show];
+            }
             // The username already exists! Throw up an appropriate alert message.
         } else
         {
-            // Create the user account with the specified credentials.
+            UIAlertView *usernameExists = [[UIAlertView alloc] initWithTitle:@"Error" message:@"There was an error retrieiving username information." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            usernameExists.alertViewStyle = UIAlertViewStyleDefault;
+            usernameExists.tag = 6;
+            [usernameExists show];
         }
     }];
 }
@@ -105,6 +133,15 @@
     if (alertView.tag == 5)
     {
         NSLog(@"Incorrect Username/Password entry.");
+    }
+    if (alertView.tag == 6)
+    {
+        NSLog(@"Attempted to create a username that already exists.");
+    }
+    if (alertView.tag == 7)
+    {
+        [[CCDirector sharedDirector] replaceScene:[IntroScene scene]
+                                   withTransition:[CCTransition transitionPushWithDirection:CCTransitionDirectionRight duration:1.0f]];
     }
 }
 @end

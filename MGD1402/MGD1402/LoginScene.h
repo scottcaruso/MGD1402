@@ -10,6 +10,7 @@
 #import "cocos2d.h"
 #import "cocos2d-ui.h"
 #import "LeaderboardsAndSignIn.h"
+#import "IntroScene.h"
 
 @interface LoginScene : CCScene <UIAlertViewDelegate> {
     

@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import "IntroScene.h"
 #import "MainGameScene.h"
+#import "LoginScene.h"
 #import <Parse/Parse.h>
 
 @implementation AppDelegate
@@ -55,7 +56,7 @@
 -(CCScene *)startScene
 {
 	// This method should return the very first scene to be run when your app starts.
-	return [IntroScene scene];
+	return [LoginScene scene];
 }
 
 @end

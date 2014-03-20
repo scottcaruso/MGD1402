@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import <Parse/Parse.h>
+#import "cocos2d.h"
+#import "cocos2d-ui.h"
+#import "IntroScene.h"
+
 
 @interface LeaderboardsAndSignIn : NSObject <UIAlertViewDelegate>
 {
