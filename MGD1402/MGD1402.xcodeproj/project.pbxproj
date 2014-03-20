@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3002F62218B64E9D00395453 /* hit_text_sheet_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3002F62018B64E9C00395453 /* hit_text_sheet_default.plist */; };
 		3002F62318B64E9D00395453 /* hit_text_sheet_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 3002F62118B64E9C00395453 /* hit_text_sheet_default.png */; };
+		307536EF18DAAC2A007A70B7 /* LoginScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 307536EE18DAAC2A007A70B7 /* LoginScene.m */; };
 		308A4E3718D6BE9200CAF402 /* LeaderboardsAndSignIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A4E3618D6BE9200CAF402 /* LeaderboardsAndSignIn.m */; };
 		308A4E3918D7BE6400CAF402 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308A4E3818D7BE6400CAF402 /* Parse.framework */; };
 		308A4E3B18D7BEFE00CAF402 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308A4E3A18D7BEFE00CAF402 /* CFNetwork.framework */; };
@@ -246,6 +247,8 @@
 /* Begin PBXFileReference section */
 		3002F62018B64E9C00395453 /* hit_text_sheet_default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = hit_text_sheet_default.plist; sourceTree = "<group>"; };
 		3002F62118B64E9C00395453 /* hit_text_sheet_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hit_text_sheet_default.png; sourceTree = "<group>"; };
+		307536ED18DAAC2A007A70B7 /* LoginScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginScene.h; sourceTree = "<group>"; };
+		307536EE18DAAC2A007A70B7 /* LoginScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginScene.m; sourceTree = "<group>"; };
 		308A4E3518D6BE9200CAF402 /* LeaderboardsAndSignIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaderboardsAndSignIn.h; sourceTree = "<group>"; };
 		308A4E3618D6BE9200CAF402 /* LeaderboardsAndSignIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaderboardsAndSignIn.m; sourceTree = "<group>"; };
 		308A4E3818D7BE6400CAF402 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
@@ -1621,6 +1624,8 @@
 				30A33FCF18BBE108008C7177 /* CreditsScene.m */,
 				308A4E3518D6BE9200CAF402 /* LeaderboardsAndSignIn.h */,
 				308A4E3618D6BE9200CAF402 /* LeaderboardsAndSignIn.m */,
+				307536ED18DAAC2A007A70B7 /* LoginScene.h */,
+				307536EE18DAAC2A007A70B7 /* LoginScene.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1799,6 +1804,7 @@
 				30A33FCD18BBE0EE008C7177 /* HighScoresScene.m in Sources */,
 				30D45B5E18A0A71600E9C589 /* CCActionInstant.m in Sources */,
 				30D45C5818A0A71700E9C589 /* base64.c in Sources */,
+				307536EF18DAAC2A007A70B7 /* LoginScene.m in Sources */,
 				30D45C9718A0A71800E9C589 /* OALAudioTrack.m in Sources */,
 				30D45BDA18A0A71700E9C589 /* CCProgressNode.m in Sources */,
 				30D45BCD18A0A71600E9C589 /* CCPhysicsBody.m in Sources */,

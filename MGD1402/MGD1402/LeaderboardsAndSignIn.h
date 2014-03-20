@@ -9,11 +9,17 @@
 #import <Foundation/Foundation.h>
 #import <Parse/Parse.h>
 
-@interface LeaderboardsAndSignIn : NSObject
+@interface LeaderboardsAndSignIn : NSObject <UIAlertViewDelegate>
 {
     NSMutableArray *arrayOfHighScoreNames;
     NSMutableArray *arrayOfHighScoreScores;
     NSMutableArray *arrayOfBulletScores;
 }
+
+-(void)logUserIn:(NSString*)enteredName password:(NSString*)enteredPassword;
+-(void)pushNewScoreToLeaderboard:(NSNumber*)highScore userID:(NSString*)parseID efficiency:(NSNumber*)efficiency;
+-(void)createNewAccount:(NSString*)enteredName password:(NSString*)enteredPassword;
+-(void)retrieveHighScores;
+
 
 @end

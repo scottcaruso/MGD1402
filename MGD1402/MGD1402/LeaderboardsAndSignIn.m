@@ -40,7 +40,10 @@
                 }
             }
         } else {
-            //Throw up the Username not found error.
+            UIAlertView *incorrectEntry = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Your username or password is incorrect. Please try again." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            incorrectEntry.alertViewStyle = UIAlertViewStyleDefault;
+            incorrectEntry.tag = 5; //This tag tells the alertView function where to insert the new high score.
+            [incorrectEntry show];
         }
     }];
 }
@@ -76,7 +79,6 @@
 
 -(void)retrieveHighScores
 {
-    NSMutableArray *arrayOfData = [[NSMutableArray alloc] init];
     PFQuery *query = [PFQuery queryWithClassName:@"GameScore"];
     [query addDescendingOrder:@"score"];
     query.limit = 5;
@@ -98,5 +100,11 @@
     }];
 }
 
-
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag == 5)
+    {
+        NSLog(@"Incorrect Username/Password entry.");
+    }
+}
 @end
