@@ -373,8 +373,8 @@
 
 -(void)updateScore
 {
-    NSString *scoreString = [[NSString alloc] initWithFormat:@"Score: %i",scoreInt];
-    score = [CCLabelTTF labelWithString:scoreString fontName:@"Verdana-Bold" fontSize:14.0f];
+    NSString *newScoreString = [[NSString alloc] initWithFormat:@"Score: %i",scoreInt];
+    score = [CCLabelTTF labelWithString:newScoreString fontName:@"Verdana-Bold" fontSize:14.0f];
     score.positionType = CCPositionTypeNormalized;
     score.position = ccp(0.1f,0.95f);
     [self addChild:score];
@@ -514,6 +514,17 @@
     //Return to main menu, regardless of which pop-up you get.
         [[CCDirector sharedDirector] replaceScene:[IntroScene scene]
                                    withTransition:[CCTransition transitionPushWithDirection:CCTransitionDirectionRight duration:1.0f]];
+}
+
+-(void)sendTweet:(NSNumber*)myScore
+{
+    SLComposeViewController *postTweet = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+    if (postTweet != nil)
+    {
+        NSString *tweet= [NSString stringWithFormat:@"I just got a high score of %@ on Gator Gallery!",myScore];
+        [postTweet setInitialText:tweet];
+        [[CCDirector sharedDirector] presentViewController:postTweet animated:true completion:nil];
+    }
 }
 
 // -----------------------------------------------------------------------

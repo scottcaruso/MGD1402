@@ -31,12 +31,16 @@
             // Do something with the found objects
             for (PFObject *object in objects) {
                 NSString *thisPassword = [object objectForKey:@"password"];
+                NSNumber *thisScore = [object objectForKey:@"highscore"];
+                NSNumber *thisEfficiency = [object objectForKey:@"efficiency"];
                 if ([thisPassword isEqualToString:enteredPassword])
                 {
                     //Success!
                     NSUserDefaults *highScores = [NSUserDefaults standardUserDefaults];
                     [highScores setBool:FALSE forKey:@"IsGuestUser"];
                     [highScores setValue:enteredName forKey:@"CurrentUser"];
+                    [highScores setValue:thisScore forKey:@"CurrentUserHighScore"];
+                    [highScores setValue:thisEfficiency forKey:@"CurrentUserEfficiency"];
                     [highScores synchronize];
                     UIAlertView *successfulLogin = [[UIAlertView alloc] initWithTitle:@"Success" message:@"Login successful!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
                     successfulLogin.alertViewStyle = UIAlertViewStyleDefault;
