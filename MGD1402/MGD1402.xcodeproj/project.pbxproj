@@ -11,6 +11,7 @@
 		3002F62318B64E9D00395453 /* hit_text_sheet_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 3002F62118B64E9C00395453 /* hit_text_sheet_default.png */; };
 		307536EF18DAAC2A007A70B7 /* LoginScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 307536EE18DAAC2A007A70B7 /* LoginScene.m */; };
 		307536F218DBCCA7007A70B7 /* LeaderboardScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 307536F118DBCCA7007A70B7 /* LeaderboardScene.m */; };
+		307536F418DBE303007A70B7 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 307536F318DBE303007A70B7 /* Accounts.framework */; };
 		308A4E3718D6BE9200CAF402 /* LeaderboardsAndSignIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 308A4E3618D6BE9200CAF402 /* LeaderboardsAndSignIn.m */; };
 		308A4E3918D7BE6400CAF402 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308A4E3818D7BE6400CAF402 /* Parse.framework */; };
 		308A4E3B18D7BEFE00CAF402 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308A4E3A18D7BEFE00CAF402 /* CFNetwork.framework */; };
@@ -252,6 +253,7 @@
 		307536EE18DAAC2A007A70B7 /* LoginScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginScene.m; sourceTree = "<group>"; };
 		307536F018DBCCA6007A70B7 /* LeaderboardScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaderboardScene.h; sourceTree = "<group>"; };
 		307536F118DBCCA7007A70B7 /* LeaderboardScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaderboardScene.m; sourceTree = "<group>"; };
+		307536F318DBE303007A70B7 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		308A4E3518D6BE9200CAF402 /* LeaderboardsAndSignIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaderboardsAndSignIn.h; sourceTree = "<group>"; };
 		308A4E3618D6BE9200CAF402 /* LeaderboardsAndSignIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaderboardsAndSignIn.m; sourceTree = "<group>"; };
 		308A4E3818D7BE6400CAF402 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
@@ -709,6 +711,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				307536F418DBE303007A70B7 /* Accounts.framework in Frameworks */,
 				308A4E4718D7BF9700CAF402 /* SystemConfiguration.framework in Frameworks */,
 				308A4E4518D7BF7100CAF402 /* StoreKit.framework in Frameworks */,
 				308A4E4318D7BF6200CAF402 /* Security.framework in Frameworks */,
@@ -754,6 +757,7 @@
 		30D45B0D18A0A71500E9C589 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				307536F318DBE303007A70B7 /* Accounts.framework */,
 				308A4E4818D7F50100CAF402 /* Social.framework */,
 				308A4E4618D7BF9700CAF402 /* SystemConfiguration.framework */,
 				308A4E4418D7BF7100CAF402 /* StoreKit.framework */,
@@ -1959,6 +1963,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1979,6 +1984,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -2042,6 +2048,7 @@
 				);
 				PRODUCT_NAME = MGD1402;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2072,6 +2079,7 @@
 				PRODUCT_NAME = MGD1402;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

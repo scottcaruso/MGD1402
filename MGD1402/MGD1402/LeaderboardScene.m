@@ -165,12 +165,38 @@
             [monthlyLeaders setTarget:self selector:@selector(onMonthlyClicked:)];
             [self addChild:monthlyLeaders];
             
+            // Social connect
+            CCButton *tweetOut = [CCButton buttonWithTitle:@"Social Connect" fontName:@"Verdana-Bold" fontSize:16.0f];
+            tweetOut.positionType = CCPositionTypeNormalized;
+            tweetOut.position = ccp(0.8f, 0.5f);
+            tweetOut.color = [CCColor blackColor];
+            [tweetOut setTarget:self selector:@selector(sendTweet:)];
+            [self addChild:tweetOut];
+            
         } else {
             // Log details of the failure
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
     }];
 }
+
+//Twitter functions are broken. The code below throws up a linker error when active and I am unable to address it in the time provided.
+-(void)sendTweet:(id)sender
+ {
+     UIAlertView *twitterBroken = [[UIAlertView alloc] initWithTitle:@"Disabled" message:@"Twitter integration is undergoing maintenance. Sorry for the inconvenience." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+     twitterBroken.alertViewStyle = UIAlertViewStyleDefault;
+     [twitterBroken show];
+     /*SLComposeViewController *postTweet = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+     NSString *userName = [arrayOfHighScoreNames objectAtIndex:0];
+     NSString *userScore = [arrayOfHighScoreScores objectAtIndex:0];
+
+     if (postTweet != nil)
+     {
+         NSString *tweet= [NSString stringWithFormat:@"%@ has the highest score on Gator Gallery at %@. Can you beat that? #GottaGetDatGator",userName,userScore];
+         [postTweet setInitialText:tweet];
+         [[CCDirector sharedDirector] presentViewController:postTweet animated:true completion:nil];
+     }*/
+ }
 
 -(void)onOverallClicked:(id)sender
 {

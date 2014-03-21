@@ -26,7 +26,6 @@
 -(void)logUserIn:(NSString*)enteredName password:(NSString*)enteredPassword;
 -(void)pushNewScoreToLeaderboard:(NSNumber*)highScore userID:(NSString*)parseID efficiency:(NSNumber*)efficiency;
 -(void)createNewAccount:(NSString*)enteredName password:(NSString*)enteredPassword;
--(void)retrieveHighScores;
 
 
 @end

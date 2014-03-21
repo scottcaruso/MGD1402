@@ -11,9 +11,12 @@
 #import "cocos2d-ui.h"
 #import "IntroScene.h"
 #import "LeaderboardsAndSignIn.h"
+#import <Social/Social.h>
+#import <Accounts/Accounts.h>
 
 @interface LeaderboardScene : CCScene
 
 + (LeaderboardScene *)scene;
+-(void)retrieveHighScores:(int)numberOfSeconds;
 
 @end

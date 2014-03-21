@@ -614,16 +614,5 @@
                                    withTransition:[CCTransition transitionPushWithDirection:CCTransitionDirectionRight duration:1.0f]];
 }
 
-/*-(void)sendTweet:(NSNumber*)myScore
-{
-    SLComposeViewController *postTweet = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
-    if (postTweet != nil)
-    {
-        NSString *tweet= [NSString stringWithFormat:@"I just got a high score of %@ on Gator Gallery!",myScore];
-        [postTweet setInitialText:tweet];
-        [[CCDirector sharedDirector] presentViewController:postTweet animated:true completion:nil];
-    }
-}*/
-
 // -----------------------------------------------------------------------
 @end
