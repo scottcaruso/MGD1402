@@ -13,6 +13,7 @@
 #import "InstructionsScene.h"
 #import "CreditsScene.h"
 #import "HighScoresScene.h"
+#import "LeaderboardScene.h"
 
 // -----------------------------------------------------------------------
 

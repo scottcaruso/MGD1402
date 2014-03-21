@@ -13,12 +13,15 @@
 #import "IntroScene.h"
 
 
+
 @interface LeaderboardsAndSignIn : NSObject <UIAlertViewDelegate>
 {
-    NSMutableArray *arrayOfHighScoreNames;
-    NSMutableArray *arrayOfHighScoreScores;
-    NSMutableArray *arrayOfBulletScores;
+
 }
+
+@property (nonatomic) NSMutableArray *arrayOfHighScoreNames;
+@property (nonatomic) NSMutableArray *arrayOfHighScoreScores;
+@property (nonatomic) NSMutableArray *arrayOfBulletScores;
 
 -(void)logUserIn:(NSString*)enteredName password:(NSString*)enteredPassword;
 -(void)pushNewScoreToLeaderboard:(NSNumber*)highScore userID:(NSString*)parseID efficiency:(NSNumber*)efficiency;

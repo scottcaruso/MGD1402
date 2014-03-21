@@ -13,6 +13,8 @@
 
 }
 
+@synthesize arrayOfHighScoreNames,arrayOfHighScoreScores,arrayOfBulletScores;
+
 -(id)init
 {
     arrayOfHighScoreNames = [[NSMutableArray alloc] init];
@@ -113,29 +115,6 @@
             usernameExists.alertViewStyle = UIAlertViewStyleDefault;
             usernameExists.tag = 6;
             [usernameExists show];
-        }
-    }];
-}
-
--(void)retrieveHighScores
-{
-    PFQuery *query = [PFQuery queryWithClassName:@"GameScore"];
-    [query addDescendingOrder:@"score"];
-    query.limit = 5;
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error) {
-            // Grab the user name, score, efficiency
-            for (PFObject *object in objects) {
-                NSString *thisName = [object objectForKey:@"user_name"];
-                NSNumber *thisScore = [object objectForKey:@"high_score"];
-                NSNumber *thisEfficiency = [object objectForKey:@"efficiency"];
-                [arrayOfHighScoreNames addObject:thisName];
-                [arrayOfHighScoreScores addObject:thisScore];
-                [arrayOfBulletScores addObject:thisEfficiency];
-            }
-        } else {
-            // Log details of the failure
-            NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
     }];
 }

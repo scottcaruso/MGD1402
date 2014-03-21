@@ -66,15 +66,23 @@
     CCButton *playGame = [CCButton buttonWithTitle:@"[ Play Game ]" fontName:@"Verdana-Bold" fontSize:18.0f];
     playGame.color = [CCColor blackColor];
     playGame.positionType = CCPositionTypeNormalized;
-    playGame.position = ccp(0.5f, 0.45f);
+    playGame.position = ccp(0.5f, 0.55f);
     [playGame setTarget:self selector:@selector(onPlayClicked:)];
     [self addChild:playGame];
     
+    // Online Leaderboards button
+    CCButton *leaderboards = [CCButton buttonWithTitle:@"[ Leaderboards ]" fontName:@"Verdana-Bold" fontSize:18.0f];
+    leaderboards.color = [CCColor blackColor];
+    leaderboards.positionType = CCPositionTypeNormalized;
+    leaderboards.position = ccp(0.5f, 0.35f);
+    [leaderboards setTarget:self selector:@selector(onLeaderboardsClicked:)];
+    [self addChild:leaderboards];
+    
     // High scores button
-    CCButton *highScores = [CCButton buttonWithTitle:@"[ High Scores ]" fontName:@"Verdana-Bold" fontSize:18.0f];
+    CCButton *highScores = [CCButton buttonWithTitle:@"[ Local High Scores ]" fontName:@"Verdana-Bold" fontSize:18.0f];
     highScores.color = [CCColor blackColor];
     highScores.positionType = CCPositionTypeNormalized;
-    highScores.position = ccp(0.5f, 0.35f);
+    highScores.position = ccp(0.5f, 0.25f);
     [highScores setTarget:self selector:@selector(onHighScoresClicked:)];
     [self addChild:highScores];
     
@@ -82,7 +90,7 @@
     CCButton *howToPlay = [CCButton buttonWithTitle:@"[ Instructions ]" fontName:@"Verdana-Bold" fontSize:18.0f];
     howToPlay.color = [CCColor blackColor];
     howToPlay.positionType = CCPositionTypeNormalized;
-    howToPlay.position = ccp(0.5f, 0.25f);
+    howToPlay.position = ccp(0.5f, 0.15f);
     [howToPlay setTarget:self selector:@selector(onInstructionsClicked:)];
     [self addChild:howToPlay];
     
@@ -90,7 +98,7 @@
     CCButton *credits = [CCButton buttonWithTitle:@"[ Credits ]" fontName:@"Verdana-Bold" fontSize:18.0f];
     credits.color = [CCColor blackColor];
     credits.positionType = CCPositionTypeNormalized;
-    credits.position = ccp(0.5f, 0.15f);
+    credits.position = ccp(0.5f, 0.05f);
     [credits setTarget:self selector:@selector(onCreditsClicked:)];
     [self addChild:credits];
     
@@ -140,6 +148,12 @@
 - (void)onHighScoresClicked:(id)sender
 {
     [[CCDirector sharedDirector] replaceScene:[HighScoresScene scene]
+                               withTransition:[CCTransition transitionPushWithDirection:CCTransitionDirectionLeft duration:1.0f]];
+}
+
+- (void)onLeaderboardsClicked:(id)sender
+{
+    [[CCDirector sharedDirector] replaceScene:[LeaderboardScene scene]
                                withTransition:[CCTransition transitionPushWithDirection:CCTransitionDirectionLeft duration:1.0f]];
 }
 
