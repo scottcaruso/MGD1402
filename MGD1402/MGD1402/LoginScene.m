@@ -166,7 +166,7 @@
         if (buttonIndex == 1)
         {
             NSUserDefaults *highScores = [NSUserDefaults standardUserDefaults];
-            [highScores setBool:TRUE forKey:@"IsGuestUser"];
+            [highScores setBool:YES forKey:@"IsGuestUser"];
             [highScores synchronize];
             [[CCDirector sharedDirector] replaceScene:[IntroScene scene]
                                    withTransition:[CCTransition transitionPushWithDirection:CCTransitionDirectionRight duration:1.0f]];
@@ -182,7 +182,9 @@
             [missingUserOrPassword show];
         } else
         {
-            [signInControl createNewAccount:[[alertView textFieldAtIndex:0] text] password:[[alertView textFieldAtIndex:1] text]];
+            NSString *enteredUserName = [[alertView textFieldAtIndex:0] text];
+            NSString *enteredPassword = [[alertView textFieldAtIndex:1] text];
+            [signInControl createNewAccount:enteredUserName password:enteredPassword];
         }
     }
 }

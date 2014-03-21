@@ -17,6 +17,9 @@
 // -----------------------------------------------------------------------
 
 @implementation IntroScene
+{
+
+}
 
 // -----------------------------------------------------------------------
 #pragma mark - Create & Destroy
@@ -36,6 +39,8 @@
     if (!self) return(nil);
     
     CGSize winSize = [[CCDirector sharedDirector] viewSizeInPixels];
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
     //Background
     CCSprite *background;
@@ -88,6 +93,23 @@
     credits.position = ccp(0.5f, 0.15f);
     [credits setTarget:self selector:@selector(onCreditsClicked:)];
     [self addChild:credits];
+    
+    // Login label
+    bool isGuest = [userDefaults boolForKey:@"IsGuestUser"];
+    NSString *nameString = [[NSString alloc] init];
+    if (isGuest == true)
+    {
+        nameString = @"Guest User";
+    } else
+    {
+        nameString = [[NSString alloc] initWithFormat:@"User: %@",[userDefaults objectForKey:@"CurrentUser"]];
+    }
+    
+    CCLabelTTF *userName = [CCLabelTTF labelWithString:nameString fontName:@"Verdana-Bold" fontSize:10.0f];
+    userName.positionType = CCPositionTypeNormalized;
+    userName.color = [CCColor blackColor];
+    userName.position = ccp(0.90f, 0.95f); // Middle of screen
+    [self addChild:userName];
 	
     // done
 	return self;

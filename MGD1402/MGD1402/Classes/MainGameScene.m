@@ -38,6 +38,11 @@
     CGSize winSizeInPoints;
     NSString *ratioString;
     NSString *scoreString;
+    bool areWeAGuest;
+    NSString *currentUserID;
+    NSString *currentUserName;
+    NSNumber *topScore;
+    NSNumber *userEfficiency;
     
     //These arrays hold the saved high score data.
     NSMutableArray *arrayOfHighScoreNames;
@@ -73,6 +78,13 @@
     pauseState = false;
     currentRound = 1;
     gatorsFired = 0;
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    areWeAGuest = [defaults boolForKey:@"IsGuestUser"];
+    currentUserID = [defaults objectForKey:@"CurrentUserID"];
+    currentUserName = [defaults objectForKey:@"CurrentUser"];
+    topScore = [defaults objectForKey:@"CurrentUserHighScore"];
+    userEfficiency = [defaults objectForKey:@"CurrentUserEfficiency"];
     
     //Fetch the highscores for post-match.
     [self getHighScores];
@@ -229,8 +241,8 @@
                 //Set the game over variable
                 gameOver = true;
                 //Check to see if the score is a high score
-                float adjustedScore = (float)scoreInt * ((float)scoreInt/(float)bulletsFired);
-                [self updateHighScores:adjustedScore];
+                //float adjustedScore = (float)scoreInt * ((float)scoreInt/(float)bulletsFired);
+                [self updateHighScores:(float)scoreInt efficiency:((float)scoreInt/(float)bulletsFired)];
                 for (CCSprite *thisGator in arrayOfGatorSprites)
                 {
                     if(thisGator.position.x > 0)
@@ -453,7 +465,7 @@
 }
 
 //Check if the new score is a high score, then update accordingly.
--(void)updateHighScores:(float)newScore
+/*-(void)updateHighScores:(float)newScore
 {
     for (int x = [arrayOfHighScoreNames count]; x >= 1; x--)
     {
@@ -489,34 +501,120 @@
             }
         }
     }
+}*/
+
+-(void)updateHighScores:(float)rawScore efficiency:(float)efficiency
+{
+    if (areWeAGuest == true)
+    {
+        UIAlertView *gameOverAlert = [[UIAlertView alloc] initWithTitle:@"Game Over!" message:@"Create and log in with an account next time to register high scores!" delegate:self cancelButtonTitle:@"Done" otherButtonTitles:nil];
+        gameOverAlert.alertViewStyle = UIAlertViewStyleDefault;
+        gameOverAlert.tag = 8; //This tag tells the alertView function where to insert the new high score.
+        [gameOverAlert show];
+    } else
+    {
+        if (rawScore > [topScore floatValue])
+        {
+            NSNumber *newHighScore = [[NSNumber alloc] initWithFloat:rawScore];
+            NSNumber *newEfficiency = [[NSNumber alloc] initWithFloat:efficiency];
+            LeaderboardsAndSignIn *leaders = [[LeaderboardsAndSignIn alloc] init];
+            [leaders pushNewScoreToLeaderboard:newHighScore userID:currentUserID efficiency:newEfficiency];
+            for (int x = [arrayOfHighScoreNames count]; x >= 1; x--)
+            {
+                float adjustedScore = rawScore*efficiency;
+                float adjustedRatio = ((float)scoreInt/(float)bulletsFired)*(float)100;
+                NSNumberFormatter *formatter =  [[NSNumberFormatter alloc] init];
+                [formatter setNumberStyle:kCFNumberFormatterDecimalStyle];
+                [formatter setMaximumFractionDigits:1];
+                ratioString = [formatter stringFromNumber:[NSNumber numberWithFloat:adjustedRatio]];
+                //Compare the current score to each high score in the list.
+                NSString *thisScoreValue = [arrayOfHighScoreScores objectAtIndex:x-1];
+                float thisScore = [thisScoreValue floatValue];
+                scoreString = [formatter stringFromNumber:[NSNumber numberWithFloat:adjustedScore]];
+                if (adjustedScore > thisScore)
+                {
+                    //Check again
+                } else
+                {
+                    //If we're on the first check, no high score was reached. Therefore, we kill it.
+                    if (x == [arrayOfHighScoreNames count])
+                    {
+                      break;
+                    } else
+                    {
+                        NSString *userName = currentUserName;
+                        NSString *newScore = scoreString;
+                        NSString *ratioStringWithPercent = [[NSString alloc] initWithFormat:@"%@%%",ratioString];
+                        NSNumber *formattedScore = [[NSNumber alloc] initWithFloat:rawScore];
+                        int whereToInsert = x;
+                        [arrayOfHighScoreNames insertObject:userName atIndex:whereToInsert];
+                        [arrayOfHighScoreScores insertObject:newScore atIndex:whereToInsert];
+                        [arrayOfBulletScores insertObject:ratioStringWithPercent atIndex:whereToInsert];
+                        [arrayOfHighScoreNames removeLastObject];
+                        [arrayOfHighScoreScores removeLastObject];
+                        [arrayOfBulletScores removeLastObject];
+                        NSUserDefaults *highScores = [NSUserDefaults standardUserDefaults];
+                        [highScores setObject:arrayOfHighScoreNames forKey:@"Names"];
+                        [highScores setObject:arrayOfHighScoreScores forKey:@"Scores"];
+                        [highScores setObject:arrayOfBulletScores forKey:@"BulletScores"];
+                        [highScores setObject:formattedScore forKey:@"CurrentUserHighScore"];
+                        [highScores synchronize];
+                        break;
+                    }
+                }
+            }
+            UIAlertView *gameOverAlert = [[UIAlertView alloc] initWithTitle:@"High Score!" message:@"You've set a new personal best! Congratulations!" delegate:self cancelButtonTitle:@"Done" otherButtonTitles:nil];
+            gameOverAlert.alertViewStyle = UIAlertViewStyleDefault;
+            [gameOverAlert show];
+        } else
+        {
+            for (int x = [arrayOfHighScoreNames count]; x >= 1; x--)
+            {
+                float adjustedScore = rawScore*efficiency;
+                float adjustedRatio = ((float)scoreInt/(float)bulletsFired)*(float)100;
+                NSNumberFormatter *formatter =  [[NSNumberFormatter alloc] init];
+                [formatter setNumberStyle:kCFNumberFormatterDecimalStyle];
+                [formatter setMaximumFractionDigits:1];
+                ratioString = [formatter stringFromNumber:[NSNumber numberWithFloat:adjustedRatio]];
+                //Compare the current score to each high score in the list.
+                NSString *thisScoreValue = [arrayOfHighScoreScores objectAtIndex:x-1];
+                float thisScore = [thisScoreValue floatValue];
+                scoreString = [formatter stringFromNumber:[NSNumber numberWithFloat:adjustedScore]];
+                if (adjustedScore > thisScore)
+                {
+                    //Check again
+                } else
+                {
+                    //If we're on the first check, no high score was reached. Therefore, we kill it.
+                    if (x == [arrayOfHighScoreNames count])
+                    {
+                        UIAlertView *gameOverAlert = [[UIAlertView alloc] initWithTitle:@"Game Over!" message:@"You did not register a high score this round. Please try again." delegate:self cancelButtonTitle:@"Done" otherButtonTitles:nil];
+                        gameOverAlert.alertViewStyle = UIAlertViewStyleDefault;
+                        gameOverAlert.tag = 8; //This tag tells the alertView function where to insert the new high score.
+                        [gameOverAlert show];
+                        break;
+                    } else
+                    {
+                        UIAlertView *gameOverAlert = [[UIAlertView alloc] initWithTitle:@"High Score!" message:@"You've reached the high scores list! Congratulations!" delegate:self cancelButtonTitle:@"Done" otherButtonTitles:nil];
+                        gameOverAlert.alertViewStyle = UIAlertViewStyleDefault;
+                        [gameOverAlert show];
+                        break;
+                    }
+                }
+            }
+
+        }
+    }
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if ([alertView.title isEqualToString:@"High Score!"])
-    {
-        NSString *userName = [[alertView textFieldAtIndex:0] text];
-        NSString *newScore = scoreString;
-        NSString *ratioStringWithPercent = [[NSString alloc] initWithFormat:@"%@%%",ratioString];
-        int whereToInsert = alertView.tag;
-        [arrayOfHighScoreNames insertObject:userName atIndex:whereToInsert];
-        [arrayOfHighScoreScores insertObject:newScore atIndex:whereToInsert];
-        [arrayOfBulletScores insertObject:ratioStringWithPercent atIndex:whereToInsert];
-        [arrayOfHighScoreNames removeLastObject];
-        [arrayOfHighScoreScores removeLastObject];
-        [arrayOfBulletScores removeLastObject];
-        NSUserDefaults *highScores = [NSUserDefaults standardUserDefaults];
-        [highScores setObject:arrayOfHighScoreNames forKey:@"Names"];
-        [highScores setObject:arrayOfHighScoreScores forKey:@"Scores"];
-        [highScores setObject:arrayOfBulletScores forKey:@"BulletScores"];
-        [highScores synchronize];
-    }
     //Return to main menu, regardless of which pop-up you get.
         [[CCDirector sharedDirector] replaceScene:[IntroScene scene]
                                    withTransition:[CCTransition transitionPushWithDirection:CCTransitionDirectionRight duration:1.0f]];
 }
 
--(void)sendTweet:(NSNumber*)myScore
+/*-(void)sendTweet:(NSNumber*)myScore
 {
     SLComposeViewController *postTweet = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
     if (postTweet != nil)
@@ -525,7 +623,7 @@
         [postTweet setInitialText:tweet];
         [[CCDirector sharedDirector] presentViewController:postTweet animated:true completion:nil];
     }
-}
+}*/
 
 // -----------------------------------------------------------------------
 @end

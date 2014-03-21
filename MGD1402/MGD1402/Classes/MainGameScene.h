@@ -11,6 +11,7 @@
 #import "cocos2d-ui.h"
 #import "CCAnimation.h"
 #import <Social/Social.h>
+#import "LeaderboardsAndSignIn.h"
 
 // -----------------------------------------------------------------------
 
@@ -24,7 +25,7 @@
 + (MainGameScene *)scene;
 - (id)init;
 - (void)getHighScores;
-- (void)updateHighScores:(float)newScore;
+-(void)updateHighScores:(float)rawScore efficiency:(float)efficiency;
 
 // -----------------------------------------------------------------------
 @end

@@ -24,20 +24,21 @@
 -(void)logUserIn:(NSString*)enteredName password:(NSString*)enteredPassword
 {
     PFQuery *query = [PFQuery queryWithClassName:@"Leaderboards"];
-    [query whereKey:@"playerName" equalTo:enteredName];
+    [query whereKey:@"user_name" equalTo:enteredName];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             // The find succeeded.
             // Do something with the found objects
             for (PFObject *object in objects) {
                 NSString *thisPassword = [object objectForKey:@"password"];
-                NSNumber *thisScore = [object objectForKey:@"highscore"];
+                NSNumber *thisScore = [object objectForKey:@"high_score"];
                 NSNumber *thisEfficiency = [object objectForKey:@"efficiency"];
                 if ([thisPassword isEqualToString:enteredPassword])
                 {
                     //Success!
                     NSUserDefaults *highScores = [NSUserDefaults standardUserDefaults];
-                    [highScores setBool:FALSE forKey:@"IsGuestUser"];
+                    [highScores setBool:NO forKey:@"IsGuestUser"];
+                    [highScores setValue:object.objectId forKey:@"CurrentUserID"];
                     [highScores setValue:enteredName forKey:@"CurrentUser"];
                     [highScores setValue:thisScore forKey:@"CurrentUserHighScore"];
                     [highScores setValue:thisEfficiency forKey:@"CurrentUserEfficiency"];
@@ -80,13 +81,20 @@
 -(void)createNewAccount:(NSString*)enteredName password:(NSString*)enteredPassword
 {
     PFQuery *query = [PFQuery queryWithClassName:@"Leaderboards"];
-    [query whereKey:@"playerName" equalTo:enteredName];
+    [query whereKey:@"user_name" equalTo:enteredName];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error)
         {
             if (objects.count == 0)
             {
                 // Create the user account with the specified credentials.
+                NSNumber *defaultNumber = [[NSNumber alloc] initWithInt:0];
+                PFObject *newUser = [PFObject objectWithClassName:@"Leaderboards"];
+                newUser[@"user_name"] = enteredName;
+                newUser[@"password"] = enteredPassword;
+                newUser[@"high_score"] = defaultNumber;
+                newUser[@"efficiency"] = defaultNumber;
+                [newUser saveInBackground];
                 UIAlertView *successfullyCreated = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Username successfully created! Please log in." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 successfullyCreated.alertViewStyle = UIAlertViewStyleDefault;
                 successfullyCreated.tag = 8;
