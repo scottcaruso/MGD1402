@@ -66,7 +66,7 @@
     CCButton *playGame = [CCButton buttonWithTitle:@"[ Play Game ]" fontName:@"Verdana-Bold" fontSize:18.0f];
     playGame.color = [CCColor blackColor];
     playGame.positionType = CCPositionTypeNormalized;
-    playGame.position = ccp(0.5f, 0.55f);
+    playGame.position = ccp(0.5f, 0.7f);
     [playGame setTarget:self selector:@selector(onPlayClicked:)];
     [self addChild:playGame];
     
@@ -74,7 +74,7 @@
     CCButton *leaderboards = [CCButton buttonWithTitle:@"[ Leaderboards ]" fontName:@"Verdana-Bold" fontSize:18.0f];
     leaderboards.color = [CCColor blackColor];
     leaderboards.positionType = CCPositionTypeNormalized;
-    leaderboards.position = ccp(0.5f, 0.35f);
+    leaderboards.position = ccp(0.5f, 0.6f);
     [leaderboards setTarget:self selector:@selector(onLeaderboardsClicked:)];
     [self addChild:leaderboards];
     
@@ -82,15 +82,23 @@
     CCButton *highScores = [CCButton buttonWithTitle:@"[ Local High Scores ]" fontName:@"Verdana-Bold" fontSize:18.0f];
     highScores.color = [CCColor blackColor];
     highScores.positionType = CCPositionTypeNormalized;
-    highScores.position = ccp(0.5f, 0.25f);
+    highScores.position = ccp(0.5f, 0.5f);
     [highScores setTarget:self selector:@selector(onHighScoresClicked:)];
     [self addChild:highScores];
+    
+    // Achievements button
+    CCButton *achievements = [CCButton buttonWithTitle:@"[ Achievements ]" fontName:@"Verdana-Bold" fontSize:18.0f];
+    achievements.color = [CCColor blackColor];
+    achievements.positionType = CCPositionTypeNormalized;
+    achievements.position = ccp(0.5f, 0.4f);
+    [achievements setTarget:self selector:@selector(onHighScoresClicked:)];
+    [self addChild:achievements];
     
     // Instructions button
     CCButton *howToPlay = [CCButton buttonWithTitle:@"[ Instructions ]" fontName:@"Verdana-Bold" fontSize:18.0f];
     howToPlay.color = [CCColor blackColor];
     howToPlay.positionType = CCPositionTypeNormalized;
-    howToPlay.position = ccp(0.5f, 0.15f);
+    howToPlay.position = ccp(0.5f, 0.3f);
     [howToPlay setTarget:self selector:@selector(onInstructionsClicked:)];
     [self addChild:howToPlay];
     
@@ -98,7 +106,7 @@
     CCButton *credits = [CCButton buttonWithTitle:@"[ Credits ]" fontName:@"Verdana-Bold" fontSize:18.0f];
     credits.color = [CCColor blackColor];
     credits.positionType = CCPositionTypeNormalized;
-    credits.position = ccp(0.5f, 0.05f);
+    credits.position = ccp(0.5f, 0.2f);
     [credits setTarget:self selector:@selector(onCreditsClicked:)];
     [self addChild:credits];
     
