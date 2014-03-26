@@ -35,6 +35,7 @@
                 NSString *thisPassword = [object objectForKey:@"password"];
                 NSNumber *thisScore = [object objectForKey:@"high_score"];
                 NSNumber *thisEfficiency = [object objectForKey:@"efficiency"];
+                NSNumber *totalHits = [object objectForKey:@"total_hits"];
                 bool achievementOneStatus = [[object objectForKey:@"achievement_one"] boolValue];
                 bool achievementTwoStatus = [[object objectForKey:@"achievement_two"] boolValue];
                 bool achievementThreeStatus = [[object objectForKey:@"achievement_three"] boolValue];
@@ -56,6 +57,7 @@
                     [highScores setBool:achievementFourStatus forKey:@"AchievementFourStatus"];
                     [highScores setBool:achievementFiveStatus forKey:@"AchievementFiveStatus"];
                     [highScores setBool:achievementSixStatus forKey:@"AchievementSixStatus"];
+                    [highScores setValue:totalHits forKey:@"TotalHits"];
                     [highScores synchronize];
                     UIAlertView *successfulLogin = [[UIAlertView alloc] initWithTitle:@"Success" message:@"Login successful!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
                     successfulLogin.alertViewStyle = UIAlertViewStyleDefault;
@@ -108,6 +110,7 @@
                 newUser[@"password"] = enteredPassword;
                 newUser[@"high_score"] = defaultNumber;
                 newUser[@"efficiency"] = defaultNumber;
+                newUser[@"total_hits"] = defaultNumber;
                 newUser[@"achievement_one"] = [NSNumber numberWithBool:NO];
                 newUser[@"achievement_two"] = [NSNumber numberWithBool:NO];
                 newUser[@"achievement_three"] = [NSNumber numberWithBool:NO];
