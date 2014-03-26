@@ -234,6 +234,7 @@
 		30D45DE918A2094300E9C589 /* hunter.png in Resources */ = {isa = PBXBuildFile; fileRef = 30D45DE618A2094300E9C589 /* hunter.png */; };
 		30D45DED18A21D3C00E9C589 /* swamp.caf in Resources */ = {isa = PBXBuildFile; fileRef = 30D45DEC18A21D3C00E9C589 /* swamp.caf */; };
 		30D45DEF18A347F800E9C589 /* shotgun.caf in Resources */ = {isa = PBXBuildFile; fileRef = 30D45DEE18A347F800E9C589 /* shotgun.caf */; };
+		30DFBFDF18E273FD00295878 /* AchievementsScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DFBFDE18E273FD00295878 /* AchievementsScene.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -704,6 +705,8 @@
 		30D45DE618A2094300E9C589 /* hunter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hunter.png; sourceTree = "<group>"; };
 		30D45DEC18A21D3C00E9C589 /* swamp.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = swamp.caf; sourceTree = "<group>"; };
 		30D45DEE18A347F800E9C589 /* shotgun.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = shotgun.caf; sourceTree = "<group>"; };
+		30DFBFDD18E273FD00295878 /* AchievementsScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AchievementsScene.h; sourceTree = "<group>"; };
+		30DFBFDE18E273FD00295878 /* AchievementsScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AchievementsScene.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1623,6 +1626,8 @@
 				30D45DBA18A0A71900E9C589 /* MainGameScene.m */,
 				30D45DBC18A0A71900E9C589 /* IntroScene.h */,
 				30D45DBD18A0A71900E9C589 /* IntroScene.m */,
+				30DFBFDD18E273FD00295878 /* AchievementsScene.h */,
+				30DFBFDE18E273FD00295878 /* AchievementsScene.m */,
 				30A33FC818BBE0A7008C7177 /* InstructionsScene.h */,
 				30A33FC918BBE0A7008C7177 /* InstructionsScene.m */,
 				30A33FCB18BBE0EE008C7177 /* HighScoresScene.h */,
@@ -1874,6 +1879,7 @@
 				30D45CF518A0A71800E9C589 /* CCTableView.m in Sources */,
 				30D45DB818A0A71900E9C589 /* AppDelegate.m in Sources */,
 				30D45B8818A0A71600E9C589 /* CCDrawingPrimitives.m in Sources */,
+				30DFBFDF18E273FD00295878 /* AchievementsScene.m in Sources */,
 				30D45C7918A0A71700E9C589 /* TGAlib.m in Sources */,
 				30D45C4518A0A71700E9C589 /* UITouch+CC.m in Sources */,
 				30D45D2318A0A71800E9C589 /* utility.c in Sources */,

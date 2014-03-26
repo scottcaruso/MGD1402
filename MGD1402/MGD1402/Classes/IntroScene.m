@@ -91,7 +91,7 @@
     achievements.color = [CCColor blackColor];
     achievements.positionType = CCPositionTypeNormalized;
     achievements.position = ccp(0.5f, 0.4f);
-    [achievements setTarget:self selector:@selector(onHighScoresClicked:)];
+    [achievements setTarget:self selector:@selector(onAchievementsClicked:)];
     [self addChild:achievements];
     
     // Instructions button
@@ -156,6 +156,12 @@
 - (void)onHighScoresClicked:(id)sender
 {
     [[CCDirector sharedDirector] replaceScene:[HighScoresScene scene]
+                               withTransition:[CCTransition transitionPushWithDirection:CCTransitionDirectionLeft duration:1.0f]];
+}
+
+- (void)onAchievementsClicked:(id)sender
+{
+    [[CCDirector sharedDirector] replaceScene:[AchievementsScene scene]
                                withTransition:[CCTransition transitionPushWithDirection:CCTransitionDirectionLeft duration:1.0f]];
 }
 

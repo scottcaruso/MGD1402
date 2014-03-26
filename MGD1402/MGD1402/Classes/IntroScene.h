@@ -14,6 +14,7 @@
 #import "CreditsScene.h"
 #import "HighScoresScene.h"
 #import "LeaderboardScene.h"
+#import "AchievementsScene.h"
 
 // -----------------------------------------------------------------------
 
