@@ -108,12 +108,12 @@
                 newUser[@"password"] = enteredPassword;
                 newUser[@"high_score"] = defaultNumber;
                 newUser[@"efficiency"] = defaultNumber;
-                newUser[@"achievement_one"] = false;
-                newUser[@"achievement_two"] = false;
-                newUser[@"achievement_three"] = false;
-                newUser[@"achievement_four"] = false;
-                newUser[@"achievement_five"] = false;
-                newUser[@"achievement_six"] = false;
+                newUser[@"achievement_one"] = [NSNumber numberWithBool:NO];
+                newUser[@"achievement_two"] = [NSNumber numberWithBool:NO];
+                newUser[@"achievement_three"] = [NSNumber numberWithBool:NO];
+                newUser[@"achievement_four"] = [NSNumber numberWithBool:NO];
+                newUser[@"achievement_five"] = [NSNumber numberWithBool:NO];
+                newUser[@"achievement_six"] = [NSNumber numberWithBool:NO];
                 [newUser saveInBackground];
                 UIAlertView *successfullyCreated = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Username successfully created! Please log in." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 successfullyCreated.alertViewStyle = UIAlertViewStyleDefault;
