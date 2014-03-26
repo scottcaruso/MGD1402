@@ -35,6 +35,12 @@
                 NSString *thisPassword = [object objectForKey:@"password"];
                 NSNumber *thisScore = [object objectForKey:@"high_score"];
                 NSNumber *thisEfficiency = [object objectForKey:@"efficiency"];
+                bool achievementOneStatus = [object objectForKey:@"achievement_one"];
+                bool achievementTwoStatus = [object objectForKey:@"achievement_two"];
+                bool achievementThreeStatus = [object objectForKey:@"achievement_three"];
+                bool achievementFourStatus = [object objectForKey:@"achievement_four"];
+                bool achievementFiveStatus = [object objectForKey:@"achievement_five"];
+                bool achievementSixStatus = [object objectForKey:@"achievement_six"];
                 if ([thisPassword isEqualToString:enteredPassword])
                 {
                     //Success!
@@ -44,6 +50,12 @@
                     [highScores setValue:enteredName forKey:@"CurrentUser"];
                     [highScores setValue:thisScore forKey:@"CurrentUserHighScore"];
                     [highScores setValue:thisEfficiency forKey:@"CurrentUserEfficiency"];
+                    [highScores setBool:achievementOneStatus forKey:@"AchievementOneStatus"];
+                    [highScores setBool:achievementTwoStatus forKey:@"AchievementTwoStatus"];
+                    [highScores setBool:achievementThreeStatus forKey:@"AchievementThreeStatus"];
+                    [highScores setBool:achievementFourStatus forKey:@"AchievementFourStatus"];
+                    [highScores setBool:achievementFiveStatus forKey:@"AchievementFiveStatus"];
+                    [highScores setBool:achievementSixStatus forKey:@"AchievementSixStatus"];
                     [highScores synchronize];
                     UIAlertView *successfulLogin = [[UIAlertView alloc] initWithTitle:@"Success" message:@"Login successful!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
                     successfulLogin.alertViewStyle = UIAlertViewStyleDefault;
@@ -101,7 +113,7 @@
                 newUser[@"achievement_three"] = false;
                 newUser[@"achievement_four"] = false;
                 newUser[@"achievement_five"] = false;
-                
+                newUser[@"achievement_six"] = false;
                 [newUser saveInBackground];
                 UIAlertView *successfullyCreated = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Username successfully created! Please log in." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 successfullyCreated.alertViewStyle = UIAlertViewStyleDefault;
