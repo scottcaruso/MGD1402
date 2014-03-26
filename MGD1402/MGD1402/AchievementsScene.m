@@ -10,6 +10,22 @@
 
 
 @implementation AchievementsScene
+{
+    bool achievementOneStatus;
+    bool achievementTwoStatus;
+    bool achievementThreeStatus;
+    bool achievementFourStatus;
+    bool achievementFiveStatus;
+    bool achievementSixStatus;
+    bool isGuest;
+    
+    NSString *oneStatusString;
+    NSString *twoStatusString;
+    NSString *threeStatusString;
+    NSString *fourStatusString;
+    NSString *fiveStatusString;
+    NSString *sixStatusString;
+}
 
 + (AchievementsScene *)scene
 {
@@ -36,6 +52,63 @@
     background.positionType = CCPositionTypeNormalized;
     background.position = ccp(0.5f,0.5f);
     [self addChild:background];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    isGuest = [defaults boolForKey:@"IsGuestUser"];
+    achievementOneStatus = [defaults boolForKey:@"AchievementOneStatus"];
+    achievementTwoStatus = [defaults boolForKey:@"AchievementTwoStatus"];
+    achievementThreeStatus = [defaults boolForKey:@"AchievementThreeStatus"];
+    achievementFourStatus = [defaults boolForKey:@"AchievementFourStatus"];
+    achievementFiveStatus = [defaults boolForKey:@"AchievementFiveStatus"];
+    achievementSixStatus = [defaults boolForKey:@"AchievementSixStatus"];
+    
+    oneStatusString = @"Locked";
+    twoStatusString = @"Locked";
+    threeStatusString = @"Locked";
+    fourStatusString = @"Locked";
+    fiveStatusString = @"Locked";
+    sixStatusString = @"Locked";
+    
+    if (isGuest == true)
+    {
+        oneStatusString = @"N/A";
+        twoStatusString = @"N/A";
+        threeStatusString = @"N/A";
+        fourStatusString = @"N/A";
+        fiveStatusString = @"N/A";
+        sixStatusString = @"N/A";
+        UIAlertView *guestUser = [[UIAlertView alloc] initWithTitle:@"Guest" message:@"Guests cannot unlock achievements. Please sign in to view status." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        guestUser.alertViewStyle = UIAlertViewStyleDefault;
+        [guestUser show];
+    } else
+    {
+        if (achievementOneStatus == true)
+        {
+            oneStatusString = @"Unlocked";
+        }
+        if (achievementTwoStatus == true)
+        {
+            twoStatusString = @"Unlocked";
+        }
+        if (achievementThreeStatus == true)
+        {
+            threeStatusString = @"Unlocked";
+        }
+        if (achievementFourStatus == true)
+        {
+            fourStatusString = @"Unlocked";
+        }
+        if (achievementFiveStatus == true)
+        {
+            fiveStatusString = @"Unlocked";
+        }
+        if (achievementSixStatus == true)
+        {
+            sixStatusString = @"Unlocked";
+        }
+    }
+    
+    
     
     
     // Label - Title
@@ -115,6 +188,47 @@
     statusColumn.position = ccp(0.75f, 0.8f);
     [self addChild:statusColumn];
     
+    // Achievement 1 Status
+    CCLabelTTF *achievementOneLabel = [CCLabelTTF labelWithString:oneStatusString fontName:@"Verdana-Bold" fontSize:10.0f];
+    achievementOneLabel.positionType = CCPositionTypeNormalized;
+    achievementOneLabel.position = ccp(0.75f, 0.7f);
+    achievementOneLabel.color = [CCColor blackColor];
+    [self addChild:achievementOneLabel];
+    
+    // Achievement 2 Status
+    CCLabelTTF *achievementTwoLabel = [CCLabelTTF labelWithString:twoStatusString fontName:@"Verdana-Bold" fontSize:10.0f];
+    achievementTwoLabel.positionType = CCPositionTypeNormalized;
+    achievementTwoLabel.position = ccp(0.75f, 0.6f);
+    achievementTwoLabel.color = [CCColor blackColor];
+    [self addChild:achievementTwoLabel];
+    
+    // Achievement 3 Status
+    CCLabelTTF *achievementThreeLabel = [CCLabelTTF labelWithString:threeStatusString fontName:@"Verdana-Bold" fontSize:10.0f];
+    achievementThreeLabel.positionType = CCPositionTypeNormalized;
+    achievementThreeLabel.position = ccp(0.75f, 0.5f);
+    achievementThreeLabel.color = [CCColor blackColor];
+    [self addChild:achievementThreeLabel];
+    
+    // Achievement 4 Status
+    CCLabelTTF *achievementFourLabel = [CCLabelTTF labelWithString:fourStatusString fontName:@"Verdana-Bold" fontSize:10.0f];
+    achievementFourLabel.positionType = CCPositionTypeNormalized;
+    achievementFourLabel.position = ccp(0.75f, 0.4f);
+    achievementFourLabel.color = [CCColor blackColor];
+    [self addChild:achievementFourLabel];
+    
+    // Achievement 5 Status
+    CCLabelTTF *achievementFiveLabel = [CCLabelTTF labelWithString:fiveStatusString fontName:@"Verdana-Bold" fontSize:10.0f];
+    achievementFiveLabel.positionType = CCPositionTypeNormalized;
+    achievementFiveLabel.position = ccp(0.75f, 0.3f);
+    achievementFiveLabel.color = [CCColor blackColor];
+    [self addChild:achievementFiveLabel];
+    
+    // Achievement 6 Status
+    CCLabelTTF *achievementSixLabel = [CCLabelTTF labelWithString:sixStatusString fontName:@"Verdana-Bold" fontSize:10.0f];
+    achievementSixLabel.positionType = CCPositionTypeNormalized;
+    achievementSixLabel.position = ccp(0.75f, 0.2f);
+    achievementSixLabel.color = [CCColor blackColor];
+    [self addChild:achievementSixLabel];
     
     // Main Menu
     CCButton *mainMenu = [CCButton buttonWithTitle:@"Return To Main" fontName:@"Verdana-Bold" fontSize:10.0f];
