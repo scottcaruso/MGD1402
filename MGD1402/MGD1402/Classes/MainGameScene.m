@@ -43,11 +43,14 @@
     NSString *currentUserName;
     NSNumber *topScore;
     NSNumber *userEfficiency;
+    NSNumber *totalHits;
+    bool isHighScore;
     
     //These arrays hold the saved high score data.
     NSMutableArray *arrayOfHighScoreNames;
     NSMutableArray *arrayOfHighScoreScores;
     NSMutableArray *arrayOfBulletScores;
+    NSMutableArray *arrayOfAchievementStatuses;
     
     int currentRound;
     int gatorsFired;
@@ -78,6 +81,7 @@
     pauseState = false;
     currentRound = 1;
     gatorsFired = 0;
+    isHighScore = false;
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     areWeAGuest = [defaults boolForKey:@"IsGuestUser"];
@@ -85,6 +89,9 @@
     currentUserName = [defaults objectForKey:@"CurrentUser"];
     topScore = [defaults objectForKey:@"CurrentUserHighScore"];
     userEfficiency = [defaults objectForKey:@"CurrentUserEfficiency"];
+    totalHits = [defaults objectForKey:@"TotalHits"];
+    arrayOfAchievementStatuses = [[NSMutableArray alloc] initWithObjects:[defaults objectForKey:@"AchievementOneStatus"],[defaults objectForKey:@"AchievementTwoStatus"],[defaults objectForKey:@"AchievementThreeStatus"],[defaults objectForKey:@"AchievementFourStatus"],[defaults objectForKey:@"AchievementFiveStatus"],[defaults objectForKey:@"AchievementSixStatus"],nil];
+    
     
     //Fetch the highscores for post-match.
     [self getHighScores];
@@ -595,6 +602,10 @@
                         break;
                     } else
                     {
+                        if (x == 1)
+                        {
+                            isHighScore = true;
+                        }
                         UIAlertView *gameOverAlert = [[UIAlertView alloc] initWithTitle:@"High Score!" message:@"You've reached the high scores list! Congratulations!" delegate:self cancelButtonTitle:@"Done" otherButtonTitles:nil];
                         gameOverAlert.alertViewStyle = UIAlertViewStyleDefault;
                         [gameOverAlert show];
@@ -605,6 +616,103 @@
 
         }
     }
+}
+
+-(void)calculateAchievements:(float)totalScore efficiency:(float)efficiency
+{
+    int totalHitsInt = [totalHits intValue];
+    int newTotalHits = totalHitsInt+(int)totalScore;
+    bool achievementFourStatus = [[arrayOfAchievementStatuses objectAtIndex:3] boolValue];
+    bool achievementFiveStatus = [[arrayOfAchievementStatuses objectAtIndex:4] boolValue];
+    bool achievementSixStatus = [[arrayOfAchievementStatuses objectAtIndex:5] boolValue];
+    if (totalHitsInt < 50)
+    {
+        if (newTotalHits >= 50)
+        {
+            [self achievementUnlockedPopup:1];
+            [arrayOfAchievementStatuses replaceObjectAtIndex:0 withObject:[NSNumber numberWithBool:TRUE]];
+        }
+        if (newTotalHits >= 200)
+        {
+            [self achievementUnlockedPopup:2];
+            [arrayOfAchievementStatuses replaceObjectAtIndex:1 withObject:[NSNumber numberWithBool:TRUE]];
+        }
+        if (newTotalHits >= 500)
+        {
+            [self achievementUnlockedPopup:3];
+            [arrayOfAchievementStatuses replaceObjectAtIndex:2 withObject:[NSNumber numberWithBool:TRUE]];
+        }
+    } else if (totalHitsInt >= 50 && totalHitsInt < 200)
+    {
+        if (newTotalHits >= 200)
+        {
+            [self achievementUnlockedPopup:2];
+            [arrayOfAchievementStatuses replaceObjectAtIndex:1 withObject:[NSNumber numberWithBool:TRUE]];
+        }
+        if (newTotalHits >= 500)
+        {
+            [self achievementUnlockedPopup:3];
+            [arrayOfAchievementStatuses replaceObjectAtIndex:2 withObject:[NSNumber numberWithBool:TRUE]];
+        }
+    } else if (totalHitsInt >= 200 && totalHitsInt < 500)
+    {
+        if (newTotalHits >= 500)
+        {
+            [self achievementUnlockedPopup:3];
+            [arrayOfAchievementStatuses replaceObjectAtIndex:2 withObject:[NSNumber numberWithBool:TRUE]];
+        }
+    }
+    
+    if (achievementFourStatus == false)
+    {
+        if (isHighScore == true)
+        {
+            [self achievementUnlockedPopup:4];
+            [arrayOfAchievementStatuses replaceObjectAtIndex:4 withObject:[NSNumber numberWithBool:TRUE]];
+        }
+    }
+    
+    if (achievementFiveStatus == false)
+    {
+        if ((int)totalScore >= 36 && (int)efficiency == 1)
+        {
+            [self achievementUnlockedPopup:5];
+            [arrayOfAchievementStatuses replaceObjectAtIndex:4 withObject:[NSNumber numberWithBool:TRUE]];
+        }
+    }
+    
+    if (achievementSixStatus == false)
+    {
+        if ((int)totalScore == 0)
+        {
+            [self achievementUnlockedPopup:6];
+            [arrayOfAchievementStatuses replaceObjectAtIndex:5 withObject:[NSNumber numberWithBool:TRUE]];
+        }
+    }
+    [self pushAchievementsAndHitsToDatasource:totalHits userID:currentUserID arrayOfAchievements:arrayOfAchievementStatuses];
+}
+
+-(void)pushAchievementsAndHitsToDatasource:(NSNumber*)newHits userID:(NSString*)parseID arrayOfAchievements:(NSMutableArray*)achievementsArray
+{
+    PFQuery *query = [PFQuery queryWithClassName:@"Leaderboards"];
+    
+    // Retrieve the object by id
+    [query getObjectInBackgroundWithId:parseID block:^(PFObject *thisUser, NSError *error) {
+        
+        thisUser[@"total_hits"] = newHits;
+        thisUser[@"achievement_one"] = false;
+        thisUser[@"achievement_two"] = false;
+        thisUser[@"achievement_three"] = false;
+        thisUser[@"achievement_four"] = false;
+        thisUser[@"achievement_five"] = false;
+        thisUser[@"achievement_six"] = false;
+        [thisUser saveInBackground];
+    }];
+}
+
+-(void)achievementUnlockedPopup:(int)tagNumber
+{
+    
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
