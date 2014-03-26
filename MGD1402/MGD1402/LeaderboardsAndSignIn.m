@@ -35,12 +35,12 @@
                 NSString *thisPassword = [object objectForKey:@"password"];
                 NSNumber *thisScore = [object objectForKey:@"high_score"];
                 NSNumber *thisEfficiency = [object objectForKey:@"efficiency"];
-                bool achievementOneStatus = [object objectForKey:@"achievement_one"];
-                bool achievementTwoStatus = [object objectForKey:@"achievement_two"];
-                bool achievementThreeStatus = [object objectForKey:@"achievement_three"];
-                bool achievementFourStatus = [object objectForKey:@"achievement_four"];
-                bool achievementFiveStatus = [object objectForKey:@"achievement_five"];
-                bool achievementSixStatus = [object objectForKey:@"achievement_six"];
+                bool achievementOneStatus = [[object objectForKey:@"achievement_one"] boolValue];
+                bool achievementTwoStatus = [[object objectForKey:@"achievement_two"] boolValue];
+                bool achievementThreeStatus = [[object objectForKey:@"achievement_three"] boolValue];
+                bool achievementFourStatus = [[object objectForKey:@"achievement_four"] boolValue];
+                bool achievementFiveStatus = [[object objectForKey:@"achievement_five"] boolValue];
+                bool achievementSixStatus = [[object objectForKey:@"achievement_six"] boolValue];
                 if ([thisPassword isEqualToString:enteredPassword])
                 {
                     //Success!
