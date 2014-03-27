@@ -31,6 +31,13 @@
         if (!error) {
             // The find succeeded.
             // Do something with the found objects
+            if (objects.count == 0)
+            {
+                UIAlertView *incorrectEntry = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Your username or password is incorrect. Please try again." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                incorrectEntry.alertViewStyle = UIAlertViewStyleDefault;
+                incorrectEntry.tag = 5;
+                [incorrectEntry show];
+            }
             for (PFObject *object in objects) {
                 NSString *thisPassword = [object objectForKey:@"password"];
                 NSNumber *thisScore = [object objectForKey:@"high_score"];

@@ -136,7 +136,7 @@
 
 -(void)onPlayGameClicked:(id)sender
 {
-    if ([userName.title isEqualToString:@""] || [password.title isEqualToString:@""])
+    if (userNameEntered == nil || passwordEntered == nil)
     {
         UIAlertView *missingUserOrPassword = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Ensure that you have entered both a username and a password before logging in." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         missingUserOrPassword.alertViewStyle = UIAlertViewStyleDefault;
