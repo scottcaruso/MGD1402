@@ -510,6 +510,7 @@
     }
 }*/
 
+//This function not only updates the local high scores, but also triggers pushing of data to the cloud and verifying if achievements were triggered.
 -(void)updateHighScores:(float)rawScore efficiency:(float)efficiency
 {
     if (areWeAGuest == true)
@@ -520,6 +521,8 @@
         [gameOverAlert show];
     } else
     {
+        //Run the achievement calulcation.
+        [self calculateAchievements:rawScore efficiency:efficiency];
         if (rawScore > [topScore floatValue])
         {
             NSNumber *newHighScore = [[NSNumber alloc] initWithFloat:rawScore];
@@ -560,7 +563,7 @@
                         [arrayOfHighScoreNames removeLastObject];
                         [arrayOfHighScoreScores removeLastObject];
                         [arrayOfBulletScores removeLastObject];
-                        NSUserDefaults *highScores = [NSUserDefaults standardUserDefaults];
+                         NSUserDefaults *highScores = [NSUserDefaults standardUserDefaults];
                         [highScores setObject:arrayOfHighScoreNames forKey:@"Names"];
                         [highScores setObject:arrayOfHighScoreScores forKey:@"Scores"];
                         [highScores setObject:arrayOfBulletScores forKey:@"BulletScores"];
@@ -689,6 +692,16 @@
             [arrayOfAchievementStatuses replaceObjectAtIndex:5 withObject:[NSNumber numberWithBool:TRUE]];
         }
     }
+    totalHits = [[NSNumber alloc] initWithInt:newTotalHits];
+    NSUserDefaults *highScores = [NSUserDefaults standardUserDefaults];
+    [highScores setObject:totalHits forKey:@"TotalHits"];
+    [highScores setObject:[arrayOfAchievementStatuses objectAtIndex:0] forKey:@"AchievementOneStatus"];
+    [highScores setObject:[arrayOfAchievementStatuses objectAtIndex:1] forKey:@"AchievementTwoStatus"];
+    [highScores setObject:[arrayOfAchievementStatuses objectAtIndex:2] forKey:@"AchievementThreeStatus"];
+    [highScores setObject:[arrayOfAchievementStatuses objectAtIndex:3] forKey:@"AchievementFourStatus"];
+    [highScores setObject:[arrayOfAchievementStatuses objectAtIndex:4] forKey:@"AchievementFiveStatus"];
+    [highScores setObject:[arrayOfAchievementStatuses objectAtIndex:5] forKey:@"AchievementSixStatus"];
+    [highScores synchronize];
     [self pushAchievementsAndHitsToDatasource:totalHits userID:currentUserID arrayOfAchievements:arrayOfAchievementStatuses];
 }
 
@@ -700,18 +713,52 @@
     [query getObjectInBackgroundWithId:parseID block:^(PFObject *thisUser, NSError *error) {
         
         thisUser[@"total_hits"] = newHits;
-        thisUser[@"achievement_one"] = false;
-        thisUser[@"achievement_two"] = false;
-        thisUser[@"achievement_three"] = false;
-        thisUser[@"achievement_four"] = false;
-        thisUser[@"achievement_five"] = false;
-        thisUser[@"achievement_six"] = false;
+        thisUser[@"achievement_one"] = [achievementsArray objectAtIndex:0];
+        thisUser[@"achievement_two"] = [achievementsArray objectAtIndex:1];
+        thisUser[@"achievement_three"] = [achievementsArray objectAtIndex:2];
+        thisUser[@"achievement_four"] = [achievementsArray objectAtIndex:3];
+        thisUser[@"achievement_five"] = [achievementsArray objectAtIndex:4];
+        thisUser[@"achievement_six"] = [achievementsArray objectAtIndex:5];
         [thisUser saveInBackground];
     }];
 }
 
 -(void)achievementUnlockedPopup:(int)tagNumber
 {
+    NSString *popupText = [[NSString alloc] init];
+    
+    switch (tagNumber) {
+        case 1:
+            popupText = @"You've unlocked the Junior Ranger achievement!";
+            break;
+            
+        case 2:
+            popupText = @"You've unlocked the Game Hunter achievement!";
+            break;
+            
+        case 3:
+            popupText = @"You've unlocked the Gator Bane achievement!";
+            break;
+            
+        case 4:
+            popupText = @"You've unlocked the King of All Gators achievement!";
+            break;
+            
+        case 5:
+            popupText = @"You've unlocked the Deadeye achievement!";
+            break;
+            
+        case 6:
+            popupText = @"You've unlocked the Crikey! achievement!";
+            break;
+            
+        default:
+            break;
+    }
+    
+    UIAlertView *achievementAlert = [[UIAlertView alloc] initWithTitle:@"Congratulations!" message:popupText delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    achievementAlert.alertViewStyle = UIAlertViewStyleDefault;
+    [achievementAlert show];
     
 }
 
