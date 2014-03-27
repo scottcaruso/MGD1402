@@ -83,6 +83,7 @@
     gatorsFired = 0;
     isHighScore = false;
     
+    //Grab a number of the saved components about the user
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     areWeAGuest = [defaults boolForKey:@"IsGuestUser"];
     currentUserID = [defaults objectForKey:@"CurrentUserID"];
@@ -90,6 +91,7 @@
     topScore = [defaults objectForKey:@"CurrentUserHighScore"];
     userEfficiency = [defaults objectForKey:@"CurrentUserEfficiency"];
     totalHits = [defaults objectForKey:@"TotalHits"];
+    //Create an array of the user's current achievement status
     arrayOfAchievementStatuses = [[NSMutableArray alloc] initWithObjects:[defaults objectForKey:@"AchievementOneStatus"],[defaults objectForKey:@"AchievementTwoStatus"],[defaults objectForKey:@"AchievementThreeStatus"],[defaults objectForKey:@"AchievementFourStatus"],[defaults objectForKey:@"AchievementFiveStatus"],[defaults objectForKey:@"AchievementSixStatus"],nil];
     
     
@@ -531,6 +533,7 @@
             [leaders pushNewScoreToLeaderboard:newHighScore userID:currentUserID efficiency:newEfficiency];
             for (int x = [arrayOfHighScoreNames count]; x >= 1; x--)
             {
+                //Determine what the user's aggregate score is ahd whether or not it is on the high score list
                 float adjustedScore = rawScore*efficiency;
                 float adjustedRatio = ((float)scoreInt/(float)bulletsFired)*(float)100;
                 NSNumberFormatter *formatter =  [[NSNumberFormatter alloc] init];
@@ -621,6 +624,7 @@
     }
 }
 
+//Determine if we've unlocked any achievements. Called within another function post-match.
 -(void)calculateAchievements:(float)totalScore efficiency:(float)efficiency
 {
     int totalHitsInt = [totalHits intValue];
@@ -628,6 +632,7 @@
     bool achievementFourStatus = [[arrayOfAchievementStatuses objectAtIndex:3] boolValue];
     bool achievementFiveStatus = [[arrayOfAchievementStatuses objectAtIndex:4] boolValue];
     bool achievementSixStatus = [[arrayOfAchievementStatuses objectAtIndex:5] boolValue];
+    //Determine if any of the "total" achievements have been unlocked, and then call its appropriate pop-up. After that, update the locally saved achievement array with the status of the achievement being unlocked.
     if (totalHitsInt < 50)
     {
         if (newTotalHits >= 50)
@@ -666,6 +671,7 @@
         }
     }
     
+    //Check if the high score flag was tripped and if that achievement is not unlocked
     if (achievementFourStatus == false)
     {
         if (isHighScore == true)
@@ -675,6 +681,7 @@
         }
     }
     
+    //If the Deadeye achievement is locked, check if we've met the requirements
     if (achievementFiveStatus == false)
     {
         if ((int)totalScore >= 36 && (int)efficiency == 1)
@@ -684,6 +691,7 @@
         }
     }
     
+    //If the negative achievement is locked, check if we've the requirements
     if (achievementSixStatus == false)
     {
         if ((int)totalScore == 0)
@@ -692,6 +700,7 @@
             [arrayOfAchievementStatuses replaceObjectAtIndex:5 withObject:[NSNumber numberWithBool:TRUE]];
         }
     }
+    //Re-sync the locally saved data with the new info
     totalHits = [[NSNumber alloc] initWithInt:newTotalHits];
     NSUserDefaults *highScores = [NSUserDefaults standardUserDefaults];
     [highScores setObject:totalHits forKey:@"TotalHits"];
@@ -705,6 +714,7 @@
     [self pushAchievementsAndHitsToDatasource:totalHits userID:currentUserID arrayOfAchievements:arrayOfAchievementStatuses];
 }
 
+//Save any new information about acheivements to the cloud
 -(void)pushAchievementsAndHitsToDatasource:(NSNumber*)newHits userID:(NSString*)parseID arrayOfAchievements:(NSMutableArray*)achievementsArray
 {
     PFQuery *query = [PFQuery queryWithClassName:@"Leaderboards"];
@@ -723,6 +733,7 @@
     }];
 }
 
+//Set the correct popup text based on what achievement was unlocked
 -(void)achievementUnlockedPopup:(int)tagNumber
 {
     NSString *popupText = [[NSString alloc] init];
